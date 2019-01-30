@@ -40,7 +40,9 @@
           <td class="text-xs-left display-1">{{ props.item.name1 }}</td>
           <td class="text-xs-center display-1">{{ props.item.verein }}</td>
           <td class="text-xs-center display-1">{{ props.item.klasse }}</td>
+          <td class="text-xs-center display-1">{{ props.item.alterskl }}</td>
           <td class="text-xs-center display-1">{{ props.item.type }}</td>
+          <td class="text-xs-center display-1">{{ props.item.routine }}</td>
           <td class="text-xs-center display-1">{{ props.item.gesPunkte }}</td>
         </tr>
       </template>
@@ -96,10 +98,22 @@ export default {
             value: 'klasse'
           },
           {
+            text: 'Altersklasse',
+            align: 'center',
+            sortable: false,
+            value: 'alterskl'
+          },
+          {
             text: 'Type',
             align: 'center',
             sortable: false,
             value: 'type'
+          },
+          {
+            text: 'Routine',
+            align: 'center',
+            sortable: false,
+            value: 'routine'
           },
            {
             text: 'Punkte',
@@ -135,11 +149,26 @@ export default {
             return this.$store.state.starterList[store.state.lastTeam].klasse
           }
       },
+      displayAltersKlasse () {
+          // console.log(store.state.starterList)
+          if(this.$store.state.starterList.length === 0) {
+            return ' '
+          } else {
+            return this.$store.state.starterList[store.state.lastTeam].altersklasse
+          }
+      },
       displayType () {
           if(this.$store.state.starterList.length === 0) {
             return ' '
           } else {
             return this.$store.state.starterList[store.state.lastTeam].type
+          }
+      },
+      displayRoutine () {
+          if(this.$store.state.starterList.length === 0) {
+            return ' '
+          } else {
+            return this.$store.state.starterList[store.state.lastTeam].routine
           }
       },
       activeLine () {

@@ -1,7 +1,7 @@
 <template>
   <div class="oneresult">
     <p class="display-3">Einzelergebnis</p>
-    <p class="display-1 mx-5">Klasse:  {{ displayKlasse }},  {{ displayType }}</p>
+    <p class="display-1 mx-5">Klasse:  {{ displayKlasse }},  {{ displayAlterskl }}, {{ displayType }},  {{ displayRoutine }}</p>
    </div>
 </template>
 
@@ -23,17 +23,32 @@ export default {
       },
       displayKlasse () {
           // console.log(store.state.starterList)
-          if(store.state.starterList.length === 0) {
+          if(this.$store.state.starterList.length === 0) {
             return ' '
           } else {
-            return store.state.starterList[store.state.lastTeam].klasse
+            return this.$store.state.starterList[store.state.lastTeam].klasse
+          }
+      },
+      displayAlterskl () {
+          // console.log(store.state.starterList)
+          if(this.$store.state.starterList.length === 0) {
+            return ' '
+          } else {
+            return this.$store.state.starterList[store.state.lastTeam].alterskl
           }
       },
       displayType () {
-          if(store.state.starterList.length === 0) {
+          if(this.$store.state.starterList.length === 0) {
             return ' '
           } else {
-            return store.state.starterList[store.state.lastTeam].type
+            return this.$store.state.starterList[store.state.lastTeam].type
+          }
+      },
+      displayRoutine () {
+          if(this.$store.state.starterList.length === 0) {
+            return ' '
+          } else {
+            return this.$store.state.starterList[store.state.lastTeam].routine
           }
       }
 

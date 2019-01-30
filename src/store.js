@@ -64,6 +64,9 @@ export default new Vuex.Store({
     clearstarterlist (state) {
       state.starterList = [] // Reset List
     },
+    updatestarterlist (state, obj) {
+      state.starterList = obj // Reset List
+    },
     addstarter2list (state, obj) {
       state.starterList.push(obj)
     },
