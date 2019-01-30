@@ -1,6 +1,6 @@
 ## SGG-Vote Acrobatic voting System
 
-### To Do (Vergy)
+### To Do (Verjy)
 * styling  src/components/OneResult.vue
 * styling  src/components/Rangliste.vue
 * Du kannst Dich in den beiden Komponenten in template und style austoben :-)
