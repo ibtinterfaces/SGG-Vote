@@ -1,4 +1,4 @@
-## SGG-Vote Acrobatic voting System
+## SGG-Vote Akrobatik voting System
 
 ### To Do (Verjy)
 * styling  src/components/OneResult.vue
@@ -9,8 +9,8 @@
 * reactivity fail to import Team in use src/components/MobileInput.vue
 * Kampfgerichte Arrays
 * Resultcalculation
-* load and save data.json
-* Kontrolle der wertungsberechnung und freigabe der Wertung
+* Load and save data.json
+* Kontrolle der Wertungsberechnung und Freigabe der Wertung
 
 ### Project setup
 ```
@@ -26,7 +26,7 @@ npm run build
 ### Pages Views
 
 Result page:   localhost:8080
-Zeigt alle 10 Sekunden abwechselnd die folgenden Componenten
+Zeigt alle 10 Sekunden abwechselnd die folgenden Komponenten
 ```
 src/components/Rangliste.vue 
 src/components/OneResult.vue
@@ -45,4 +45,4 @@ Organisations Page:   localhost:8080/orga
 src/components/OrgaStarterListe.vue 
 ```
 Festlegen der nächsten Startnummer für die nächste Wertung
-Kontrolle der wertungsberechnung und freigabe der Wertung
+Kontrolle der Wertungsberechnung und Freigabe der Wertung
