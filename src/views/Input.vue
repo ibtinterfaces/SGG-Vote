@@ -12,12 +12,11 @@
 // x seconds Rangliste 
 
 import MobileInput from '@/components/MobileInput.vue'
-// import store from '@/store'
 
 export default {
   // name: 'Results',
   components: {
-    MobileInput
-  }
+    MobileInput,
+  },
 }
 </script>

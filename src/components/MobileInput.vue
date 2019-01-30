@@ -10,14 +10,14 @@
       <v-flex xs12 sm6 d-flex pa-3>
         <v-select
           :items="kampfgNr"
-          label="Nr"
+          label="Kampfgericht Nr."
           color="colactive"
         ></v-select>
       </v-flex>
       <v-flex xs12 sm6 d-flex pa-3>
         <v-select
           :items="kampfgIndex"
-          label="Index"
+          label="Richter Nr."
           color="colactive"
         ></v-select>
       </v-flex>
@@ -53,14 +53,16 @@
       <td class="text-xs-left display-1">{{ props.item.name1 + props.item.name2 + props.item.name3 }}</td>
         <td class="text-xs-center display-1">{{ props.item.verein }}</td>
         <td class="text-xs-center display-1">{{ props.item.klasse }}</td>
-        <td class="text-xs-center display-1">{{ props.item.type }}</td> -->
+        <td class="text-xs-center display-1">{{ props.item.type }}</td>
         <!-- <td class="text-xs-center display-1">{{ props.item.gesPunkte }}</td> -->
       </template>
     </v-data-table>
     <p class="display-1">Debug output</p>
-    <p>ibt {{ getAktTeam }} </p>
+    <p>{{ getAktTeam }} </p>
+    <!-- <v-spacer></v-spacer>
     <p>computed{{ computedUsers }} </p>
-    <p>getted{{ gettedUsers }} </p>
+   <v-spacer></v-spacer>
+    <p>getted{{ gettedUsers }} </p> -->
 
   <v-container fluid>
     <v-radio-group v-model="radios" :mandatory="false">
@@ -83,7 +85,7 @@
             max=10
             step=0.1
             maxlength=2
-            v-model="test"
+            v-model="test1"
             color="colactive"
           ></v-text-field>
            <v-text-field v-show="radios === 'Technik'"
@@ -95,7 +97,7 @@
             max=10
             step=0.1
             maxlength=2
-            v-model="test"
+            v-model="test2"
             color="colactive"
           ></v-text-field>
            <v-text-field v-show="radios === 'Akrobatik'"
@@ -107,7 +109,7 @@
             max=10
             step=0.1
             maxlength=2
-            v-model="test"
+            v-model="test3"
             color="colactive"
           ></v-text-field>
            <v-text-field v-show="radios === 'DJ'"
@@ -119,7 +121,7 @@
             max=30
             step=0.1
             maxlength=2
-            v-model="test"
+            v-model="test4"
             color="colactive"
           ></v-text-field>
         </v-flex>
@@ -140,6 +142,10 @@ export default {
   },
     data () {
       return {
+        test1: 0,
+        test2: 0,
+        test3: 0,
+        test4: 0,
         Difficultyt: 0.0,
         Technik: 0.0,
         Akrobatik: 0.0,
@@ -147,8 +153,8 @@ export default {
         radios: 'Technik',
         kampfgNr: [1, 2],
         kampfgIndex: [1, 2, 3, 4],
-        users: store.state.getAktTeam,
-        gettedUsers: store.getters.getAktTeam,
+        // users: store.state.getAktTeam,
+        // gettedUsers: store.getters.getAktTeam,
 
         pagination : {'sortBy': 'gesPunkte', 'descending': true, 'rowsPerPage': -1},
         headers: [
@@ -197,50 +203,33 @@ export default {
           ],
       }
     },
-    mounted() {
-      // this.area = this.$store.getters.getAktTeam;
-    },     
     computed: {
       tableData () {
-        return store.state.starterList
+        return this.$store.state.starterList
       },
-      // 'starterData': function columns () {
-      //   return store.state.starterList
-      // },
       filteredtableData () {
-         return store.state.starterList.filter((i) => {
-            return ((i.nr === store.state.aktTeam))
+         return this.$store.state.starterList.filter((i) => {
+            return ((i.nr === this.$store.state.aktTeam))
           })
       },
       getAktTeam () {
-          //return store.getters.getAktTeam
-          return store.getters.getAktTeam
-          // return this.area
+          return this.$store.state.aktTeam
       },
-      computedUsers () {
-          return store.state.aktTeam
-      },
-         
       displayKlasse () {
           // console.log(store.state.starterList)
-          if(store.state.starterList.length === 0) {
+          if(this.$store.state.starterList.length === 0) {
             return ' '
           } else {
-            return store.state.starterList[store.state.lastTeam].klasse
+            return this.$store.state.starterList[store.state.lastTeam].klasse
           }
       },
       displayType () {
-          if(store.state.starterList.length === 0) {
+          if(this.$store.state.starterList.length === 0) {
             return ' '
           } else {
-            return store.state.starterList[store.state.lastTeam].type
+            return this.$store.state.starterList[store.state.lastTeam].type
           }
       }
-    // filteredItems () {
-    //   // console.log(store.state.starterList)
-    //     return store.state.starterList
-    //   }
-
     }
 }
 </script>

@@ -63,6 +63,7 @@ export default {
       return {
         pagination : {'sortBy': 'nr', 'descending': false, 'rowsPerPage': -1},
         selected: [],
+        tempSelect: 0,
         headers: [
         //  {
         //     text: 'Platzierung',
@@ -113,16 +114,12 @@ export default {
       tableData () {
         return store.state.starterList
       },
-      // 'starterData': function columns () {
-      //   return store.state.starterList
-      // },
       filteredtableData () {
-          return store.state.starterList.filter((i) => {
+          return this.$store.state.starterList.filter((i) => {
             return ((i.klasse === 'N1') && (i.type === 'W2'))
           })
       },
       myDebug () {
-        // return store.state.starterList
         
           if(this.selected.length === 0) {
             return ' '
@@ -132,17 +129,17 @@ export default {
       },
       displayKlasse () {
           // console.log(store.state.starterList)
-          if(store.state.starterList.length === 0) {
+          if(this.$store.state.starterList.length === 0) {
             return ' '
           } else {
-            return store.state.starterList[store.state.lastTeam].klasse
+            return this.$store.state.starterList[store.state.lastTeam].klasse
           }
       },
       displayType () {
-          if(store.state.starterList.length === 0) {
+          if(this.$store.state.starterList.length === 0) {
             return ' '
           } else {
-            return store.state.starterList[store.state.lastTeam].type
+            return this.$store.state.starterList[store.state.lastTeam].type
           }
       },
       activeLine () {
@@ -152,35 +149,21 @@ export default {
             return this.selected[0].nr
           }
       }
-    // filteredItems () {
-    //   // console.log(store.state.starterList)
-    //     return store.state.starterList
-    //   }
-
     },
     methods: {
-      select(selectedItem) {
+      select (selectedItem) {
         this.selected = []
         this.tableData.forEach(item => {
           if (item.nr === selectedItem.nr) {
            this.selected.push(item)
+           store.commit('updateaktteam', selectedItem.nr)
           }
         })
-        // Vue.set(store.state, 'aktTeam', selectedItem.nr)
-        // store.commit('updateaktteam', this.selected[0].nr)
-        // store.state.aktTeam = 5
-        store.commit('updateaktteam', selectedItem.nr)
-        // this.myUpdate(selectedItem.nr)
-      }
-     },
-    // actions: {
-    //   myUpdate (val) {
-    //     store.commit('updateaktteam', val)
-    //   }
-    // }
-    // mounted () {
-    //   // Dummy fake data for testing
-    // }
+      },
+      // myTest () {
+      //      store.commit('updateaktteam', 5)
+      // }
+    }
 }
 </script>
 

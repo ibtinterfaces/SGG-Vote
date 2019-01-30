@@ -27,7 +27,7 @@ export default new Vuex.Store({
       action: '',
                // Val  Diff ??   DJ         
       technik:   [0.0, 0.0, 0.0, 0.0],
-      acrobatic: [0.0, 0.0, 0.0, 0.0],
+      akrobatik: [0.0, 0.0, 0.0, 0.0],
       wertung:   [0.0, 0.0, 0.0, 0.0],
       gesPunkte: 0.0,
       platzierung: 0
@@ -35,9 +35,10 @@ export default new Vuex.Store({
 
     // Data input on mobile devices für Kampfgerichte
     mobileWertung: {
+      dj: 0,
+      value: 0,
       technik:   [0.0, 0.0, 0.0, 0.0], // ???????
-      acrobatic: [0.0, 0.0, 0.0, 0.0],
-      wertung:   [0.0, 0.0, 0.0, 0.0],
+      akrobatik: [0.0, 0.0, 0.0, 0.0],
     },
 
   // Array list of starters [0..N]
@@ -88,13 +89,14 @@ export default new Vuex.Store({
 
 
 
-  },  
-  getters: {
-    getAktTeam (state) {
-      console.log('now selected: ' + state.aktTeam)
-      return state.aktTeam
-    }
-  }
+  }  
+  // getters: {
+  //   getAktTeam (state) {
+  //     console.log('now selected: ' + state.aktTeam)
+  //     return state.aktTeam
+  //   }
+  // }
+
   // setters: {
   //   setAktTeam (state, val) {
   //   this.updateaktteam(state, val)
