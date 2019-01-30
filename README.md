@@ -1,30 +1,31 @@
-# SGG-Vote Acrobatic voting System
+## SGG-Vote Acrobatic voting System
 
-## To Do (Vergy)
+### To Do (Vergy)
 * styling  src/components/OneResult.vue
 * styling  src/components/Rangliste.vue
-Du kannst Dich in den beiden Komponenten in <template> und <style> austoben :-)
+* Du kannst Dich in den beiden Komponenten in <template> und <style> austoben :-)
 
-## To Do (Nils)
+### To Do (Nils)
 * reactivity fail to import Team in use src/components/MobileInput.vue
 * Kampfgerichte Arrays
 * Resultcalculation
 * load and save data.json
+* Kontrolle der wertungsberechnung und freigabe der Wertung
 
-## Project setup
+### Project setup
 ```
 npm install
 npm run serve
 ```
 
-## Compiles and minifies for production
+### Compiles and minifies for production
 ```
 npm run build
 ```
 
-## Pages Views
+### Pages Views
 
-Result page   localhost:8080/
+Result page:   localhost:8080/
 Zeigt alle 10 Sekunden abwechselnd die folgenden Componenten
 ```
 src/components/Rangliste.vue 
@@ -36,9 +37,10 @@ OneResult.vue zeigt die Einzelwertung (aktuell nur die Überschriften hier kanns
 src/components/MobileInput.vue 
 ```
 
-Kampfgericht   localhost:8080/input
+Kampfgericht Page:   localhost:8080/input
 Kampfgericht view zur Wertungseingabe auf den Mobile devices (Handy's I-Pads)
 
-Organisations Page   localhost:8080/orga
-Organisations Page. Festlegen der nächsten Startnummer für die nächste Wertung
+Organisations Page:   localhost:8080/orga
+Festlegen der nächsten Startnummer für die nächste Wertung
+Kontrolle der wertungsberechnung und freigabe der Wertung
 
