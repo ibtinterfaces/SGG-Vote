@@ -1,16 +1,16 @@
 # SGG-Vote
 
-# To Do (Vergy)
-## styling  src/components/OneResult.vue
-## styling  src/components/Rangliste.vue
+## To Do (Vergy)
+### styling  src/components/OneResult.vue
+### styling  src/components/Rangliste.vue
 Du kannst Dich in den beiden Komponenten in <template> und <style> austoben :-)
 
 
-# To Do (Nils)
-## reactivity fail to import Team in use src/components/MobileInput.vue
-## Kampfgerichte Arrays
-## Resultcalculation
-## load and save data.json
+## To Do (Nils)
+### reactivity fail to import Team in use src/components/MobileInput.vue
+### Kampfgerichte Arrays
+### Resultcalculation
+### load and save data.json
 
 
 ## Project setup
@@ -18,21 +18,21 @@ Du kannst Dich in den beiden Komponenten in <template> und <style> austoben :-)
 npm install
 ```
 
-### Compiles and hot-reloads for development
+## Compiles and hot-reloads for development
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+## Compiles and minifies for production
 ```
 npm run build
 ```
 
-# Pages
+## Pages
 
-## Result page 
-### localhost:8080/
-#### Zeigt alle 10 Sekunden abwechselnd die folgenden Componenten
+### Result page 
+#### localhost:8080/
+##### Zeigt alle 10 Sekunden abwechselnd die folgenden Componenten
 ```
 src/components/Rangliste.vue 
 ```
