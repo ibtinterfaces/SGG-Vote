@@ -1,5 +1,5 @@
 [
-    {"nr":1,"platzierung":1,"verein":"SG Götzenhain","gesPunkte":"24.900","name1":"Elena","klasse":"A","alterskl":"S","type":"PW","routine":"Kombi"},
+	{"nr":1,"platzierung":1,"verein":"SG Götzenhain","gesPunkte":"24.900","name1":"Elena","klasse":"A","alterskl":"S","type":"PW","routine":"Kombi"},
 	{"nr":2,"platzierung":1,"verein":"SG Götzenhain","gesPunkte":"24.900","name1":"Lotte","klasse":"D","alterskl":"N1","type":"PW","routine":"Kombi"},
 	{"nr":3,"platzierung":1,"verein":"SG Götzenhain","gesPunkte":"24.900","name1":"Anouk","klasse":"A","alterskl":"N1","type":"PW","routine":"Kombi"},
 	{"nr":4,"platzierung":1,"verein":"SG Götzenhain","gesPunkte":"24.900","name1":"Lilli","klasse":"A","alterskl":"J1","type":"PW","routine":"Kombi"},
@@ -15,5 +15,11 @@
 	{"nr":14,"platzierung":1,"verein":"SG Götzenhain","gesPunkte":"24.900","name1":"Joni, Linja, Flora","klasse":"D","alterskl":"N1","type":"W3","routine":"Kombi"},
 	{"nr":15,"platzierung":1,"verein":"SG Götzenhain","gesPunkte":"24.900","name1":"Alisa, Zahra, Cecil","klasse":"D","alterskl":"N1","type":"W3","routine":"Kombi"},
 	{"nr":16,"platzierung":1,"verein":"SG Götzenhain","gesPunkte":"24.900","name1":"Zoe, Laura, Pola","klasse":"N","alterskl":"N1","type":"W3","routine":"Kombi"},
-	{"nr":17,"platzierung":1,"verein":"SG Götzenhain","gesPunkte":"24.900","name1":"Zoe, Laura, Pola","klasse":"A","alterskl":"J1","type":"W3","routine":"Kombi"}
+	{"nr":17,"platzierung":1,"verein":"SG Götzenhain","gesPunkte":"24.900","name1":"Kaci, Lilli, Caro","klasse":"A","alterskl":"J1","type":"W3","routine":"Kombi"}
+	{"nr":18,"platzierung":1,"verein":"SG Götzenhain","gesPunkte":"24.900","name1":"Mara, Anne","klasse":"N","alterskl":"N2","type":"W2","routine":"Kombi"},
+	{"nr":19,"platzierung":1,"verein":"SG Götzenhain","gesPunkte":"24.900","name1":"Lea, Yasmine, Julia","klasse":"N","alterskl":"N1","type":"W3","routine":"Kombi"},
+	{"nr":20,"platzierung":1,"verein":"SG Götzenhain","gesPunkte":"24.900","name1":"Carlotta, Sarah","klasse":"N","alterskl":"N2","type":"W2","routine":"Kombi"},
+	{"nr":21,"platzierung":1,"verein":"SG Götzenhain","gesPunkte":"24.900","name1":"Mara","klasse":"N","alterskl":"N1","type":"PW","routine":"Kombi"},
+	{"nr":22,"platzierung":1,"verein":"SG Götzenhain","gesPunkte":"24.900","name1":"Annika, Giulia, Laura","klasse":"N","alterskl":"N2","type":"W3","routine":"Kombi"},
+	{"nr":23,"platzierung":1,"verein":"SG Götzenhain","gesPunkte":"24.900","name1":"Malea, Amy","klasse":"N","alterskl":"N1","type":"W2","routine":"Kombi"}
 ]
