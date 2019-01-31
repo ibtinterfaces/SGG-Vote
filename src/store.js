@@ -9,9 +9,14 @@ export default new Vuex.Store({
   strict: true,
   state: {
     
-    // Set up on Orga Page 
-    aktTeam: 0,  
-    lastTeam: 1,  
+    // Set up on Orga Page
+    vote: [], // index 0 in vote index 1-N Lastvotes
+    orgaselect: 0,
+    // orga: {
+    //   voting: 2,  
+    //   voted: 3,  
+    // },
+
     kampfgerichtInUse: 0,
     
     // Resultview control
@@ -43,6 +48,10 @@ export default new Vuex.Store({
 
   // Array list of starters [0..N]
   starterList: [],
+  starterActive: [],
+  StarterVoted: [],
+  
+
 
   // Array list of Kampfgerichte[0..N]  
   kampfgericht: []
@@ -52,7 +61,7 @@ export default new Vuex.Store({
   // computed: {
   //   xobj: {
   //     get () {
-  //       return this.$store.state.aktTeam
+  //       return this.$store.state.voting
   //     },
   //     set (value) {
   //       this.$store.commit('updateA', value)
@@ -70,13 +79,18 @@ export default new Vuex.Store({
     addstarter2list (state, obj) {
       state.starterList.push(obj)
     },
-    updateaktteam (state, payload) {
-      state.aktTeam = payload
+    updatevoting (state, payload) {
+      state.vote.unshift(payload)
     },
     toggleresult (state, payload) {
       state.ToggleResultView = payload
     },
-
+    updateorgaselect (state, obj) {
+      state.orgaselect = obj // Reset List
+    },
+    updatestarteraktive (state, obj) {
+      state.starterActive.unshift(obj)
+    }
     // // Websocket Mobiledevice communication für Kampfgericht
     // SOCKET_CONNECT: (state, status) => {
     //   state.connect = true
@@ -92,17 +106,57 @@ export default new Vuex.Store({
 
 
 
-  }  
-  // getters: {
-  //   getAktTeam (state) {
-  //     console.log('now selected: ' + state.aktTeam)
-  //     return state.aktTeam
-  //   }
-  // }
+  },  
+  getters: {
+    tableData: state => {
+      return state.starterList
+    },
+    tableDataActive: state => {
+      return state.starterActive
+    },
+    inVote: (state) => (nr) => {
+      if (state.starterList.length === 0) {
+        return []
+      } else {
+        var x = []
+        // x.push(state.starterList.find(thing => thing.nr === nr))
+        x.push(state.starterList.find(thing => thing.nr === nr))
+        console.log('DEBUG')
+        console.log(x)
+        return x
+      }
+  },
+    // filteredtableDataVoting: state => {
+    //   return state.starterList.filter((i) => {
+    //     console.log('1: ' + i.nr)
+    //     console.log('2: ' + state.orgaselect)
+    //      return ((i.nr === state.orgaselect))
+    //      // return ((i.nr === 7))
+    //    })
+    // },
+    filteredtableDataVoted: state => {
+      return state.starterList.filter((i) => {
+        console.log(i.nr)
+        console.log((i.nr === state.orgaselect))
+         return ((i.nr === state.orgaselect))
+         // return ((i.nr === 7))
+       })
+    },
+    filteredtableDataklass: state => {
+    return state.starterList.filter((i) => {
+      return ((i.klasse === 'N') && (i.type === 'W2'))
+       // return ((i.nr === 7))
+     })
+    },
+    displayKlasse: state => { return (state.starterList.length === 0 ? ' ' : state.starterList[state.orgaselect].klasse) },
+    displayAlterskl: state => { return (state.starterList.length === 0 ? ' ' : state.starterList[state.orgaselect].alterskl) },
+    displayType: state => { return (state.starterList.length === 0 ? ' ' : state.starterList[state.orgaselect].type) },
+    displayRoutine: state => { return (state.starterList.length === 0 ? ' ' : state.starterList[state.orgaselect].routine) },
+  }
 
   // setters: {
-  //   setAktTeam (state, val) {
-  //   this.updateaktteam(state, val)
+  //   setVoting (state, val) {
+  //   this.updatevoting(state, val)
   //   }
   // },
 

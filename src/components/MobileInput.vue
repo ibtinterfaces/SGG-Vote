@@ -50,7 +50,7 @@
          <!-- <td class="text-xs-center display-1">{{ props.item.platzierung }}</td> -->
          <!-- <td class="text-xs-center display-1">{{ props.index + 1 }}</td> -->
          <td class="text-xs-center display-1">{{ props.item.nr }}</td>
-      <td class="text-xs-left display-1">{{ props.item.name1 + props.item.name2 + props.item.name3 }}</td>
+      <td class="text-xs-left display-1">{{ props.item.name1 }}</td>
         <td class="text-xs-center display-1">{{ props.item.verein }}</td>
         <td class="text-xs-center display-1">{{ props.item.klasse }}</td>
         <td class="text-xs-center display-1">{{ props.item.type }}</td>
@@ -58,7 +58,7 @@
       </template>
     </v-data-table>
     <p class="display-1">Debug output</p>
-    <p>{{ getAktTeam }} </p>
+    <p>{{ getVoting }} </p>
     <!-- <v-spacer></v-spacer>
     <p>computed{{ computedUsers }} </p>
    <v-spacer></v-spacer>
@@ -153,8 +153,6 @@ export default {
         radios: 'Technik',
         kampfgNr: [1, 2],
         kampfgIndex: [1, 2, 3, 4],
-        // users: store.state.getAktTeam,
-        // gettedUsers: store.getters.getAktTeam,
 
         pagination : {'sortBy': 'gesPunkte', 'descending': true, 'rowsPerPage': -1},
         headers: [
@@ -200,7 +198,7 @@ export default {
           //   sortable: true,
           //   value: 'gesPunkte'
           // }
-          ],
+          ]
       }
     },
     computed: {
@@ -209,25 +207,25 @@ export default {
       },
       filteredtableData () {
          return this.$store.state.starterList.filter((i) => {
-            return ((i.nr === this.$store.state.aktTeam))
+            return ((i.nr === this.$store.state.vote[0]))
           })
       },
-      getAktTeam () {
-          return this.$store.state.aktTeam
+      getVoting () {
+          return this.$store.state.vote[0]
       },
       displayKlasse () {
           // console.log(store.state.starterList)
           if(this.$store.state.starterList.length === 0) {
             return ' '
           } else {
-            return this.$store.state.starterList[store.state.lastTeam].klasse
+            return this.$store.state.starterList[store.state.vote[0]].klasse
           }
       },
       displayType () {
           if(this.$store.state.starterList.length === 0) {
             return ' '
           } else {
-            return this.$store.state.starterList[store.state.lastTeam].type
+            return this.$store.state.starterList[store.state.vote[0]].type
           }
       }
     }

@@ -1,11 +1,10 @@
 <template>
-  <div class="rangliste pt-5">
-    <p class="display-3">Rangliste</p>
-     <p class="display-1 mx-5">Klasse:  {{ this.$store.getters.displayKlasse }},  {{  this.$store.getters.displayAlterskl }}, {{  this.$store.getters.displayType }},  {{  this.$store.getters.displayRoutine }}</p>
-  
+  <div class="oneresult pt-0">
+    <p class="display-3">Aktiv</p> {{ this.$store.getters.displayKlasse }}
+    <!-- <p class="display-1 mx-5">Klasse:  {{ displayKlasse }},  {{ displayAlterskl }}, {{ displayType }},  {{ displayRoutine }}</p> -->
     <v-data-table
       :headers="headers"
-      :items="this.$store.getters.filteredtableDataklass"
+      :items="mydata"
       disable-initial-sort
       v-bind:pagination.sync="pagination"
       hide-actions
@@ -24,25 +23,26 @@
       </template>
       <template slot="items" slot-scope="props">
          <!-- <td class="text-xs-center display-1">{{ props.item.platzierung }}</td> -->
-         <td class="text-xs-center display-1">{{ props.index + 1 }}</td>
+         <!-- <td class="text-xs-center display-1">{{ props.index + 1 }}</td> -->
          <td class="text-xs-center display-1">{{ props.item.nr }}</td>
       <td class="text-xs-left display-1">{{ props.item.name1 }}</td>
         <td class="text-xs-center display-1">{{ props.item.verein }}</td>
-        <!-- <td class="text-xs-center display-1">{{ props.item.klasse }}</td>
-        <td class="text-xs-center display-1">{{ props.item.type }}</td> -->
-        <td class="text-xs-center display-1">{{ props.item.gesPunkte }}</td>
+        <td class="text-xs-center display-1">{{ props.item.klasse }}</td>
+        <td class="text-xs-center display-1">{{ props.item.type }}</td>
+        <!-- <td class="text-xs-center display-1">{{ props.item.gesPunkte }}</td> -->
       </template>
     </v-data-table>
-    <!-- <p>{{ myDebug }} </p> -->
+
+
 
   </div>
 </template>
 
 <script>
-// import store from '@/store'
+import store from '@/store'
 
 export default {
-  name: 'RangListe',
+  name: 'OneAktive',
   props: {
     // msg: String
   },
@@ -50,12 +50,12 @@ export default {
       return {
         pagination : {'sortBy': 'gesPunkte', 'descending': true, 'rowsPerPage': -1},
         headers: [
-         {
-            text: 'Platzierung',
-            align: 'center',
-            sortable: false,
-            value: 'plazierung'
-          },
+        //  {
+        //     text: 'Platzierung',
+        //     align: 'center',
+        //     sortable: false,
+        //     value: 'plazierung'
+        //   },
           {
             text: 'Start Nr',
             align: 'center',
@@ -74,34 +74,36 @@ export default {
             sortable: false,
             value: 'verein'
           },
-          // {
-          //   text: 'Klasse',
-          //   align: 'center',
-          //   sortable: false,
-          //   value: 'klasse'
-          // },
-          // {
-          //   text: 'Type',
-          //   align: 'center',
-          //   sortable: false,
-          //   value: 'type'
-          // },
-           {
-            text: 'Punkte',
+          {
+            text: 'Klasse',
             align: 'center',
-            sortable: true,
-            value: 'gesPunkte'
-          }
-          ],
+            sortable: false,
+            value: 'klasse'
+          },
+          {
+            text: 'Type',
+            align: 'center',
+            sortable: false,
+            value: 'type'
+          },
+          //  {
+          //   text: 'Punkte',
+          //   align: 'center',
+          //   sortable: true,
+          //   value: 'gesPunkte'
+          // }
+          ]
+
       }
     },
     computed: {
-      // tableData () {
-      //   return this.$store.getters.filteredtableDataklass
-      // },
-      // myDebug () {
-      //   return this.$store.state.starterList
-      // },
+      myDebug () {
+        return store.state.starterList
+      },
+      mydata () {
+        return this.$store.getters.tableDataActive
+        // return this.$store.getters.inVote(this.$store.state.vote[0])
+      }
     },
     mounted () {
       // Dummy fake data for testing
@@ -110,4 +112,5 @@ export default {
 </script>
 
 <style scoped lang="scss">
+
 </style>

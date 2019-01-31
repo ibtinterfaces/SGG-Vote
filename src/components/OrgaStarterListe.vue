@@ -33,7 +33,7 @@
             v-model="props.selected"
             primary
             hide-details
-            @mousedown="selectAktTeam"
+            @mousedown="selectVoting"
           ></v-checkbox>
         </td> -->
 
@@ -57,7 +57,7 @@
 import store from '@/store'
 
 export default {
-  name: 'RangListe',
+  name: 'OrgaStarterListe',
   props: {
     // msg: String
   },
@@ -126,12 +126,7 @@ export default {
     },
     computed: {
       tableData () {
-        return store.state.starterList
-      },
-      filteredtableData () {
-          return this.$store.state.starterList.filter((i) => {
-            return ((i.klasse === 'N1') && (i.type === 'W2'))
-          })
+        return this.$store.getters.tableData
       },
       myDebug () {
         
@@ -141,40 +136,42 @@ export default {
             return this.selected[0].nr
           }
       },
-      displayKlasse () {
-          // console.log(store.state.starterList)
-          if(this.$store.state.starterList.length === 0) {
-            return ' '
-          } else {
-            return this.$store.state.starterList[store.state.lastTeam].klasse
-          }
-      },
-      displayAltersKlasse () {
-          // console.log(store.state.starterList)
-          if(this.$store.state.starterList.length === 0) {
-            return ' '
-          } else {
-            return this.$store.state.starterList[store.state.lastTeam].altersklasse
-          }
-      },
-      displayType () {
-          if(this.$store.state.starterList.length === 0) {
-            return ' '
-          } else {
-            return this.$store.state.starterList[store.state.lastTeam].type
-          }
-      },
-      displayRoutine () {
-          if(this.$store.state.starterList.length === 0) {
-            return ' '
-          } else {
-            return this.$store.state.starterList[store.state.lastTeam].routine
-          }
-      },
+      // displayKlasse () {
+      //     // console.log(store.state.starterList)
+      //     if(this.$store.state.starterList.length === 0) {
+      //       return ' '
+      //     } else {
+      //       return this.$store.state.starterList[store.state.vote[0]].klasse
+      //     }
+      // },
+      // displayAltersKlasse () {
+      //     // console.log(store.state.starterList)
+      //     if(this.$store.state.starterList.length === 0) {
+      //       return ' '
+      //     } else {
+      //       return this.$store.state.starterList[store.state.vote[0]].altersklasse
+      //     }
+      // },
+      // displayType () {
+      //     if(this.$store.state.starterList.length === 0) {
+      //       return ' '
+      //     } else {
+      //       return this.$store.state.starterList[store.state.vote[0]].type
+      //     }
+      // },
+      // displayRoutine () {
+      //     if(this.$store.state.starterList.length === 0) {
+      //       return ' '
+      //     } else {
+      //       return this.$store.state.starterList[store.state.vote[0]].routine
+      //     }
+      // },
       activeLine () {
           if(this.selected.length === 0) {
+            store.commit('updateorgaselect', 0)
             return 0
           } else {
+            store.commit('updateorgaselect', this.selected[0].nr)
             return this.selected[0].nr
           }
       }
@@ -185,12 +182,13 @@ export default {
         this.tableData.forEach(item => {
           if (item.nr === selectedItem.nr) {
            this.selected.push(item)
-           store.commit('updateaktteam', selectedItem.nr)
+           store.commit('updatestarteraktive', item)
+           //store.commit('updatevoting', selectedItem.nr)
           }
         })
       },
       // myTest () {
-      //      store.commit('updateaktteam', 5)
+      //      store.commit('updatevoting', 5)
       // }
     }
 }
