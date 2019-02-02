@@ -13,10 +13,10 @@
     >
       <template slot="headerCell" slot-scope="props">
         <v-tooltip bottom>
-          <span slot="activator">
+          <span slot="activator" class="display-1">
             {{ props.header.text }}
           </span>
-          <span>
+          <span class="display-1">
             {{ props.header.text }}
           </span>
         </v-tooltip>
@@ -26,7 +26,7 @@
          <!-- <td class="text-xs-center display-1">{{ props.index + 1 }}</td> -->
          <td class="text-xs-center display-1">{{ props.item.nr }}</td>
       <td class="text-xs-left display-1">{{ props.item.name1 }}</td>
-        <td class="text-xs-center display-1">{{ props.item.verein }}</td>
+        <!-- <td class="text-xs-center display-1">{{ props.item.verein }}</td> -->
         <td class="text-xs-center display-1">{{ props.item.klasse }}</td>
         <td class="text-xs-center display-1">{{ props.item.type }}</td>
         <!-- <td class="text-xs-center display-1">{{ props.item.gesPunkte }}</td> -->
@@ -68,12 +68,12 @@ export default {
             sortable: false,
             value: 'name'
           },
-          {
-            text: 'Verein',
-            align: 'center',
-            sortable: false,
-            value: 'verein'
-          },
+          // {
+          //   text: 'Verein',
+          //   align: 'center',
+          //   sortable: false,
+          //   value: 'verein'
+          // },
           {
             text: 'Klasse',
             align: 'center',
@@ -101,8 +101,8 @@ export default {
         return store.state.starterList
       },
       mydata () {
-        return this.$store.getters.tableData
-        // return this.$store.getters.inVote(this.$store.state.vote[0])
+        //return this.$store.getters.tableData
+        return this.$store.getters.inVote(7)
       }
     },
     mounted () {

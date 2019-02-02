@@ -27,7 +27,10 @@ Vue.use(new VueSocketIO({
 
 Vue.use(Vuetify, {
   theme: {
-  colactive: '#55B883'
+  colactive: '#55B883',
+  secondary: '#009',
+  primary: '#f00',
+  accent: '#0f0'
   }
 })
 console.log('Debug Server IP: ' + location.hostname) 

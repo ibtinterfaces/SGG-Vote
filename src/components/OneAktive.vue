@@ -26,7 +26,7 @@
          <!-- <td class="text-xs-center display-1">{{ props.index + 1 }}</td> -->
          <td class="text-xs-center display-1">{{ props.item.nr }}</td>
       <td class="text-xs-left display-1">{{ props.item.name1 }}</td>
-        <td class="text-xs-center display-1">{{ props.item.verein }}</td>
+        <!-- <td class="text-xs-center display-1">{{ props.item.verein }}</td> -->
         <td class="text-xs-center display-1">{{ props.item.klasse }}</td>
         <td class="text-xs-center display-1">{{ props.item.type }}</td>
         <!-- <td class="text-xs-center display-1">{{ props.item.gesPunkte }}</td> -->
@@ -69,12 +69,12 @@ export default {
             sortable: false,
             value: 'name'
           },
-          {
-            text: 'Verein',
-            align: 'center',
-            sortable: false,
-            value: 'verein'
-          },
+          // {
+          //   text: 'Verein',
+          //   align: 'center',
+          //   sortable: false,
+          //   value: 'verein'
+          // },
           {
             text: 'Klasse',
             align: 'center',

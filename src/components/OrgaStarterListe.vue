@@ -40,7 +40,7 @@
         </td> -->
 
           <td class="text-xs-left display-1">{{ props.item.name1 }}</td>
-          <td class="text-xs-center display-1">{{ props.item.verein }}</td>
+          <!-- <td class="text-xs-center display-1">{{ props.item.verein }}</td> -->
           <td class="text-xs-center display-1">{{ props.item.klasse }}</td>
           <td class="text-xs-center display-1">{{ props.item.alterskl }}</td>
           <td class="text-xs-center display-1">{{ props.item.type }}</td>
@@ -88,12 +88,12 @@ export default {
             sortable: false,
             value: 'name'
           },
-          {
-            text: 'Verein',
-            align: 'center',
-            sortable: false,
-            value: 'verein'
-          },
+          // {
+          //   text: 'Verein',
+          //   align: 'center',
+          //   sortable: false,
+          //   value: 'verein'
+          // },
           {
             text: 'Klasse',
             align: 'center',
