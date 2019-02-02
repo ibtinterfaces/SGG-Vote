@@ -1,7 +1,9 @@
 <template>
   <div class="rangliste">
+    <!-- <p class="display-3">Orga Starterliste :{{EventBus.$data.orgaselect}}:</p> -->
     <p class="display-3">Orga Starterliste</p>
-   
+        <p>component:{{ myDebug }} </p>
+
     <v-data-table
       :headers="headers"
       :items="tableData"
@@ -47,7 +49,6 @@
         </tr>
       </template>
     </v-data-table>
-    <p>{{ myDebug }} </p>
 
   </div>
 </template>
@@ -55,6 +56,8 @@
 <script>
 // import Vue from 'vue'
 import store from '@/store'
+// Import the EventBus we just created.
+// import { EventBus } from '@/event-bus.js';
 
 export default {
   name: 'OrgaStarterListe',
@@ -181,8 +184,11 @@ export default {
         this.selected = []
         this.tableData.forEach(item => {
           if (item.nr === selectedItem.nr) {
+            // this.$emit('orgaselect', selectedItem.nr)
+          this.$eventHub.$emit('new-orga-select', selectedItem.nr);
            this.selected.push(item)
            store.commit('updatestarteraktive', item)
+           this.$socket.emit('sync_orgaselect',selectedItem.nr)
            //store.commit('updatevoting', selectedItem.nr)
           }
         })

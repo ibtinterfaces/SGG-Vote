@@ -1,6 +1,6 @@
 <template>
   <div class="oneresult pt-0">
-    <p class="display-3">Aktiv</p> {{ this.$store.getters.displayKlasse }}
+    <p class="display-3">Aktiv</p> {{ this.$store.getters.displayKlasse }} {{this.selectNr}}New: {{this.$data.orgaselect}}
     <!-- <p class="display-1 mx-5">Klasse:  {{ displayKlasse }},  {{ displayAlterskl }}, {{ displayType }},  {{ displayRoutine }}</p> -->
     <v-data-table
       :headers="headers"
@@ -48,6 +48,7 @@ export default {
   },
     data () {
       return {
+        selectNr: 0,
         pagination : {'sortBy': 'gesPunkte', 'descending': true, 'rowsPerPage': -1},
         headers: [
         //  {
@@ -101,13 +102,32 @@ export default {
         return store.state.starterList
       },
       mydata () {
+        // console.log('Now try to pass Nr')
+        // var nr = this.$EventBus.orgaselect
+        // console.log(nr)
         return this.$store.getters.tableDataActive
-        // return this.$store.getters.inVote(this.$store.state.vote[0])
+        // return this.$store.getters.inVote(this.$data.orgaselect)
+        // return this.$store.getters.inVote(this.$data.orgaselect)
+        // return this.$store.getters.inVote(nr)
       }
     },
-    mounted () {
-      // Dummy fake data for testing
-    }
+    methods: {
+      setOrgaSelect(val) 
+            {
+         // name will be automatically transported to the parameter.
+                console.log('K :-) ' + val)
+                this.selectNr = val
+                console.log('K xxx ' + this.selectNr)
+            }
+    },
+    created() {
+        this.$eventHub.$on('new-orga-select', this.setOrgaSelect)
+    },
+
+    beforeDestroy(){
+        this.$eventHub.$off('new-orga-select');
+    },
+
 }
 </script>
 

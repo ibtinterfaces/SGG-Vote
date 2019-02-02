@@ -9,7 +9,21 @@ import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import 'vuetify/dist/vuetify.min.css'
 
 import fileStartliste from './startliste.json'
-// import VueSocketio from 'vue-socket.io'
+
+import VueSocketIO from 'vue-socket.io'
+
+Vue.use(new VueSocketIO({
+  debug: true,
+  connection: location.hostname + ':8000',
+  vuex: {
+      store,
+      actionPrefix: 'SOCKET_',
+      mutationPrefix: 'SOCKET_'
+  }
+}))
+
+// Import the EventBus we just created.
+// import { EventBus } from './event-bus.js';
 
 Vue.use(Vuetify, {
   theme: {
@@ -24,16 +38,39 @@ Vue.config.productionTip = false
 // read Config file after power Reset
 // var fs = require('fs');
 // var starter = {}
+Vue.prototype.$eventHub = new Vue(); // Global event bus
 
-new Vue({
-// export const bus = new Vue({
+var data = { 
+  orgaselect: 1 
+}
+// new Vue({
+export const EventBus = new Vue({
     router,
     store,
+    data: data,
+    methods: {
+      setOrgaSelect(val) 
+            {
+         // name will be automatically transported to the parameter.
+                console.log(':-) ' + val)
+                EventBus.$data.orgaselect = val
+                console.log('yes ' + EventBus.orgaselect)
+                console.log('xxx ' + this.orgaselect)
+                console.log('yyy ' + this.$data.orgaselect)
+                console.log('zzz ' + EventBus.$data.orgaselect)
+            }
+    },
+    created() {
+        this.$eventHub.$on('new-orga-select', this.setOrgaSelect)
+    },
+
+    beforeDestroy(){
+        this.$eventHub.$off('new-orga-select');
+    },
+
     // components: { App},
   render: h => h(App)
 }).$mount('#app')
-
-// Vue.use(VueSocketio, location.hostname + ':3000', store)
 
 store.commit('clearstarterlist')
 store.commit('updatestarterlist', fileStartliste)
@@ -46,6 +83,33 @@ setInterval(function(){
   toggle = !toggle
   store.commit('toggleresult', toggle)
 }, 10000);
+
+
+// // Listen for the i-got-clicked event and its payload.
+// EventBus.$on('orgaselect', val => {
+//   console.log(`Oh, that's nice. Nw orgaselect ${val}  :)`)
+// });
+
+
+// const port = 8000
+// io = require("socket.io"),
+// server = io.listen(port);
+
+// // event fired every time a new client connects:
+// server.on("connection", (socket) => {
+//   console.info(`Client connected [id=${socket.id}]`);
+//   /// server.emit(DATA_COMMAND, trackerData)
+ 
+
+//   socket.on("disconnect", () => {
+//       console.info(`Client gone [id=${socket.id}]`);
+//   });
+
+//   socket.on('mobile_data', (data) => {
+//       console.info(data);
+//   });
+  
+// });
 
 
 // // Dummy Data

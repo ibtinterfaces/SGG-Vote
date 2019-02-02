@@ -12,6 +12,7 @@ export default new Vuex.Store({
     // Set up on Orga Page
     vote: [], // index 0 in vote index 1-N Lastvotes
     orgaselect: 0,
+    connect: false,
     // orga: {
     //   voting: 2,  
     //   voted: 3,  
@@ -89,20 +90,27 @@ export default new Vuex.Store({
       state.orgaselect = obj // Reset List
     },
     updatestarteraktive (state, obj) {
-      state.starterActive.unshift(obj)
-    }
-    // // Websocket Mobiledevice communication für Kampfgericht
-    // SOCKET_CONNECT: (state, status) => {
-    //   state.connect = true
-    // },
+      state.starterActive = []
+      state.starterActive.push(obj)
+    },
+
+    // Websocket Mobiledevice communication für Kampfgericht
+    //SOCKET_CONNECT: (state, status) => {
+    SOCKET_CONNECT: (state) => {
+        state.connect = true
+      console.log('SOCKET_CONNECT')
+    },
     // SOCKET_DISCONNECT: (state, status) => {
-    //   state.connect = false
-    // },
-    // SOCKET_MOBILE_DATA: (state, message) => {
-    //   state.kampfgericht = message[0]
-    //   state.kampfgericht.push(message[0])
-    //   console.log(message[0])
-    // },
+    SOCKET_DISCONNECT: (state) => {
+        state.connect = false
+      console.log('SOCKET_DISCONNECT')
+   },
+    SOCKET_SYNC_ORGASELECT: (state, message) => {
+        state.orgaselect = message[0]
+      // state.kampfgericht.push(message[0])
+      // console.log(message[0])
+      console.log('SOCKET_SYNC_ORGASELECT', message)
+    },
 
 
 
@@ -112,14 +120,21 @@ export default new Vuex.Store({
       return state.starterList
     },
     tableDataActive: state => {
+      console.log('tableDataActive')
+      console.log(state.starterActive)
+      if (state.starterActive.length === 0) {
+        return []
+      } else {
       return state.starterActive
+      }
     },
     inVote: (state) => (nr) => {
       if (state.starterList.length === 0) {
         return []
       } else {
+        console.log('Die Nummer:  ' + nr)
         var x = []
-        // x.push(state.starterList.find(thing => thing.nr === nr))
+        //x.push(state.starterList.find(thing => thing.nr === nr))
         x.push(state.starterList.find(thing => thing.nr === nr))
         console.log('DEBUG')
         console.log(x)

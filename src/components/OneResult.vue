@@ -101,7 +101,7 @@ export default {
         return store.state.starterList
       },
       mydata () {
-        return this.$store.getters.tableDataActive
+        return this.$store.getters.tableData
         // return this.$store.getters.inVote(this.$store.state.vote[0])
       }
     },
