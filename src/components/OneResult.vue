@@ -12,7 +12,7 @@
     >
       <template slot="headerCell" slot-scope="props">
         <v-tooltip bottom>
-          <span slot="activator" class="display-1">
+          <span slot="activator">
             {{ props.header.text }}
           </span>
           <span>

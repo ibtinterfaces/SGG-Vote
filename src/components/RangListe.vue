@@ -1,7 +1,7 @@
 <template>
   <div class="rangliste pt-5">
     <p class="display-3">Rangliste</p>
-     <!-- <p class="display-1 mx-5">Klasse:  {{  altersKlasse }}, {{  typ }},  {{  routine }}</p> -->
+     <p class="display-1 mx-5">Klasse:  {{  altersKlasse }}, {{  type }},  {{  routine }}</p>
   
     <v-data-table
       :headers="headers"
@@ -97,7 +97,7 @@ export default {
     },
     computed: {
       tableData () {
-        return this.$store.getters.tableDataByKlass
+        return this.$store.getters.tableDataSameKlass
       },
       klasse () {
         return this.$store.getters.displayKlasse(this.$store.state.orga.votedTeam)

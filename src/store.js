@@ -16,7 +16,7 @@ export default new Vuex.Store({
 
     orga: {
       aktiveTeam: 2,  
-      votedTeam: 3,
+      votedTeam: 2,
       KampfgerichtBusy: true,  
     },
 
@@ -117,70 +117,37 @@ export default new Vuex.Store({
 
   },  
   getters: {
-    // Full table
+    // Full table data
     tableDataFull: state => {
+      if (state.starterList.length === 0) {
+        return []
+      } else {
       return state.starterList
+      }
     },
+
     // Filter one entry by Nr.
     tableDataOneByNr: (state) => (nr) => {
       if (state.starterList.length === 0) {
         return []
       } else {
-        console.log('Die Nummer:  ' + nr)
         var x = []
-        //x.push(state.starterList.find(thing => thing.nr === nr))
         x.push(state.starterList.find(thing => thing.nr === nr))
-        console.log('DEBUG')
         console.log(x)
         return x
       }
     },
+
     // Filter by klass and type for rangliste 
-    // Need to add dynamic loockup to last voted Nr 
-    tableDataByKlass: state => {
+    tableDataSameKlass: (state) => {
       return state.starterList.filter((i) => {
-        return ((i.klasse === 'N') && (i.type === 'W2'))
-         // return ((i.nr === 7))
+        return ((i.klasse === state.starterList[state.orga.votedTeam].klasse ) && (i.type === state.starterList[state.orga.votedTeam].type))
        })
       },
-
-    // tableData: state => {
-    //   return state.starterList
-    // },
-    // tableDataActive: state => {
-    //   console.log('tableDataActive')
-    //   console.log(state.starterActive)
-    //   if (state.starterActive.length === 0) {
-    //     return []
-    //   } else {
-    //   return state.starterActive
-    //   }
-    // },
-    // inVote: (state) => (nr) => {
-    //   if (state.starterList.length === 0) {
-    //     return []
-    //   } else {
-    //     console.log('Die Nummer:  ' + nr)
-    //     var x = []
-    //     //x.push(state.starterList.find(thing => thing.nr === nr))
-    //     x.push(state.starterList.find(thing => thing.nr === nr))
-    //     console.log('DEBUG')
-    //     console.log(x)
-    //     return x
-    //   }
-    // },
-    // filteredtableDataVoted: state => {
-    //   return state.starterList.filter((i) => {
-    //     console.log(i.nr)
-    //     console.log((i.nr === state.orgaselect))
-    //      return ((i.nr === state.orgaselect))
-    //      // return ((i.nr === 7))
-    //    })
-    // },
-    displayKlasse: (state, nr) => { return (state.starterList.length === 0 ? ' ' : state.starterList[nr].klasse) },
-    displayAlterskl: (state, nr) => { return (state.starterList.length === 0 ? ' ' : state.starterList[nr].alterskl) },
-    displayType: (state, nr) => { return (state.starterList.length === 0 ? ' ' : state.starterList[nr].type) },
-    displayRoutine: (state, nr) => { return (state.starterList.length === 0 ? ' ' : state.starterList[nr].routine) },
+    displayKlasse: (state) => (nr) => { return (state.starterList.length === 0 ? ' ' : state.starterList[nr].klasse) },
+    displayAlterskl: (state) => (nr) => { return (state.starterList.length === 0 ? ' ' : state.starterList[nr].alterskl) },
+    displayType: (state) => (nr) => { return (state.starterList.length === 0 ? ' ' : state.starterList[nr].type) },
+    displayRoutine: (state) => (nr) => { return (state.starterList.length === 0 ? ' ' : state.starterList[nr].routine) },
   }
 
   // setters: {
