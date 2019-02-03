@@ -49,10 +49,10 @@ export default new Vuex.Store({
       artistik: [0.0, 0.0, 0.0, 0.0],
     },
 
-  // Array list of starters [0..N]
+  // // Array list of starters [0..N]
   starterList: [],
-  starterActive: [],
-  StarterVoted: [],
+  // starterActive: [],
+  // StarterVoted: [],
   
 
 
@@ -120,6 +120,7 @@ export default new Vuex.Store({
     // Full table data
     tableDataFull: state => {
       if (state.starterList.length === 0) {
+        console.log('Caution no data in List')
         return []
       } else {
       return state.starterList

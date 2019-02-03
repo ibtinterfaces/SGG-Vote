@@ -194,25 +194,8 @@ export default {
     },
     computed: {
       myData () {
-        return this.$store.getters.tableDataOneByNr(this.$store.state.orga.aktiveTeam)
+        return this.$store.getters.tableDataOneByNr(store.state.orga.aktiveTeam)
       },
-      // Dummy due 
-      displayKlasse () {
-          // console.log(store.state.starterList)
-          if(this.$store.state.starterList.length === 0) {
-            return ' '
-          } else {
-            return this.$store.state.starterList[store.state.vote[0]].klasse
-          }
-      },
-
-      // displayType () {
-      //     if(this.$store.state.starterList.length === 0) {
-      //       return ' '
-      //     } else {
-      //       return this.$store.state.starterList[store.state.vote[0]].type
-      //     }
-      // }
     }
 }
 </script>
