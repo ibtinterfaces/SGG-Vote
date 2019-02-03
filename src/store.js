@@ -35,7 +35,7 @@ export default new Vuex.Store({
       action: '',
                // Val  Diff ??   DJ         
       technik:   [0.0, 0.0, 0.0, 0.0],
-      akrobatik: [0.0, 0.0, 0.0, 0.0],
+      artistik: [0.0, 0.0, 0.0, 0.0],
       wertung:   [0.0, 0.0, 0.0, 0.0],
       gesPunkte: 0.0,
       platzierung: 0
@@ -46,7 +46,7 @@ export default new Vuex.Store({
       dj: 0,
       value: 0,
       technik:   [0.0, 0.0, 0.0, 0.0], // ???????
-      akrobatik: [0.0, 0.0, 0.0, 0.0],
+      artistik: [0.0, 0.0, 0.0, 0.0],
     },
 
   // Array list of starters [0..N]

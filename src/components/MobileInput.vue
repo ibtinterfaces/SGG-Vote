@@ -58,7 +58,7 @@
   <v-container fluid>
     <v-radio-group v-model="radios" :mandatory="false">
       <v-radio label="Technik" value="Technik" color="colactive"></v-radio>
-      <v-radio label="Akrobatik" value="Akrobatik" color="colactive"></v-radio>
+      <v-radio label="Artistik" value="Artistik" color="colactive"></v-radio>
       <v-radio label="DJ" value="DJ" color="colactive"></v-radio>
     </v-radio-group>
   </v-container>
@@ -91,11 +91,11 @@
             v-model="test2"
             color="colactive"
           ></v-text-field>
-           <v-text-field v-show="radios === 'Akrobatik'"
+           <v-text-field v-show="radios === 'Artistik'"
             type="number"
-            name="Akrobatik"
-            label="Akrobatik Wertung 5-10"
-            id="Akrobatik"
+            name="Artistik"
+            label="Artistik Wertung 5-10"
+            id="Artistik"
             min=5
             max=10
             step=0.1
@@ -139,7 +139,7 @@ export default {
         test4: 0,
         Difficultyt: 0.0,
         Technik: 0.0,
-        Akrobatik: 0.0,
+        Artistik: 0.0,
         Dj: 0.0,
         radios: 'Technik',
         kampfgNr: [1, 2],
