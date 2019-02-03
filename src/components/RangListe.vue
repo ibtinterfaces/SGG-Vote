@@ -1,11 +1,11 @@
 <template>
   <div class="rangliste pt-5">
     <p class="display-3">Rangliste</p>
-     <p class="display-1 mx-5">Klasse:  {{ this.$store.getters.displayKlasse }},  {{  this.$store.getters.displayAlterskl }}, {{  this.$store.getters.displayType }},  {{  this.$store.getters.displayRoutine }}</p>
+     <!-- <p class="display-1 mx-5">Klasse:  {{  altersKlasse }}, {{  typ }},  {{  routine }}</p> -->
   
     <v-data-table
       :headers="headers"
-      :items="this.$store.getters.filteredtableDataklass"
+      :items="tableData"
       disable-initial-sort
       v-bind:pagination.sync="pagination"
       hide-actions
@@ -96,12 +96,21 @@ export default {
       }
     },
     computed: {
-      // tableData () {
-      //   return this.$store.getters.filteredtableDataklass
-      // },
-      // myDebug () {
-      //   return this.$store.state.starterList
-      // },
+      tableData () {
+        return this.$store.getters.tableDataByKlass
+      },
+      klasse () {
+        return this.$store.getters.displayKlasse(this.$store.state.orga.votedTeam)
+      },
+      altersKlasse () {
+        return this.$store.getters.displayAlterskl(this.$store.state.orga.votedTeam)
+      },
+      type () {
+        return this.$store.getters.displayType(this.$store.state.orga.votedTeam)
+      },
+      routine () {
+        return this.$store.getters.displayRoutine(this.$store.state.orga.votedTeam)
+      },
     },
     mounted () {
       // Dummy fake data for testing

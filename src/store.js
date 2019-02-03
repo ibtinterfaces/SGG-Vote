@@ -11,12 +11,14 @@ export default new Vuex.Store({
     
     // Set up on Orga Page
     vote: [], // index 0 in vote index 1-N Lastvotes
-    orgaselect: 0,
+    // orgaselect: 0,
     connect: false,
-    // orga: {
-    //   voting: 2,  
-    //   voted: 3,  
-    // },
+
+    orga: {
+      aktiveTeam: 2,  
+      votedTeam: 3,
+      KampfgerichtBusy: true,  
+    },
 
     kampfgerichtInUse: 0,
     
@@ -106,29 +108,21 @@ export default new Vuex.Store({
       console.log('SOCKET_DISCONNECT')
    },
     SOCKET_SYNC_ORGASELECT: (state, message) => {
-        state.orgaselect = message[0]
+        state.orga.aktiveTeam = message
       // state.kampfgericht.push(message[0])
-      // console.log(message[0])
-      console.log('SOCKET_SYNC_ORGASELECT', message)
+      console.log('SOCKET_SYNC_ORGASELECT ', message)
     },
 
 
 
   },  
   getters: {
-    tableData: state => {
+    // Full table
+    tableDataFull: state => {
       return state.starterList
     },
-    tableDataActive: state => {
-      console.log('tableDataActive')
-      console.log(state.starterActive)
-      if (state.starterActive.length === 0) {
-        return []
-      } else {
-      return state.starterActive
-      }
-    },
-    inVote: (state) => (nr) => {
+    // Filter one entry by Nr.
+    tableDataOneByNr: (state) => (nr) => {
       if (state.starterList.length === 0) {
         return []
       } else {
@@ -140,33 +134,53 @@ export default new Vuex.Store({
         console.log(x)
         return x
       }
-  },
-    // filteredtableDataVoting: state => {
+    },
+    // Filter by klass and type for rangliste 
+    // Need to add dynamic loockup to last voted Nr 
+    tableDataByKlass: state => {
+      return state.starterList.filter((i) => {
+        return ((i.klasse === 'N') && (i.type === 'W2'))
+         // return ((i.nr === 7))
+       })
+      },
+
+    // tableData: state => {
+    //   return state.starterList
+    // },
+    // tableDataActive: state => {
+    //   console.log('tableDataActive')
+    //   console.log(state.starterActive)
+    //   if (state.starterActive.length === 0) {
+    //     return []
+    //   } else {
+    //   return state.starterActive
+    //   }
+    // },
+    // inVote: (state) => (nr) => {
+    //   if (state.starterList.length === 0) {
+    //     return []
+    //   } else {
+    //     console.log('Die Nummer:  ' + nr)
+    //     var x = []
+    //     //x.push(state.starterList.find(thing => thing.nr === nr))
+    //     x.push(state.starterList.find(thing => thing.nr === nr))
+    //     console.log('DEBUG')
+    //     console.log(x)
+    //     return x
+    //   }
+    // },
+    // filteredtableDataVoted: state => {
     //   return state.starterList.filter((i) => {
-    //     console.log('1: ' + i.nr)
-    //     console.log('2: ' + state.orgaselect)
+    //     console.log(i.nr)
+    //     console.log((i.nr === state.orgaselect))
     //      return ((i.nr === state.orgaselect))
     //      // return ((i.nr === 7))
     //    })
     // },
-    filteredtableDataVoted: state => {
-      return state.starterList.filter((i) => {
-        console.log(i.nr)
-        console.log((i.nr === state.orgaselect))
-         return ((i.nr === state.orgaselect))
-         // return ((i.nr === 7))
-       })
-    },
-    filteredtableDataklass: state => {
-    return state.starterList.filter((i) => {
-      return ((i.klasse === 'N') && (i.type === 'W2'))
-       // return ((i.nr === 7))
-     })
-    },
-    displayKlasse: state => { return (state.starterList.length === 0 ? ' ' : state.starterList[state.orgaselect].klasse) },
-    displayAlterskl: state => { return (state.starterList.length === 0 ? ' ' : state.starterList[state.orgaselect].alterskl) },
-    displayType: state => { return (state.starterList.length === 0 ? ' ' : state.starterList[state.orgaselect].type) },
-    displayRoutine: state => { return (state.starterList.length === 0 ? ' ' : state.starterList[state.orgaselect].routine) },
+    displayKlasse: (state, nr) => { return (state.starterList.length === 0 ? ' ' : state.starterList[nr].klasse) },
+    displayAlterskl: (state, nr) => { return (state.starterList.length === 0 ? ' ' : state.starterList[nr].alterskl) },
+    displayType: (state, nr) => { return (state.starterList.length === 0 ? ' ' : state.starterList[nr].type) },
+    displayRoutine: (state, nr) => { return (state.starterList.length === 0 ? ' ' : state.starterList[nr].routine) },
   }
 
   // setters: {

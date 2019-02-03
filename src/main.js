@@ -10,17 +10,23 @@ import 'vuetify/dist/vuetify.min.css'
 
 import fileStartliste from './startliste.json'
 
-import VueSocketIO from 'vue-socket.io'
 
-Vue.use(new VueSocketIO({
-  debug: true,
-  connection: location.hostname + ':8000',
-  vuex: {
-      store,
-      actionPrefix: 'SOCKET_',
-      mutationPrefix: 'SOCKET_'
-  }
-}))
+import VueSocketio from 'vue-socket.io-extended';
+import io from 'socket.io-client';
+Vue.use(VueSocketio, io(location.hostname + ':8000'), { store });
+
+
+// switched to vue-socket.io-extended due receive bug in above code!!!
+// import VueSocketIO from 'vue-socket.io'
+// Vue.use(new VueSocketIO({
+//   debug: true,
+//   connection: location.hostname + ':8000',
+//   vuex: {
+//       store,
+//       actionPrefix: 'SOCKET_',
+//       mutationPrefix: 'SOCKET_'
+//   }
+// }))
 
 // Import the EventBus we just created.
 // import { EventBus } from './event-bus.js';
@@ -41,35 +47,34 @@ Vue.config.productionTip = false
 // read Config file after power Reset
 // var fs = require('fs');
 // var starter = {}
-Vue.prototype.$eventHub = new Vue(); // Global event bus
 
-var data = { 
-  orgaselect: 1 
-}
+// Vue.prototype.$eventHub = new Vue(); // Global event bus
+
+// var data = { 
+//   orgaselect: 1 
+// }
+
 // new Vue({
 export const EventBus = new Vue({
     router,
     store,
-    data: data,
+    // data: data,
     methods: {
-      setOrgaSelect(val) 
-            {
-         // name will be automatically transported to the parameter.
-                console.log(':-) ' + val)
-                EventBus.$data.orgaselect = val
-                console.log('yes ' + EventBus.orgaselect)
-                console.log('xxx ' + this.orgaselect)
-                console.log('yyy ' + this.$data.orgaselect)
-                console.log('zzz ' + EventBus.$data.orgaselect)
-            }
+      // setOrgaSelect(val) 
+      //       {
+      //    // name will be automatically transported to the parameter.
+      //           console.log(':-) ' + val)
+      //           EventBus.$data.orgaselect = val
+      //           console.log('yes ' + EventBus.orgaselect)
+      //       }
     },
-    created() {
-        this.$eventHub.$on('new-orga-select', this.setOrgaSelect)
-    },
+    // created() {
+    //     this.$eventHub.$on('new-orga-select', this.setOrgaSelect)
+    // },
 
-    beforeDestroy(){
-        this.$eventHub.$off('new-orga-select');
-    },
+    // beforeDestroy(){
+    //     this.$eventHub.$off('new-orga-select');
+    // },
 
     // components: { App},
   render: h => h(App)

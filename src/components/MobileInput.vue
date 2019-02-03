@@ -24,12 +24,9 @@
     </v-layout>
   </v-container>
 
-     <!-- <p class="display-1 mx-5">Klasse:  {{ displayKlasse }},  {{ displayType }}</p>
-   -->
-
     <v-data-table
       :headers="headers"
-      :items="filteredtableData"
+      :items="myData"
       disable-initial-sort
       v-bind:pagination.sync="pagination"
       hide-actions
@@ -51,18 +48,12 @@
          <!-- <td class="text-xs-center display-1">{{ props.index + 1 }}</td> -->
          <td class="text-xs-center display-1">{{ props.item.nr }}</td>
       <td class="text-xs-left display-1">{{ props.item.name1 }}</td>
-        <td class="text-xs-center display-1">{{ props.item.verein }}</td>
+        <!-- <td class="text-xs-center display-1">{{ props.item.verein }}</td> -->
         <td class="text-xs-center display-1">{{ props.item.klasse }}</td>
         <td class="text-xs-center display-1">{{ props.item.type }}</td>
         <!-- <td class="text-xs-center display-1">{{ props.item.gesPunkte }}</td> -->
       </template>
     </v-data-table>
-    <p class="display-1">Debug output</p>
-    <p>{{ getVoting }} </p>
-    <!-- <v-spacer></v-spacer>
-    <p>computed{{ computedUsers }} </p>
-   <v-spacer></v-spacer>
-    <p>getted{{ gettedUsers }} </p> -->
 
   <v-container fluid>
     <v-radio-group v-model="radios" :mandatory="false">
@@ -174,12 +165,12 @@ export default {
             sortable: false,
             value: 'name'
           },
-          {
-            text: 'Verein',
-            align: 'center',
-            sortable: false,
-            value: 'verein'
-          },
+          // {
+          //   text: 'Verein',
+          //   align: 'center',
+          //   sortable: false,
+          //   value: 'verein'
+          // },
           {
             text: 'Klasse',
             align: 'center',
@@ -202,17 +193,10 @@ export default {
       }
     },
     computed: {
-      tableData () {
-        return this.$store.state.starterList
+      myData () {
+        return this.$store.getters.tableDataOneByNr(this.$store.state.orga.aktiveTeam)
       },
-      filteredtableData () {
-         return this.$store.state.starterList.filter((i) => {
-            return ((i.nr === this.$store.state.vote[0]))
-          })
-      },
-      getVoting () {
-          return this.$store.state.vote[0]
-      },
+      // Dummy due 
       displayKlasse () {
           // console.log(store.state.starterList)
           if(this.$store.state.starterList.length === 0) {
@@ -221,13 +205,14 @@ export default {
             return this.$store.state.starterList[store.state.vote[0]].klasse
           }
       },
-      displayType () {
-          if(this.$store.state.starterList.length === 0) {
-            return ' '
-          } else {
-            return this.$store.state.starterList[store.state.vote[0]].type
-          }
-      }
+
+      // displayType () {
+      //     if(this.$store.state.starterList.length === 0) {
+      //       return ' '
+      //     } else {
+      //       return this.$store.state.starterList[store.state.vote[0]].type
+      //     }
+      // }
     }
 }
 </script>

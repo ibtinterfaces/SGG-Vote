@@ -1,10 +1,9 @@
 <template>
   <div class="oneresult pt-5">
-    <p class="display-3">Letzte Wertung</p> {{ this.$store.getters.displayKlasse }}
-    <!-- <p class="display-1 mx-5">Klasse:  {{ displayKlasse }},  {{ displayAlterskl }}, {{ displayType }},  {{ displayRoutine }}</p> -->
+    <p class="display-3">Letzte Wertung</p> 
     <v-data-table
       :headers="headers"
-      :items="mydata"
+      :items="tableData"
       disable-initial-sort
       v-bind:pagination.sync="pagination"
       hide-actions
@@ -16,7 +15,7 @@
           <span slot="activator" class="display-1">
             {{ props.header.text }}
           </span>
-          <span class="display-1">
+          <span>
             {{ props.header.text }}
           </span>
         </v-tooltip>
@@ -100,9 +99,11 @@ export default {
       myDebug () {
         return store.state.starterList
       },
-      mydata () {
+      tableData () {
         //return this.$store.getters.tableData
-        return this.$store.getters.inVote(7)
+        // return this.$store.getters.inVote(7)
+        return this.$store.getters.tableDataOneByNr(this.$store.state.orga.votedTeam)
+        // return this.$store.getters.tableDataOneByNr(9)
       }
     },
     mounted () {

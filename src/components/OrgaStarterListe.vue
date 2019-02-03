@@ -1,6 +1,5 @@
 <template>
   <div class="rangliste">
-    <!-- <p class="display-3">Orga Starterliste :{{EventBus.$data.orgaselect}}:</p> -->
     <p class="display-3">Orga Starterliste</p>
         <p>component:{{ myDebug }} </p>
 
@@ -129,7 +128,7 @@ export default {
     },
     computed: {
       tableData () {
-        return this.$store.getters.tableData
+        return this.$store.getters.tableDataFull
       },
       myDebug () {
         
@@ -185,9 +184,9 @@ export default {
         this.tableData.forEach(item => {
           if (item.nr === selectedItem.nr) {
             // this.$emit('orgaselect', selectedItem.nr)
-          this.$eventHub.$emit('new-orga-select', selectedItem.nr);
+          // this.$eventHub.$emit('new-orga-select', selectedItem.nr);
            this.selected.push(item)
-           store.commit('updatestarteraktive', item)
+          //  store.commit('updatestarteraktive', item)
            this.$socket.emit('sync_orgaselect',selectedItem.nr)
            //store.commit('updatevoting', selectedItem.nr)
           }

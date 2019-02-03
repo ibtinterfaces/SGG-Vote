@@ -6,16 +6,14 @@
       <router-link to="/orga">Orga</router-link> |
       <router-link to="/input">Input</router-link>
     </div> -->
-   <v-content>
-    <v-container fluid>
-      <router-view></router-view>
-    </v-container>
-  </v-content>
-   <!-- <router-view/> -->
+      <v-content>
+        <v-container fluid>
+          <router-view></router-view>
+        </v-container>
+      </v-content>
     </v-app>
   </div>
 </template>
-
 
 <style lang="scss">
 #app {
