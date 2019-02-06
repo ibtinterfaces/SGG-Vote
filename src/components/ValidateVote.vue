@@ -1,25 +1,11 @@
 <template>
   <div class="validatevote pt-0">
     <p class="display-3">Validate Voting</p>
+    <OneAktive></OneAktive>
 
     <v-container fluid>
-      <v-layout row>
+      <v-layout row justify-center>
         <v-flex shrink px-2>
-
-
-
-          <!-- <v-text-field
-            type="number"
-            name="[n]"
-            label="Value"
-            id="Value"
-            min=5
-            max=10
-            step=0.1
-            maxlength=2
-            v-model="test1"
-            color="colactive"
-          ></v-text-field> -->
 
            <v-text-field
             type="number"
@@ -35,11 +21,8 @@
             v-for="x in 4" v-bind:key="x"
           ></v-text-field>
         </v-flex>
-      <!-- </v-layout>
 
-      <v-layout row> -->
         <v-flex shrink px-2>
-
            <v-text-field
             type="number"
             name="Artistik"
@@ -85,9 +68,82 @@
           ></v-text-field>
         </v-flex>
 
+        <v-flex shrink px-2 pt-2>
+          <v-btn outline color="colactive">Next</v-btn>
+        </v-flex>
  
  
       </v-layout>
+
+      <v-layout row justify-center>
+        <v-flex shrink px-2>
+
+           <v-text-field
+            type="number"
+            name="Technik"
+            label="Technik"
+            id="Technik"
+            min=5
+            max=10
+            step=0.1
+            maxlength=2
+            v-model="test2"
+            color="colactive"
+          ></v-text-field>
+        </v-flex>
+
+        <v-flex shrink px-2>
+           <v-text-field
+            type="number"
+            name="Artistik"
+            label="Artistik"
+            id="Artistik"
+            min=5
+            max=10
+            step=0.1
+            maxlength=2
+            v-model="test3"
+            color="colactive"
+          ></v-text-field>
+        </v-flex>
+ 
+        <v-flex shrink px-2>
+            <v-text-field
+            type="number"
+            name="DJ"
+            label="DJ"
+            id="Dj"
+            min=0
+            max=30
+            step=0.1
+            maxlength=2
+            v-model="test4"
+            color="colactive"
+          ></v-text-field>
+        </v-flex>
+
+        <v-flex shrink px-2>
+           <v-text-field
+            type="number"
+            name="CJP"
+            label="CJP"
+            id="CJP"
+            min=0
+            max=30
+            step=0.1
+            maxlength=2
+            v-model="test4"
+            color="colactive"
+          ></v-text-field>
+        </v-flex>
+
+        <v-flex shrink px-2 pt-2>
+          <v-btn outline color="colactive">Take</v-btn>
+        </v-flex>
+ 
+      </v-layout>
+
+
     </v-container>
 
   </div>
@@ -95,9 +151,13 @@
 
 <script>
 // import store from '@/store'
+import OneAktive from '@/components/OneAktive.vue'
 
 export default {
   name: 'ValidateVote',
+  components: {
+    OneAktive
+  },
   props: {
     // msg: String
     

@@ -1,7 +1,7 @@
 <template>
   <div class="rangliste">
     <p class="display-3">Orga Starterliste</p>
-        <p>component:{{ myDebug }} </p>
+        <p>Selected:{{ myDebug }} </p>
 
     <v-data-table
       :headers="headers"
