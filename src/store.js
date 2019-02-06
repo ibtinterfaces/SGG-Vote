@@ -41,13 +41,20 @@ export default new Vuex.Store({
       platzierung: 0
     },
 
-    // Data input on mobile devices für Kampfgerichte
-    mobileWertung: {
-      dj: 0,
-      value: 0,
-      technik:   [0.0, 0.0, 0.0, 0.0], // ???????
-      artistik: [0.0, 0.0, 0.0, 0.0],
-    },
+    // Vote values of all mobiles go here
+    mobileWertung: [ 
+      { // Kampfgericht 1
+        technik:   [0.0, 0.0, 0.0, 0.0], // ???????
+        artistik: [0.0, 0.0, 0.0, 0.0],
+        dj: 0,
+        cjp: 0
+      },
+      { // Kampfgericht 2
+        technik:   [0.0, 0.0, 0.0, 0.0], // ???????
+        artistik: [0.0, 0.0, 0.0, 0.0],
+        dj: 0,
+        cjp: 0
+      }],
 
   // // Array list of starters [0..N]
   starterList: [],

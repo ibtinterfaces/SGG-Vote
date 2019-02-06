@@ -69,9 +69,9 @@
         <v-flex xs12 sm10>
           <v-text-field v-show="radios === 'DJ'"
             type="number"
-            name="Difficulty"
-            label="Difficulty"
-            id="Difficulty"
+            name="Value"
+            label="Value"
+            id="Value"
             min=5
             max=10
             step=0.1
@@ -137,7 +137,7 @@ export default {
         test2: 0,
         test3: 0,
         test4: 0,
-        Difficultyt: 0.0,
+        Value: 0.0,
         Technik: 0.0,
         Artistik: 0.0,
         Dj: 0.0,

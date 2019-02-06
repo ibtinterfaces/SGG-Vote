@@ -10,11 +10,11 @@ import 'vuetify/dist/vuetify.min.css'
 
 import fileStartliste from './startliste.json'
 
-
 import VueSocketio from 'vue-socket.io-extended';
 import io from 'socket.io-client';
 Vue.use(VueSocketio, io(location.hostname + ':8000'), { store });
-
+// Vue.use(VueSocketio, io('https://lit-tor-53130.herokuapp.com:8000'), { store });
+// Vue.use(VueSocketio, io('https://lit-tor-53130.herokuapp.com:8000'), { store });
 
 // switched to vue-socket.io-extended due receive bug in above code!!!
 // import VueSocketIO from 'vue-socket.io'

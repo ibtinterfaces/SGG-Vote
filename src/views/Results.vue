@@ -1,6 +1,5 @@
 <template>
   <div class="results">
-    <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
     <OneAktive></OneAktive>
     <OneResult v-show="showOneresult"></OneResult>
     <RangListe v-show="showRangliste"></RangListe>

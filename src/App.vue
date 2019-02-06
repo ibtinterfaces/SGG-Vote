@@ -1,11 +1,6 @@
 <template>
   <div id="app">
     <v-app dark>
-    <!-- <div id="nav">
-      <router-link to="/">Results</router-link> |
-      <router-link to="/orga">Orga</router-link> |
-      <router-link to="/input">Input</router-link>
-    </div> -->
       <v-content>
         <v-container fluid>
           <router-view></router-view>

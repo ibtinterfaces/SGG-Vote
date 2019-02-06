@@ -1,7 +1,6 @@
 <template>
   <div class="orga">
-    <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
-    <!-- <h1>Rangliste</h1> -->
+    <ValidateVote/>
     <OrgaStarterListe/>
   </div>
 </template>
@@ -13,11 +12,13 @@
 // x seconds Rangliste 
 
 import OrgaStarterListe from '@/components/OrgaStarterListe.vue'
+import ValidateVote from '@/components/ValidateVote.vue'
 
 export default {
   // name: 'Results',
   components: {
-    OrgaStarterListe
+    OrgaStarterListe,
+    ValidateVote
   }
 }
 </script>
