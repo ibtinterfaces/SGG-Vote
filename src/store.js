@@ -24,6 +24,7 @@ export default new Vuex.Store({
     
     // Resultview control
     ToggleResultView: 0,
+
     // Data of one starter
     starter: {
       name1: '',
@@ -44,20 +45,52 @@ export default new Vuex.Store({
     // Vote values of all mobiles go here
     mobileWertung: [ 
       { // Kampfgericht 1
-        technik:   [0.0, 0.0, 0.0, 0.0], // ???????
+        technik: {
+          input:  [5.1, 6.1, 7.1, 8.1],
+          result: 0.0
+        },
+        artistik: {
+          input: [5.0, 6.0, 7.0, 8.0],
+          result: 0.0
+        },
+        dj: 3.3,
+        cjp: 2.2,
+        results: {
+          technik: 0.0,
+          artistik: 0.0,
+          dj: 3.3,
+          cjp: 2.2
+          }
+      },
+      { // Kampfgericht 2
+        technik:   [5.5, 6.6, 7.7, 8.8], // ???????
         artistik: [0.0, 0.0, 0.0, 0.0],
         dj: 0,
         cjp: 0
       },
       { // Kampfgericht 2
-        technik:   [0.0, 0.0, 0.0, 0.0], // ???????
+        technik: {
+          input:  [5.1, 6.1, 7.1, 8.1],
+          result: 0.0
+        },
+        artistik: {
+          input: [5.0, 6.0, 7.0, 8.0],
+          result: 0.0
+        },
+        dj: 3.3,
+        cjp: 2.2
+      },
+      { // Kampfgericht 2
+        technik:   [5.5, 6.6, 7.7, 8.8], // ???????
         artistik: [0.0, 0.0, 0.0, 0.0],
         dj: 0,
         cjp: 0
-      }],
+      }
+    ],
 
   // // Array list of starters [0..N]
   starterList: [],
+
   // starterActive: [],
   // StarterVoted: [],
   
