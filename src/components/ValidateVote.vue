@@ -18,7 +18,6 @@
             maxlength=2
             v-model="technik_1"
             color="colactive"
-            @change="recalc($store.state.mobileWertung[0].technik)"
           ></v-text-field>
         <!-- </v-flex>
         <v-flex shrink px-2> -->
@@ -222,7 +221,7 @@
 
 
         <v-flex shrink px-2 pt-2>
-          <v-btn outline color="colactive">Calc Vote</v-btn>
+          <v-btn outline color="colactive" @click="calcResult">Calc Vote</v-btn>
         </v-flex>
  
       </v-layout>
@@ -361,29 +360,29 @@ export default {
          return ((val1 + val2) / 2)
       },
       calcDoubleAverage (val1, val2, val3) {
-         return ((((val1 + val2) / 2) + ((val2 + val3) / 2)) / 2)
+         return this.calcAverage(this.calcAverage(val1, val2), this.calcAverage (val2, val3))
       },
       calcFairAverage (array) {
         var count = array.length
         var result = 0
         console.log(array)
+        // sort array ascading
         array.sort(function(a, b){return a-b})
         console.log(array)
-        if(count === 4) {
-          result =  ((array[1]+ array[2]) / 2)
-        } else if (count === 5) {
-          result =  ((array[1] + array[2] + array[3]) / 3)
-        } else {
-          console.log('This should not happen in function calcFairAverage  :-( ')
-          result = 0.0  
+        // Calc average without min and max value
+        for(var i = 1; i < count-1; i++) {
+          result += array[i]
         }
+        result = result / count-2
         console.log('calcFairAverage Result: ' + result)
         return result
       },
-      recalc (obj) {
+
+        partCalc (obj) {
         var voteCount = []
         var result
         console.log('Recalculate Technik vote')
+        // Generates an array with valid votes 
         voteCount = this.getVoteCount(obj.input)
         console.log('Votecount: ' + voteCount)
 
@@ -424,6 +423,14 @@ export default {
             console.log('Result: ' + result)
             return true
       },
+      // Main Vote calculation 
+      calcResult () {
+        var obj = []
+        obj.technik.result = this.partCalc(store.state.mobileWertung[0].technik)
+        obj.artistik.result = this.partCalc(store.state.mobileWertung[0].artistik)
+        console.log('DEBUG:  calcResult() ')
+        console.log(obj)
+      }
 
 
 
