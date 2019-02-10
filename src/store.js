@@ -28,8 +28,8 @@ export default new Vuex.Store({
     // Data of one starter
     starter: {
       name1: '',
-      // name2: '',
-      // name3: '',
+      name2: '',
+      name3: '',
       verein: '',
       klasse: '',
       type: '',

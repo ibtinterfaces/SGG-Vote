@@ -1,0 +1,14 @@
+/* Custom style sheets */
+/*body #app .theme--dark {
+	background: #fff;
+	color: #000;
+}
+
+#app .v-tooltip__content,
+#app .theme--dark.v-table thead th {
+	color: #000;
+}*/
+
+#app table.v-table tbody td span {
+	display: block;
+}

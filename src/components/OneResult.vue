@@ -1,6 +1,7 @@
 <template>
   <div class="oneresult pt-5">
-    <p class="display-3">Letzte Wertung</p> 
+    <p class="display-3">Letzte Wertung</p>
+    <p class="display-1 mx-5">&nbsp;</p>
     <v-data-table
       :headers="headers"
       :items="tableData"
@@ -24,7 +25,7 @@
          <!-- <td class="text-xs-center display-1">{{ props.item.platzierung }}</td> -->
          <!-- <td class="text-xs-center display-1">{{ props.index + 1 }}</td> -->
          <td class="text-xs-center display-1">{{ props.item.nr }}</td>
-      <td class="text-xs-left display-1">{{ props.item.name1 }}</td>
+      <td class="text-xs-left display-1"><span>{{ props.item.name1 }}</span><span>{{ props.item.name2 }}</span><span>{{ props.item.name3 }}</span></td>
         <!-- <td class="text-xs-center display-1">{{ props.item.verein }}</td> -->
         <td class="text-xs-center display-1">{{ props.item.klasse }}</td>
         <td class="text-xs-center display-1">{{ props.item.type }}</td>
