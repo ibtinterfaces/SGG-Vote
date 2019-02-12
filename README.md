@@ -23,6 +23,15 @@ npm run serve
 npm run build
 ```
 
+### SGG-Vote Server
+Distributes data between devices and browser windows
+```
+git clone https://github.com/ibtinterfaces/SGG-Server.git
+npm install
+npm run serve
+```
+
+
 ### Pages Views
 
 Result page:   localhost:8080
