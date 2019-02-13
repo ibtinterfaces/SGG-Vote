@@ -46,7 +46,7 @@ export default new Vuex.Store({
     mobileWertung: [ 
       { // Kampfgericht 1
         technik: {
-          input:  [5.1, 6.1, 7.1, 8.1],
+          input:  [5.1, 6.2, 7.1, 8.1],
           busy: [false, false, false, false],
           result: 0.0
         },
@@ -55,16 +55,16 @@ export default new Vuex.Store({
           busy: [false, false, false, false],
           result: 0.0
         },
-        dj: 3.3,
+        djresult: 3.3,
         djBusy: false,
-        cjp: 2.2,
+        cjpresult: 2.2,
         cjpBusy: false,
-        results: {
-          technik: 0.0,
-          artistik: 0.0,
-          dj: 3.3,
-          cjp: 2.2
-          }
+        // results: {
+        //   technik: 0.0,
+        //   artistik: 0.0,
+        //   dj: 3.3,
+        //   cjp: 2.2
+        //   }
       }
     ],
 
@@ -115,6 +115,26 @@ export default new Vuex.Store({
       state.starterActive = []
       state.starterActive.push(obj)
     },
+
+    // Calculated pre results berfor validate and takeover
+    updatepreresult (state, obj) {
+      state.mobileWertung[0].technik.result = obj.technik
+      state.mobileWertung[0].artistik.result = obj.artistik
+      state.mobileWertung[0].djresult = obj.dj
+      state.mobileWertung[0].cjpresult = obj.cjp
+    },
+    updatecr (state, payload) {
+      state.mobileWertung[0].cjpresult = payload
+    },
+    updatedr (state, payload) {
+      state.mobileWertung[0].djresult = payload
+    },
+
+    // Calculated results berfor validate and takeover in starterlist
+    updatefinalresult (state, payload) {
+      state.mobileWertung[0].technik.result = payload // Reset List
+    },
+
 
     // Websocket Mobiledevice communication für Kampfgericht
     //SOCKET_CONNECT: (state, status) => {

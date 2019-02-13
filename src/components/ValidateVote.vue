@@ -130,7 +130,7 @@
             max=30
             step=0.1
             maxlength=2
-            v-model="$store.state.mobileWertung[0].dj"
+            v-model="dj_1"
             color="colactive"
           ></v-text-field>
         </v-flex>
@@ -145,7 +145,7 @@
             max=30
             step=0.1
             maxlength=2
-            v-model="$store.state.mobileWertung[0].cjp"
+            v-model="cjp_1"
             color="colactive"
           ></v-text-field>
         </v-flex>
@@ -162,14 +162,14 @@
 
            <v-text-field
             type="number"
-            name="Technik"
+            name="TechnikR"
             label="Technik"
-            id="Technik"
+            id="TechnikR"
             min=5
             max=10
             step=0.1
             maxlength=2
-            v-model="test2"
+            v-model="technik_R"
             color="colactive"
           ></v-text-field>
         </v-flex>
@@ -184,7 +184,7 @@
             max=10
             step=0.1
             maxlength=2
-            v-model="test3"
+            v-model="$store.state.mobileWertung[0].artistik.result"
             color="colactive"
           ></v-text-field>
         </v-flex>
@@ -199,7 +199,7 @@
             max=30
             step=0.1
             maxlength=2
-            v-model="test4"
+            v-model="dj_1"
             color="colactive"
           ></v-text-field>
         </v-flex>
@@ -214,7 +214,7 @@
             max=30
             step=0.1
             maxlength=2
-            v-model="test4"
+            v-model="cjp_1"
             color="colactive"
           ></v-text-field>
         </v-flex>
@@ -297,6 +297,16 @@ export default {
           // this.$socket.emit('tr_contr', store.state.dataToTracker)
         }
       },
+      technik_R: {
+        get () {
+          return store.state.mobileWertung[0].technik.result
+        },
+        set (value) {
+          store.state.mobileWertung[0].technik.result = parseFloat(value)
+          console.log('New Technik Result_1 value :-)   : ' + value)
+          // this.$socket.emit('tr_contr', store.state.dataToTracker)
+        }
+      },
       artistik_1: {
         get () {
           return store.state.mobileWertung[0].artistik.input[0]
@@ -336,7 +346,41 @@ export default {
           console.log('New Technik_1 value :-)   : ' + value)
           // this.$socket.emit('tr_contr', store.state.dataToTracker)
         }
-      }
+      },
+      // dj_1: {
+      //   get () {
+      //     return store.state.mobileWertung[0].djresult
+      //   },
+      //   set (value) {
+      //     store.state.mobileWertung[0].djresult = parseFloat(value)
+      //     console.log('New DJ value :-)   : ' + value)
+      //     // this.$socket.emit('tr_contr', store.state.dataToTracker)
+      //   }
+      // },
+      cjp_1: {
+        get () {
+          return store.state.mobileWertung[0].cjpresult
+        },
+        set (value) {
+          // store.state.mobileWertung[0].cjpresult = parseFloat(value)
+          store.commit('updatecr', parseFloat(value))
+
+          console.log('New CJP value :-)   : ' + value)
+          // this.$socket.emit('tr_contr', store.state.dataToTracker)
+        }
+      },
+      dj_1: {
+        get () {
+          return store.state.mobileWertung[0].djresult
+        },
+        set (value) {
+          // store.state.mobileWertung[0].cjpresult = parseFloat(value)
+          store.commit('updatedr', parseFloat(value))
+
+          console.log('New CJP value :-)   : ' + value)
+          // this.$socket.emit('tr_contr', store.state.dataToTracker)
+        }
+      },
     //   technik1 () { return this.$store.state.mobileWertung.technik[0] },
     //   technik2 () { return this.$store.state.mobileWertung.technik[1] },
     //   technik3 () { return this.$store.state.mobileWertung.technik[2] },
@@ -373,14 +417,14 @@ export default {
         for(var i = 1; i < count-1; i++) {
           result += array[i]
         }
-        result = result / count-2
+        result = result / (count-2)
         console.log('calcFairAverage Result: ' + result)
         return result
       },
 
         partCalc (obj) {
         var voteCount = []
-        var result
+        var result = 0
         console.log('Recalculate Technik vote')
         // Generates an array with valid votes 
         voteCount = this.getVoteCount(obj.input)
@@ -421,15 +465,31 @@ export default {
         }
             // obj.result = result
             console.log('Result: ' + result)
-            return true
+            return result
       },
       // Main Vote calculation 
       calcResult () {
-        var obj = []
-        obj.technik.result = this.partCalc(store.state.mobileWertung[0].technik)
-        obj.artistik.result = this.partCalc(store.state.mobileWertung[0].artistik)
+        console.log('Enter calcResult')
+          var obj = {
+              technik: 0.0,
+              artistik: 0.0,
+              dj: 0.0,
+              cjp: 0.0
+            }
+
+        console.log('calcResult technik')
+        obj.technik = this.partCalc(store.state.mobileWertung[0].technik)
+        console.log('calcResult artistik')
+        obj.artistik = this.partCalc(store.state.mobileWertung[0].artistik)
+        console.log('calcResult artistik')
+        obj.dj = store.state.mobileWertung[0].djresult
+        console.log('calcResult artistik')
+        obj.cjp = store.state.mobileWertung[0].cjpresult
         console.log('DEBUG:  calcResult() ')
         console.log(obj)
+
+        store.commit('updatepreresult', obj)
+
       }
 
 
