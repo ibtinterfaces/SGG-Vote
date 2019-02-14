@@ -129,7 +129,6 @@ export default new Vuex.Store({
     updatedr (state, payload) {
       state.mobileWertung[0].djresult = payload
     },
-
     // Calculated results berfor validate and takeover in starterlist
     updatefinalresult (state, payload) {
       state.mobileWertung[0].technik.result = payload // Reset List
@@ -146,11 +145,41 @@ export default new Vuex.Store({
     SOCKET_DISCONNECT: (state) => {
         state.connect = false
       console.log('SOCKET_DISCONNECT')
-   },
+    },
     SOCKET_SYNC_ORGASELECT: (state, message) => {
         state.orga.aktiveTeam = message
       // state.kampfgericht.push(message[0])
       console.log('SOCKET_SYNC_ORGASELECT ', message)
+    },
+    SOCKET_MOBILE_VOTE: (state, message) => {
+      // this._vm.$socket.emit('mobile_vote',message)
+      // this.$store.commit('updatemobilevote', message)
+      switch(message.name) {
+        case 'Technik':   state.mobileWertung[(message.kgNr-1)].technik.input.splice((message.krNr-1), 1, message.value)
+                          break
+        case 'Artistik':  state.mobileWertung[(message.kgNr-1)].artistik.input.splice((message.krNr-1), 1, message.value) 
+                          break
+        case 'DJ':        state.mobileWertung[(message.kgNr-1)].djresult = message.value
+                          break
+        case 'CJP':       state.mobileWertung[(message.kgNr-1)].cjpresult = message.value
+                          break
+        default: // better do nothing
+      }
+      console.log('SOCKET_MOBILE_VOTE', message)
+    },
+    SOCKET_MOBILE_BUSY: (state, message) => {
+      switch(message.name) {
+        case 'Technik': state.mobileWertung[(message.kgNr-1)].technik.busy.splice((message.krNr-1), 1, message.busy)
+                        break
+        case 'Artistik': state.mobileWertung[(message.kgNr-1)].artistik.busy.splice((message.krNr-1), 1, message.busy)
+                        break
+        case 'DJ': state.mobileWertung[(message.kgNr-1)].djBusy = message.busy
+                        break
+        case 'CJP': state.mobileWertung[(message.kgNr-1)].cjpBusy = message.busy
+                        break
+        default: // better do nothing
+      }
+    console.log('SOCKET_MOBILE_BUSY', message)
     },
 
 
@@ -189,6 +218,9 @@ export default new Vuex.Store({
     displayAlterskl: (state) => (nr) => { return (state.starterList.length === 0 ? ' ' : state.starterList[nr].alterskl) },
     displayType: (state) => (nr) => { return (state.starterList.length === 0 ? ' ' : state.starterList[nr].type) },
     displayRoutine: (state) => (nr) => { return (state.starterList.length === 0 ? ' ' : state.starterList[nr].routine) },
+
+    // getTechnik1: state => () => state.mobileWertung[0].technik.input[0]
+
   }
 
   // setters: {

@@ -46,6 +46,7 @@ export default {
                 store.state.mobileWertung[0].artistik.busy[0] ||
                 store.state.mobileWertung[0].artistik.busy[1] ||
                 store.state.mobileWertung[0].artistik.busy[2] ||
+                store.state.mobileWertung[0].artistik.busy[3] ||
                 store.state.mobileWertung[0].djBusy ||
                 store.state.mobileWertung[0].cjpBusy))
     }

@@ -259,6 +259,8 @@ export default {
     computed: {
       technik_1: {
         get () {
+          // console.log('Test ' +store.getters.getTechnik1)
+          // return store.getters.getTechnik1
           return store.state.mobileWertung[0].technik.input[0]
         },
         set (value) {

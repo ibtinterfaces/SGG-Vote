@@ -36,7 +36,9 @@ Vue.use(Vuetify, {
   colactive: '#55B883',
   secondary: '#009',
   primary: '#f00',
-  accent: '#0f0'
+  accent: '#0f0',
+  colok: '#8dc149',
+  colbusy: '#D50000'
   }
 })
 console.log('Debug Server IP: ' + location.hostname) 
