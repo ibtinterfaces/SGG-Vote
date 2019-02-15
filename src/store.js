@@ -8,89 +8,60 @@ export default new Vuex.Store({
 // export const store = new Vuex.Store({
   strict: true,
   state: {
+    connect: false, // Data server connect
+
+    // // Array list of starters [0..N]
+    starterList: [],
     
     // Set up on Orga Page
     vote: [], // index 0 in vote index 1-N Lastvotes
-    // orgaselect: 0,
-    connect: false,
-
     orga: {
       aktiveTeam: 2,  
       votedTeam: 2,
-      KampfgerichtBusy: true,  
     },
 
-    kampfgerichtInUse: 0,
-    
-    // Resultview control
+    // Result view control: single result and filtered result list 
     ToggleResultView: 0,
 
-    // Data of one starter
-    starter: {
-      name1: '',
-      name2: '',
-      name3: '',
-      verein: '',
-      klasse: '',
-      type: '',
-      action: '',
-               // Val  Diff ??   DJ         
-      technik:   [0.0, 0.0, 0.0, 0.0],
-      artistik: [0.0, 0.0, 0.0, 0.0],
-      wertung:   [0.0, 0.0, 0.0, 0.0],
-      gesPunkte: 0.0,
-      platzierung: 0
-    },
+    // // Data of one starter
+    // starter: {
+    //   name1: '',
+    //   name2: '',
+    //   name3: '',
+    //   verein: '',
+    //   klasse: '',
+    //   type: '',
+    //   action: '',
+    //            // Val  Diff ??   DJ         
+    //   technik:   [0.0, 0.0, 0.0, 0.0],
+    //   artistik: [0.0, 0.0, 0.0, 0.0],
+    //   wertung:   [0.0, 0.0, 0.0, 0.0],
+    //   gesPunkte: 0.0,
+    //   platzierung: 0
+    // },
 
     // Vote values of all mobiles go here
     mobileWertung: [ 
       { // Kampfgericht 1
         technik: {
-          input:  [5.1, 6.2, 7.1, 8.1],
+          input:  [0.0, 0.0, 0.0, 0.0],
           busy: [false, false, false, false],
           result: 0.0
         },
         artistik: {
-          input: [5.0, 6.0, 7.0, 8.0],
+          input: [0.0, 0.0, 0.0, 0.0],
           busy: [false, false, false, false],
           result: 0.0
         },
-        djresult: 3.3,
+        djresult: 0.0,
         djBusy: false,
-        cjpresult: 2.2,
+        cjpresult: 0.0,
         cjpBusy: false,
-        // results: {
-        //   technik: 0.0,
-        //   artistik: 0.0,
-        //   dj: 3.3,
-        //   cjp: 2.2
-        //   }
       }
     ],
 
-  // // Array list of starters [0..N]
-  starterList: [],
-
-  // starterActive: [],
-  // StarterVoted: [],
-  
-
-
-  // Array list of Kampfgerichte[0..N]  
-  kampfgericht: []
-  
   },
 
-  // computed: {
-  //   xobj: {
-  //     get () {
-  //       return this.$store.state.voting
-  //     },
-  //     set (value) {
-  //       this.$store.commit('updateA', value)
-  //     }
-  //   }
-  // },
   mutations: {
     // List updates
     clearstarterlist (state) {
@@ -110,10 +81,6 @@ export default new Vuex.Store({
     },
     updateorgaselect (state, obj) {
       state.orgaselect = obj // Reset List
-    },
-    updatestarteraktive (state, obj) {
-      state.starterActive = []
-      state.starterActive.push(obj)
     },
 
     // Calculated pre results berfor validate and takeover

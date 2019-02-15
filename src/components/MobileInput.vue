@@ -22,20 +22,23 @@
 
   <v-container fluid>
     <v-layout>
-    <v-radio-group v-model="nameSel" :mandatory="false">
-      <v-flex xs3>
+        <v-spacer></v-spacer>
+  
+    <v-radio-group row v-model="nameSel" :mandatory="false">
+    <!-- <v-layout> -->
+      <!-- <v-flex xs3> -->
         <v-radio class="px-0" :disabled="lockStatus" label="Technik" value="Technik" color="colactive"></v-radio>
-      </v-flex>
-      <v-flex xs3>
+      <!-- </v-flex> -->
+      <!-- <v-flex xs3> -->
         <v-radio class="px-0" :disabled="lockStatus" label="Artistik" value="Artistik" color="colactive"></v-radio>
-      </v-flex>
-      <v-flex xs3>
+      <!-- </v-flex> -->
+      <!-- <v-flex xs3> -->
         <v-radio class="px-0" :disabled="lockStatus" label="DJ" value="DJ" color="colactive"></v-radio>
-      </v-flex>
-      <v-flex xs3>
-        <v-radio class="px-0" :disabled="lockStatus" label="CJP" value="CJP" color="colactive"></v-radio>
-      </v-flex>
+      <!-- </v-flex> -->
+      <!-- <v-flex xs3> -->
+        <v-radio class="pa-0 ma-0" :disabled="lockStatus" label="CJP" value="CJP" color="colactive"></v-radio>
     </v-radio-group>
+    <v-spacer></v-spacer>
     </v-layout>
   </v-container>
 
@@ -116,15 +119,17 @@
         </v-flex>
         <v-spacer></v-spacer>
 
-
         <v-flex xs12>
               <v-btn class="ma-3" outline color="colactive" @click="clickVote">
                 Send Vote
               </v-btn>
         </v-flex>
 
+        <!-- <v-flex xs12>
+              <v-progress-circular v-show="busyStatus" color="colactive" :indeterminate="busyStatus" :value="0" size="50" class="ml-0 mt-1"></v-progress-circular>
+        </v-flex> -->
+
         <!-- <v-spacer></v-spacer> -->
-<v-progress-circular v-show="busyStatus" color="colactive" :indeterminate="busyStatus" :value="0" size="50" class="ml-0 mt-1"></v-progress-circular>
 
       </v-layout>
     </v-container>
@@ -237,7 +242,7 @@ export default {
       },
       dataName () {
         return 'Wertung:  Kampfgericht  ' + this.kampfSelect + '  ' + (this.nameSel || 'null' ) + '  ' + this.richtSelect
-      }
+      },
     },
     methods: {
       clickLock () {

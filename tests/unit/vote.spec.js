@@ -16,9 +16,9 @@ const localVue = createLocalVue()
 
 localVue.use(Vuex)
 localVue.use(Vuetify)
-// const store = new Vuex.Store(cloneDeep(storeConfig))
 
-    var mobileWertung = [ 
+    // Testcase voting
+    var wertungTest1 = [ 
             { // Kampfgericht 1
               technik: {
                 input:  [5.1, 6.2, 7.1, 8.1],
@@ -36,9 +36,6 @@ localVue.use(Vuetify)
               cjpBusy: false,
             }
           ]
-
-
-
 
 describe('Test voting math functions', () => {
 
@@ -72,6 +69,9 @@ describe('Test voting math functions', () => {
             localVue,
             store,
         })
+        // Mock store with testcase       
+        wrapper.vm.$store.state.mobileWertung[0] = wertungTest1[0]
+        // Run test
         expect(wrapper.vm.partCalc(store.state.mobileWertung[0].technik)).equal(6.65)
       })
     
@@ -80,6 +80,9 @@ describe('Test voting math functions', () => {
             localVue,
             store,
         })
+        // Mock store with testcase     
+        wrapper.vm.$store.state.mobileWertung[0] = wertungTest1[0]
+        // Run test
         expect(wrapper.vm.partCalc(store.state.mobileWertung[0].artistik)).equal(6.5)
       })
 
@@ -99,7 +102,8 @@ describe('Test voting math functions', () => {
             store,
                 })
         // Mock store        
-        wrapper.vm.$store.state.mobileWertung[0] = mobileWertung[0]
+        wrapper.vm.$store.state.mobileWertung[0] = wertungTest1[0]
+        // wrapper.vm.$store.commit('unittest_updat_emobile', wertungTest1)
         // Run method
         wrapper.vm.calcResult()
         //expect(wrapper.vm.$store.state.mobileWertung[0].artistik.result).equal(6.5)

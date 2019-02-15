@@ -138,36 +138,6 @@ export default {
             return this.selected[0].nr
           }
       },
-      // displayKlasse () {
-      //     // console.log(store.state.starterList)
-      //     if(this.$store.state.starterList.length === 0) {
-      //       return ' '
-      //     } else {
-      //       return this.$store.state.starterList[store.state.vote[0]].klasse
-      //     }
-      // },
-      // displayAltersKlasse () {
-      //     // console.log(store.state.starterList)
-      //     if(this.$store.state.starterList.length === 0) {
-      //       return ' '
-      //     } else {
-      //       return this.$store.state.starterList[store.state.vote[0]].altersklasse
-      //     }
-      // },
-      // displayType () {
-      //     if(this.$store.state.starterList.length === 0) {
-      //       return ' '
-      //     } else {
-      //       return this.$store.state.starterList[store.state.vote[0]].type
-      //     }
-      // },
-      // displayRoutine () {
-      //     if(this.$store.state.starterList.length === 0) {
-      //       return ' '
-      //     } else {
-      //       return this.$store.state.starterList[store.state.vote[0]].routine
-      //     }
-      // },
       activeLine () {
           if(this.selected.length === 0) {
             store.commit('updateorgaselect', 0)
@@ -183,18 +153,11 @@ export default {
         this.selected = []
         this.tableData.forEach(item => {
           if (item.nr === selectedItem.nr) {
-            // this.$emit('orgaselect', selectedItem.nr)
-          // this.$eventHub.$emit('new-orga-select', selectedItem.nr);
            this.selected.push(item)
-          //  store.commit('updatestarteraktive', item)
            this.$socket.emit('sync_orgaselect',selectedItem.nr)
-           //store.commit('updatevoting', selectedItem.nr)
           }
         })
       },
-      // myTest () {
-      //      store.commit('updatevoting', 5)
-      // }
     }
 }
 </script>
