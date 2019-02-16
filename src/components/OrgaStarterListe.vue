@@ -140,10 +140,10 @@ export default {
       },
       activeLine () {
           if(this.selected.length === 0) {
-            store.commit('updateorgaselect', 0)
+            store.commit('update_orga_select', 0)
             return 0
           } else {
-            store.commit('updateorgaselect', this.selected[0].nr)
+            store.commit('update_orga_select', this.selected[0].nr)
             return this.selected[0].nr
           }
       }

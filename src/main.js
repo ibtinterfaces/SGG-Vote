@@ -82,8 +82,8 @@ export const EventBus = new Vue({
   render: h => h(App)
 }).$mount('#app')
 
-store.commit('clearstarterlist')
-store.commit('updatestarterlist', fileStartliste)
+store.commit('clear_starterlist')
+store.commit('update_starterlist', fileStartliste)
 
 // Resultview Control later controlled by Kampfgericht new result
 // Starting with individual result

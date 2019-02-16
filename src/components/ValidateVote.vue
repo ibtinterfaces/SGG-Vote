@@ -4,8 +4,8 @@
 
     <v-container fluid>
     <p class="colapse">Validate Voting</p>
-      <v-layout row justify-center>
 
+      <v-layout row justify-center>
         <v-flex shrink px-2>
            <v-text-field
             type="number"
@@ -150,8 +150,23 @@
           ></v-text-field>
         </v-flex>
 
+        <v-flex shrink px-2>
+           <v-text-field
+            type="number"
+            name="DIFF"
+            label="DIFF"
+            id="DIFF"
+            min=0
+            max=30
+            step=0.1
+            maxlength=2
+            v-model="diff_1"
+            color="colactive"
+          ></v-text-field>
+        </v-flex>
+
         <v-flex shrink px-2 pt-2>
-          <v-btn outline color="colactive">Next Vote</v-btn>
+          <v-btn outline color="colactive" @click="nextVote">Next Vote</v-btn>
         </v-flex>
  
       </v-layout>
@@ -219,6 +234,20 @@
           ></v-text-field>
         </v-flex>
 
+        <v-flex shrink px-2>
+           <v-text-field
+            type="number"
+            name="DIFF"
+            label="DIFF"
+            id="DIFF"
+            min=0
+            max=30
+            step=0.1
+            maxlength=2
+            v-model="diff_1"
+            color="colactive"
+          ></v-text-field>
+        </v-flex>
 
         <v-flex shrink px-2 pt-2>
           <v-btn outline color="colactive" @click="calcResult">Calc Vote</v-btn>
@@ -226,7 +255,7 @@
  
       </v-layout>
 
-          <v-btn outline color="colactive">Take Vote</v-btn>
+          <v-btn outline color="colactive" @click="takeVote">Take Vote</v-btn>
 
 
     </v-container>
@@ -359,46 +388,59 @@ export default {
       //     // this.$socket.emit('tr_contr', store.state.dataToTracker)
       //   }
       // },
-      cjp_1: {
-        get () {
-          return store.state.mobileWertung[0].cjpresult
-        },
-        set (value) {
-          // store.state.mobileWertung[0].cjpresult = parseFloat(value)
-          store.commit('updatecr', parseFloat(value))
-
-          console.log('New CJP value :-)   : ' + value)
-          // this.$socket.emit('tr_contr', store.state.dataToTracker)
-        }
-      },
       dj_1: {
         get () {
           return store.state.mobileWertung[0].djresult
         },
         set (value) {
           // store.state.mobileWertung[0].cjpresult = parseFloat(value)
-          store.commit('updatedr', parseFloat(value))
+          store.commit('update_dj_r', parseFloat(value))
 
           console.log('New CJP value :-)   : ' + value)
           // this.$socket.emit('tr_contr', store.state.dataToTracker)
         }
       },
+      cjp_1: {
+        get () {
+          return store.state.mobileWertung[0].cjpresult
+        },
+        set (value) {
+          store.commit('update_cjp_r', parseFloat(value))
+          console.log('New CJP value :-)   : ' + value)
+        }
+      },
+      diff_1: {
+        get () {
+          return store.getters.getDiff
+        },
+        set (value) {
+          store.commit('update_diff_list', parseFloat(value))
+          console.log('New DIFF value :-)   : ' + value)
+        }
+      },
+      newSelet () {
+        return store.state.orga.aktiveTeam
+      }
     //   technik1 () { return this.$store.state.mobileWertung.technik[0] },
     //   technik2 () { return this.$store.state.mobileWertung.technik[1] },
     //   technik3 () { return this.$store.state.mobileWertung.technik[2] },
     //   technik4 () { return this.$store.state.mobileWertung.technik[3] }
     },
     methods: {
+      // change to getSortVotes ready to read in array
       getVoteCount (obj) {
         console.log('getVoteCount try to count votes')
         console.log(obj)
 
         var result = []
         for (var x = 0; x < 4; x++) {
-          if (obj[x] !== 0.0) {
+          console.log(obj[x])
+          if (!(  (obj[x] === null) || isNaN(obj[x]) || (obj[x] === 0.0) ))  {
+          // if (obj[x] !== 0.0) {
             result.push(x)  
           }
         }
+        console.log('VotCount pushes array')
         console.log(result)
         return result
       },
@@ -425,6 +467,7 @@ export default {
       },
 
         partCalc (obj) {
+        console.log('##################################')  
         var voteCount = []
         var result = 0
         console.log('Recalculate Technik vote')
@@ -451,12 +494,12 @@ export default {
                  result = this.calcDoubleAverage(obj.input[voteCount[0]], obj.input[voteCount[1]], obj.input[voteCount[2]])
                  break
           case 4: 
-                  // Doppelter arithmetisches mittel
+                  // FairAverage throw max and min then calculate average
                   console.log('With four values calcuate FairAverage throw max and min then calculate average')
                  result = this.calcFairAverage([obj.input[voteCount[0]], obj.input[voteCount[1]], obj.input[voteCount[2]], obj.input[voteCount[3]]  ])
                  break
           case 5: 
-                  // Doppelter arithmetisches mittel
+                  // FairAverage throw max and min then calculate average
                   console.log('With four values calcuate FairAverage throw max and min then calculate average')
                  result = this.calcFairAverage([obj.input[voteCount[0]], obj.input[voteCount[1]], obj.input[voteCount[2]], obj.input[voteCount[3]], obj.input[voteCount[4]]  ])
                  break
@@ -473,30 +516,62 @@ export default {
       calcResult () {
         console.log('Enter calcResult')
           var obj = {
+              team: 0,
+              diff: 0.00,
               technik: 0.0,
               artistik: 0.0,
               dj: 0.0,
-              cjp: 0.0
+              cjp: 0.0,
+              final: 0.000
             }
 
+        obj.team =store.state.orga.aktiveTeam  
+        obj.diff = parseFloat(store.getters.getDiff)
         console.log('calcResult technik')
-        obj.technik = this.partCalc(store.state.mobileWertung[0].technik)
+        obj.technik = parseFloat(this.partCalc(store.state.mobileWertung[0].technik))
         console.log('calcResult artistik')
-        obj.artistik = this.partCalc(store.state.mobileWertung[0].artistik)
+        obj.artistik = parseFloat(this.partCalc(store.state.mobileWertung[0].artistik))
         console.log('calcResult artistik')
-        obj.dj = store.state.mobileWertung[0].djresult
+        obj.dj = parseFloat(store.state.mobileWertung[0].djresult)
         console.log('calcResult artistik')
-        obj.cjp = store.state.mobileWertung[0].cjpresult
-        console.log('DEBUG:  calcResult() ')
-        console.log(obj)
+        obj.cjp = parseFloat(store.state.mobileWertung[0].cjpresult)
+        console.log('DEBUG:  calc final result() ')
+        console.log('    Diff: ' + obj.diff )
+        console.log(' technik: ' + obj.technik )
+        console.log('artistik: ' + obj.artistik )
+        console.log('      dj: ' + obj.dj )
+        console.log('     cjp: ' + obj.cjp )
+        obj.result = obj.diff
+        console.log('   FINAL: ' + obj.result )
+        obj.result += obj.technik
+        console.log('   FINAL: ' + obj.result )
+        obj.result += obj.artistik
+        console.log('   FINAL: ' + obj.result )
+        obj.result -= obj.dj
+        console.log('   FINAL: ' + obj.result )
+        obj.result -= obj.cjp
+        console.log('REALFINAL: ' + obj.result )
+        
+        // console.log(obj)
 
-        store.commit('updatepreresult', obj)
+        store.commit('update_pre_result', obj)
 
+      },
+      takeVote () {
+        this.$socket.emit('sync_votedteam',store.state.orga.aktiveTeam)
+        this.$socket.emit('sync_final_results',store.state.mobileWertung)
+        // store.commit('update_final_results')
+
+
+      },
+      nextVote () {
+        store.commit('clear_mobile_buffer')
       }
-
-
-
-
+    },
+    watch: {
+      newSelet: function() {
+        console.log('Aktive Team CHANGED !!!!!!!!')
+     }
     }
     // mutations: {
     //   technik:  {

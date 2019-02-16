@@ -7,45 +7,32 @@
       </v-btn>
     </v-btn-toggle>
   <v-container fluid ma-0 pa-0>
-      <!-- <v-flex xs12 sm6 d-flex pa-5> -->
-        
-        <p class="title text-xs-center">Kampfgericht {{kampfSelect}}</p>
+
+  <p class="title text-xs-center">Kampfgericht {{kampfSelect}}</p>
 
   <v-container>
     <v-layout>
-        <v-spacer></v-spacer>
-        <p class="colapse">{{ nameSel || 'null' }} {{richtSelect}}</p>
-          <v-spacer></v-spacer>
-</v-layout>
-  </v-container>
-
-
-  <v-container fluid>
-    <v-layout>
-        <v-spacer></v-spacer>
-  
-    <v-radio-group row v-model="nameSel" :mandatory="false">
-    <!-- <v-layout> -->
-      <!-- <v-flex xs3> -->
-        <v-radio class="px-0" :disabled="lockStatus" label="Technik" value="Technik" color="colactive"></v-radio>
-      <!-- </v-flex> -->
-      <!-- <v-flex xs3> -->
-        <v-radio class="px-0" :disabled="lockStatus" label="Artistik" value="Artistik" color="colactive"></v-radio>
-      <!-- </v-flex> -->
-      <!-- <v-flex xs3> -->
-        <v-radio class="px-0" :disabled="lockStatus" label="DJ" value="DJ" color="colactive"></v-radio>
-      <!-- </v-flex> -->
-      <!-- <v-flex xs3> -->
-        <v-radio class="pa-0 ma-0" :disabled="lockStatus" label="CJP" value="CJP" color="colactive"></v-radio>
-    </v-radio-group>
-    <v-spacer></v-spacer>
+      <v-spacer></v-spacer>
+      <p class="colapse">{{ nameSel || 'null' }} {{richtSelect}}</p>
+      <v-spacer></v-spacer>
     </v-layout>
   </v-container>
 
+  <v-container fluid>
+    <v-layout>
+      <v-spacer></v-spacer>
+        <v-radio-group row v-model="nameSel" :mandatory="false">
+          <v-radio class="px-0" :disabled="lockStatus" label="Technik" value="Technik" color="colactive"></v-radio>
+          <v-radio class="px-0" :disabled="lockStatus" label="Artistik" value="Artistik" color="colactive"></v-radio>
+          <!-- <v-radio class="px-0" :disabled="lockStatus" label="DJ" value="DJ" color="colactive"></v-radio>
+          <v-radio class="pa-0 ma-0" :disabled="lockStatus" label="CJP" value="CJP" color="colactive"></v-radio> -->
+        </v-radio-group>
+          <v-radio v-model="djSel" class="px-0" :disabled="lockStatus" label="DJ" value="DJ" color="colactive"></v-radio>
+          <v-radio v-model="cjpSel" class="pa-0 ma-0" :disabled="lockStatus" label="CJP" value="CJP" color="colactive"></v-radio>
+      <v-spacer></v-spacer>
+    </v-layout>
+  </v-container>
 
-
-
-      <!-- </v-flex> -->
     <v-layout col dense>
       <v-flex xs12 sm6 d-flex px-3>
         <v-select
@@ -168,6 +155,8 @@ export default {
         lockSel: 0,
         busySel: 1,
         nameSel: 'Technik',
+        djSel: 'DJ',
+        cjpSel: 'CJP',
         kampfSelect: 1,
         richtSelect: 1,
         voteValue: 0,
