@@ -11,13 +11,14 @@
             type="number"
             name="Technik"
             label="Technik 1"
-            id="Technik"
+            id="T1"
             min=5
             max=10
             step=0.1
             maxlength=2
             v-model="technik_1"
             color="colactive"
+            ref="T1"
           ></v-text-field>
         <!-- </v-flex>
         <v-flex shrink px-2> -->
@@ -25,7 +26,7 @@
             type="number"
             name="Technik"
             label="Technik 2"
-            id="Technik"
+            id="T2"
             min=5
             max=10
             step=0.1
@@ -39,7 +40,7 @@
             type="number"
             name="Technik"
             label="Technik 3"
-            id="Technik"
+            id="T3"
             min=5
             max=10
             step=0.1
@@ -53,7 +54,7 @@
             type="number"
             name="Technik"
             label="Technik 4"
-            id="Technik"
+            id="T4"
             min=5
             max=10
             step=0.1
@@ -68,7 +69,7 @@
             type="number"
             name="Artistik"
             label="Artistik 1"
-            id="Artistik"
+            id="A1"
             min=5
             max=10
             step=0.1
@@ -82,7 +83,7 @@
             type="number"
             name="Artistik"
             label="Artistik 2"
-            id="Artistik"
+            id="A2"
             min=5
             max=10
             step=0.1
@@ -96,7 +97,7 @@
             type="number"
             name="Artistik"
             label="Artistik 3"
-            id="Artistik"
+            id="A3"
             min=5
             max=10
             step=0.1
@@ -110,7 +111,7 @@
             type="number"
             name="Artistik"
             label="Artistik 4"
-            id="Artistik"
+            id="A4"
             min=5
             max=10
             step=0.1
@@ -125,7 +126,7 @@
             type="number"
             name="DJ"
             label="DJ"
-            id="Dj"
+            id="D1"
             min=0
             max=30
             step=0.1
@@ -140,7 +141,7 @@
             type="number"
             name="CJP"
             label="CJP"
-            id="CJP"
+            id="C1"
             min=0
             max=30
             step=0.1
@@ -165,9 +166,9 @@
           ></v-text-field>
         </v-flex>
 
-        <v-flex shrink px-2 pt-2>
+        <!-- <v-flex shrink px-2 pt-2>
           <v-btn outline color="colactive" @click="nextVote">Next Vote</v-btn>
-        </v-flex>
+        </v-flex> -->
  
       </v-layout>
 
@@ -249,14 +250,28 @@
           ></v-text-field>
         </v-flex>
 
+        <!-- <v-flex shrink px-2 pt-2>
+          <v-btn outline color="colactive" @click="calcResult">Calc Vote</v-btn>
+        </v-flex> -->
+ 
+      </v-layout>
+      <v-layout row justify-center>
+        <v-flex shrink px-2 pt-2>
+          <p class="display-1 myResult px-2">{{endNote}}</p>
+        </v-flex>
+
         <v-flex shrink px-2 pt-2>
           <v-btn outline color="colactive" @click="calcResult">Calc Vote</v-btn>
         </v-flex>
- 
-      </v-layout>
 
+        <v-flex shrink px-2 pt-2>
           <v-btn outline color="colactive" @click="takeVote">Take Vote</v-btn>
+        </v-flex>
 
+        <v-flex shrink px-2 pt-2>
+          <v-btn outline color="colactive" @click="nextVote">Next Vote</v-btn>
+        </v-flex>
+      </v-layout>
 
     </v-container>
 
@@ -286,9 +301,17 @@ export default {
       }
     },
     computed: {
+      endNote () {
+            if ( isNaN(store.state.mobileWertung[0].finalresult)) {
+              return '0.000'
+            } else {
+              return parseFloat(store.state.mobileWertung[0].finalresult).toFixed(3)
+            }
+
+      },
       technik_1: {
         get () {
-          // console.log('Test ' +store.getters.getTechnik1)
+          console.log('Test ' +store.getters.getTechnik1)
           // return store.getters.getTechnik1
           return store.state.mobileWertung[0].technik.input[0]
         },
@@ -418,7 +441,7 @@ export default {
           console.log('New DIFF value :-)   : ' + value)
         }
       },
-      newSelet () {
+      newTeam () {
         return store.state.orga.aktiveTeam
       }
     //   technik1 () { return this.$store.state.mobileWertung.technik[0] },
@@ -569,8 +592,11 @@ export default {
       }
     },
     watch: {
-      newSelet: function() {
+      newTeam: function() {
         console.log('Aktive Team CHANGED !!!!!!!!')
+        this.$refs.T1.innerHTML = null
+        store.state.mobileWertung[0].technik.input[0] = null
+        
      }
     }
     // mutations: {
@@ -589,5 +615,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.myResult {
+  background-color: #55B883;
+}
 
 </style>

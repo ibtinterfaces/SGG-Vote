@@ -55,7 +55,7 @@ export default new Vuex.Store({
         cjpresult: null,
         cjpBusy: false,
         diffresult: null,
-        finalresult: null,
+        finalresult: 0.000,
       }
     ],
     mobileWertung: [ 
@@ -75,7 +75,7 @@ export default new Vuex.Store({
         cjpresult: null,
         cjpBusy: false,
         diffresult: null,
-        finalresult: null,
+        finalresult: 0.000,
       }
     ],
 

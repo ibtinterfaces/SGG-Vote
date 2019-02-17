@@ -10,7 +10,7 @@
 
   <p class="title text-xs-center">Kampfgericht {{kampfSelect}}</p>
 
-  <v-container>
+  <v-container fluid ma-0 pa-0>
     <v-layout>
       <v-spacer></v-spacer>
       <p class="colapse">{{ nameSel || 'null' }} {{richtSelect}}</p>
@@ -18,17 +18,23 @@
     </v-layout>
   </v-container>
 
-  <v-container fluid>
+  <v-container fluid ma-0 pa-0>
     <v-layout>
       <v-spacer></v-spacer>
-        <v-radio-group row v-model="nameSel" :mandatory="false">
+
+        <v-checkbox class="px-0" :disabled="lockStatus" v-model="selT" label="Technik" color="colactive" hide-details></v-checkbox>
+        <v-checkbox class="px-0" :disabled="lockStatus" v-model="selA" label="Artistik" color="colactive" hide-details></v-checkbox>
+        <v-checkbox class="px-0" :disabled="lockStatus" v-model="selD" label="DJ" color="colactive" hide-details></v-checkbox>
+        <v-checkbox class="px-0" :disabled="lockStatus" v-model="selC" label="CJP" color="colactive" hide-details></v-checkbox>
+
+        <!-- <v-radio-group row v-model="nameSel" :mandatory="false">
           <v-radio class="px-0" :disabled="lockStatus" label="Technik" value="Technik" color="colactive"></v-radio>
           <v-radio class="px-0" :disabled="lockStatus" label="Artistik" value="Artistik" color="colactive"></v-radio>
-          <!-- <v-radio class="px-0" :disabled="lockStatus" label="DJ" value="DJ" color="colactive"></v-radio>
-          <v-radio class="pa-0 ma-0" :disabled="lockStatus" label="CJP" value="CJP" color="colactive"></v-radio> -->
+          <v-radio class="px-0" :disabled="lockStatus" label="DJ" value="DJ" color="colactive"></v-radio>
+          <v-radio class="pa-0 ma-0" :disabled="lockStatus" label="CJP" value="CJP" color="colactive"></v-radio>
         </v-radio-group>
           <v-radio v-model="djSel" class="px-0" :disabled="lockStatus" label="DJ" value="DJ" color="colactive"></v-radio>
-          <v-radio v-model="cjpSel" class="pa-0 ma-0" :disabled="lockStatus" label="CJP" value="CJP" color="colactive"></v-radio>
+          <v-radio v-model="cjpSel" class="pa-0 ma-0" :disabled="lockStatus" label="CJP" value="CJP" color="colactive"></v-radio> -->
       <v-spacer></v-spacer>
     </v-layout>
   </v-container>
@@ -87,30 +93,75 @@
     </v-data-table>
 
     <v-container fluid>
-      <v-layout row>
+      <v-layout row wrap>
 
 
-        <v-flex xs12 sm10>
+        <v-flex xs6 sm6 md6 px-1>
            <v-text-field
+            v-show="selT"
             type="number"
             name="Technik"
-            :label="dataName"
+            :label="voteNameT"
             id="Technik"
             min=5
             max=10
             step=0.1
             maxlength=2
-            v-model="voteValue"
+            v-model="voteValueT"
             color="colactive"
+            :append-icon="sendStatusT ? 'check' : undefined"
           ></v-text-field>
         </v-flex>
-        <v-spacer></v-spacer>
-
-        <v-flex xs12>
-              <v-btn class="ma-3" outline color="colactive" @click="clickVote">
-                Send Vote
-              </v-btn>
+        <v-flex xs6 sm6 md6 px-1>
+           <v-text-field
+            v-show="selA"
+            type="number"
+            name="Artistik"
+            :label="voteNameA"
+            id="Artistik"
+            min=5
+            max=10
+            step=0.1
+            maxlength=2
+            v-model="voteValueA"
+            color="colactive"
+            :append-icon="sendStatusA ? 'check' : undefined"
+          ></v-text-field>
         </v-flex>
+        <v-flex  xs6 sm6 md6 px-1>
+           <v-text-field
+            v-show="selD"
+            type="number"
+            name="DJ"
+            :label="voteNameD"
+            id="DJ"
+            min=5
+            max=10
+            step=0.1
+            maxlength=2
+            v-model="voteValueD"
+            color="colactive"
+            :append-icon="sendStatusD ? 'check' : undefined"
+          ></v-text-field>
+        </v-flex>
+        <v-flex  xs6 sm6 md6 px-1>
+           <v-text-field
+            v-show="selC"
+            type="number"
+            name="CJP"
+            :label="voteNameC"
+            id="CJP"
+            min=5
+            max=10
+            step=0.1
+            maxlength=2
+            v-model="voteValueC"
+            color="colactive"
+            :append-icon="sendStatusC ? 'check' : undefined"
+          ></v-text-field>
+        </v-flex>
+        <!-- <v-spacer></v-spacer> -->
+
 
         <!-- <v-flex xs12>
               <v-progress-circular v-show="busyStatus" color="colactive" :indeterminate="busyStatus" :value="0" size="50" class="ml-0 mt-1"></v-progress-circular>
@@ -122,12 +173,19 @@
     </v-container>
 
      <v-container fluid>
-      <v-layout>
+      <v-layout row>
+
+        <v-flex xs12>
+              <v-btn class="px-4" outline color="colactive" @click="clickVote">
+                Send Vote
+              </v-btn>
+        </v-flex>
+
         <v-flex xs12>
             <v-btn-toggle v-model="busySel">
               <v-btn class="px-5" color="colbusy" @click="clickBusy">Busy
               </v-btn>
-             </v-btn-toggle>
+            </v-btn-toggle>
         </v-flex>
       </v-layout>
     </v-container>
@@ -154,14 +212,27 @@ export default {
         lock: true,
         lockSel: 0,
         busySel: 1,
-        nameSel: 'Technik',
+        nameSel: 'Technik',     // old
+        selT: true, // new
+        selA: false, // new
+        selD: false, // new
+        selC: false, // new
         djSel: 'DJ',
         cjpSel: 'CJP',
         kampfSelect: 1,
         richtSelect: 1,
-        voteValue: 0,
-        returnVoteValue: 0,
-        // test1: 0,
+        voteValueT: null,
+        voteValueA: null,
+        voteValueD: null,
+        voteValueC: null,
+        returnVoteValueT: 0,
+        returnVoteValueA: 0,
+        returnVoteValueD: 0,
+        returnVoteValueC: 0,
+        sendStatusT: false,
+        sendStatusA: false,
+        sendStatusD: false,
+        sendStatusC: false,
         // test2: 0,
         // test3: 0,
         // test4: 0,
@@ -229,9 +300,22 @@ export default {
       busyStatus () {
         return (this.busySel !== 0)
       },
-      dataName () {
-        return 'Wertung:  Kampfgericht  ' + this.kampfSelect + '  ' + (this.nameSel || 'null' ) + '  ' + this.richtSelect
+      voteNameT () {
+        return 'Kg. ' + this.kampfSelect + ' ' + 'Technik ' + this.richtSelect
       },
+      voteNameA () {
+        return 'Kg. ' + this.kampfSelect + ' ' + 'Artistik ' + this.richtSelect
+      },
+      voteNameD () {
+        return 'Kg. ' + this.kampfSelect + ' ' + 'DJ '
+      },
+      voteNameC () {
+        return 'Kg. ' + this.kampfSelect + ' ' + 'CJP '
+      },
+      newTeam () {
+        return store.state.orga.aktiveTeam
+      }
+
     },
     methods: {
       clickLock () {
@@ -246,9 +330,24 @@ export default {
         }
         obj.kgNr = this.kampfSelect
         obj.krNr = this.richtSelect
-        obj.name = this.nameSel
         obj.busy = (this.busySel !== 0)
-        this.$socket.emit('mobile_busy',obj)
+
+        if (this.selT) {
+          obj.name = 'Technik'
+          this.$socket.emit('mobile_busy',obj)
+        }
+        if (this.selA) {
+          obj.name = 'Artistik'
+          this.$socket.emit('mobile_busy',obj)
+        }
+        if (this.selD) {
+          obj.name = 'DJ'
+          this.$socket.emit('mobile_busy',obj)
+        }
+        if (this.selC) {
+          obj.name = 'CJP'
+          this.$socket.emit('mobile_busy',obj)
+        }
       },
       clickVote () {
         var obj ={
@@ -259,11 +358,37 @@ export default {
         }
         obj.kgNr = this.kampfSelect
         obj.krNr = this.richtSelect
-        obj.name = this.nameSel
-        obj.value = parseFloat(this.voteValue)
-        this.$socket.emit('mobile_vote',obj)
+
+        if (this.selT) {
+          obj.name = 'Technik'
+          obj.value = parseFloat(this.voteValueT)
+          this.$socket.emit('mobile_vote',obj)
+        }
+        if (this.selA) {
+          obj.name = 'Artistik'
+          obj.value = parseFloat(this.voteValueA)
+          this.$socket.emit('mobile_vote',obj)
+        }
+        if (this.selD) {
+          obj.name = 'DJ'
+          obj.value = parseFloat(this.voteValueD)
+          this.$socket.emit('mobile_vote',obj)
+        }
+        if (this.selC) {
+          obj.name = 'CJP'
+          obj.value = parseFloat(this.voteValueC)
+          this.$socket.emit('mobile_vote',obj)
+        }
+
       }
+    },
+    watch: {
+      newTeam: function() {
+        console.log('Aktive Team CHANGED !!!!!!!!')
+        this.voteValueT = null
+     }
     }
+
 
 }
 </script>
