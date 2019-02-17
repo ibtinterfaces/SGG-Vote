@@ -1,7 +1,7 @@
 <template>
   <div class="rangliste pt-5">
     <p class="display-3">Rangliste</p>
-     <p class="display-1 mx-5">Klasse:  {{  altersKlasse }}, {{  type }},  {{  routine }}</p>
+     <p class="display-1 mx-5">Klasse:  {{  klasse }}, {{  type }},  {{  routine }}</p>
   
     <v-data-table
       :headers="headers"

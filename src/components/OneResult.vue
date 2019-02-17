@@ -25,11 +25,16 @@
          <!-- <td class="text-xs-center display-1">{{ props.item.platzierung }}</td> -->
          <!-- <td class="text-xs-center display-1">{{ props.index + 1 }}</td> -->
          <td class="text-xs-center display-1">{{ props.item.nr }}</td>
-      <td class="text-xs-left display-1"><span>{{ props.item.name1 }}</span><span>{{ props.item.name2 }}</span><span>{{ props.item.name3 }}</span></td>
-        <!-- <td class="text-xs-center display-1">{{ props.item.verein }}</td> -->
+        <td class="text-xs-left display-1"><span>{{ props.item.name1 }}</span><span>{{ props.item.name2 }}</span><span>{{ props.item.name3 }}</span></td>
         <td class="text-xs-center display-1">{{ props.item.klasse }}</td>
         <td class="text-xs-center display-1">{{ props.item.type }}</td>
-        <!-- <td class="text-xs-center display-1">{{ props.item.gesPunkte }}</td> -->
+
+        <td class="text-xs-center display-1">{{ props.item.D }}</td>
+        <td class="text-xs-center display-1">{{ props.item.T }}</td>
+        <td class="text-xs-center display-1">{{ props.item.A }}</td>
+        <td class="text-xs-center display-1">{{ props.item.DJ }}</td>
+        <td class="text-xs-center display-1">{{ props.item.CJP }}</td>
+        <td class="text-xs-center display-1">{{ props.item.gesPunkte }}</td>
       </template>
     </v-data-table>
 
@@ -85,6 +90,42 @@ export default {
             align: 'center',
             sortable: false,
             value: 'type'
+          },
+          {
+            text: 'Diff.',
+            align: 'center',
+            sortable: false,
+            value: 'D'
+          },
+          {
+            text: 'Technik',
+            align: 'center',
+            sortable: false,
+            value: 'T'
+          },
+          {
+            text: 'Artistik',
+            align: 'center',
+            sortable: false,
+            value: 'A'
+          },
+          {
+            text: 'DJ',
+            align: 'center',
+            sortable: false,
+            value: 'DJ'
+          },
+          {
+            text: 'CJP',
+            align: 'center',
+            sortable: false,
+            value: 'CJP'
+          },
+          {
+            text: 'Total',
+            align: 'center',
+            sortable: false,
+            value: 'gesPunkte'
           },
           //  {
           //   text: 'Punkte',

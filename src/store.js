@@ -194,10 +194,11 @@ export default new Vuex.Store({
     },
 
     SOCKET_SYNC_FINAL_RESULTS: (state, message) => {
+      console.log('Receive new final results')
       state.starterList[state.orga.aktiveTeam].T = message[0].technik.result 
       state.starterList[state.orga.aktiveTeam].A = message[0].artistik.result 
       state.starterList[state.orga.aktiveTeam].DJ = message[0].djresult 
-      state.starterList[state.orga.aktiveTeam].CJP = message[0].djpresult 
+      state.starterList[state.orga.aktiveTeam].CJP = message[0].cjpresult 
       state.starterList[state.orga.aktiveTeam].gesPunkte = message[0].finalresult
     },
 
@@ -256,7 +257,7 @@ export default new Vuex.Store({
     tableDataSameKlass: (state) => {
       return state.starterList.filter((i) => {
         console.log(' DEBUG FILTER LIST' + i.gesPunkte + ' 0.000')
-        return (   (i.gesPunkte >= 0.001 ) &&    (i.klasse === state.starterList[state.orga.votedTeam].klasse )&&    (i.alterskl === state.starterList[state.orga.votedTeam].alterskl ) && (i.type === state.starterList[state.orga.votedTeam].type))
+        return (   (i.gesPunkte >= 0.001 ) &&    (i.klasse === state.starterList[state.orga.votedTeam].klasse ) && (i.type === state.starterList[state.orga.votedTeam].type))
        })
       },
     displayKlasse: (state) => (nr) => { return (state.starterList.length === 0 ? ' ' : state.starterList[nr].klasse) },
