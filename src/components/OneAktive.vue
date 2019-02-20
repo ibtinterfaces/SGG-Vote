@@ -1,7 +1,8 @@
 <template>
   <div class="oneresult pt-0">
-    <p class="display-3">Aktiv</p>
+    <p class="display-1">Aktiv</p>
     <v-data-table
+      light
       :headers="headers"
       :items="tableData"
       disable-initial-sort
@@ -9,6 +10,7 @@
       hide-actions
       item-key="items.key"
        class="elevation-1"
+       id="current-start"
     >
       <template slot="headerCell" slot-scope="props">
         <v-tooltip bottom>
@@ -81,7 +83,7 @@ export default {
             value: 'klasse'
           },
           {
-            text: 'Type',
+            text: 'Disziplin',
             align: 'center',
             sortable: false,
             value: 'type'

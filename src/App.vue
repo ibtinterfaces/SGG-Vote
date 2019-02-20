@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app-sgg">
     <v-app dark>
       <v-content>
         <v-container fluid>

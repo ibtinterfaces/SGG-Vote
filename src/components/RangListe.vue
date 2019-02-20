@@ -1,9 +1,9 @@
 <template>
   <div class="rangliste pt-5">
-    <p class="display-3">Rangliste</p>
-     <p class="display-1 mx-5">Klasse:  {{  klasse }}, {{  type }},  {{  routine }}</p>
+    <p class="display-1"><b>Rangliste</b> - <span>Klasse:  {{  klasse }}, {{  type }},  {{  routine }}</span></p>
   
     <v-data-table
+      light
       :headers="headers"
       :items="tableData"
       disable-initial-sort
@@ -11,6 +11,7 @@
       hide-actions
       item-key="items.key"
        class="elevation-1"
+       id="rang-list"
     >
       <template slot="headerCell" slot-scope="props">
         <v-tooltip bottom>
@@ -81,7 +82,7 @@ export default {
           //   value: 'klasse'
           // },
           // {
-          //   text: 'Type',
+          //   text: 'Disziplin',
           //   align: 'center',
           //   sortable: false,
           //   value: 'type'
