@@ -26,10 +26,10 @@
          <!-- <td class="text-xs-center display-1">{{ props.item.platzierung }}</td> -->
          <!-- <td class="text-xs-center display-1">{{ props.index + 1 }}</td> -->
          <td class="text-xs-center display-1" colspan="10">
-		    <div id="test">
+			<div id="test">
 				<div class="row">
 					<div class="col col-50" id="names">
-						<img src="img/SGG_logo.png" width="100" alt="SG Götzenhain">
+						<img src="img/SGG_logo.png" width="100" alt="SG Götzenhain"/>
 						<p>&nbsp;{{ props.item.name1 }}</p><p>&nbsp;{{ props.item.name2 }}</p><p>&nbsp;{{ props.item.name3 }}</p>
 					</div>
 					<div class="col col-50">
@@ -56,7 +56,7 @@
 						</div>
 					</div>	
 				</div>
-		    </div>
+			</div>
 		</td>
         <!--td class="text-xs-left display-1"><span>{{ props.item.name1 }}</span><span>{{ props.item.name2 }}</span><span>{{ props.item.name3 }}</span></td-->
         <!--td class="text-xs-center display-1">{{ props.item.klasse }}</td-->
