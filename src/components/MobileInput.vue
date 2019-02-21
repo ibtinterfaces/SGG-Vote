@@ -2,7 +2,7 @@
   <div class="input">
     <Led id="led" line1="" line2="" v-bind:input="busyStatus"></Led>
     <v-btn-toggle id="lockbutton" v-model="lockSel">
-      <v-btn outline color="colactive">
+      <v-btn outline color="colactive" @click="clickLock">
         <v-icon>lock</v-icon>
       </v-btn>
     </v-btn-toggle>
@@ -22,10 +22,10 @@
     <v-layout>
       <v-spacer></v-spacer>
 
-        <v-checkbox class="px-0" :disabled="lockStatus" v-model="selT" label="Technik" color="colactive" hide-details></v-checkbox>
-        <v-checkbox class="px-0" :disabled="lockStatus" v-model="selA" label="Artistik" color="colactive" hide-details></v-checkbox>
-        <v-checkbox class="px-0" :disabled="lockStatus" v-model="selD" label="DJ" color="colactive" hide-details></v-checkbox>
-        <v-checkbox class="px-0" :disabled="lockStatus" v-model="selC" label="CJP" color="colactive" hide-details></v-checkbox>
+        <v-checkbox class="px-0" :disabled="lockStatus" v-model="selTmodel" value="true" label="Technik" color="colactive" hide-details></v-checkbox>
+        <v-checkbox class="px-0" :disabled="lockStatus" v-model="selAmodel" value="true" label="Artistik" color="colactive" hide-details></v-checkbox>
+        <v-checkbox class="px-0" :disabled="lockStatus" v-model="selDmodel" value="true" label="DJ" color="colactive" hide-details></v-checkbox>
+        <v-checkbox class="px-0" :disabled="lockStatus" v-model="selCmodel" value="true" label="CJP" color="colactive" hide-details></v-checkbox>
 
         <!-- <v-radio-group row v-model="nameSel" :mandatory="false">
           <v-radio class="px-0" :disabled="lockStatus" label="Technik" value="Technik" color="colactive"></v-radio>
@@ -46,7 +46,8 @@
           :items="kampfgNr"
           label="Kampfgericht Nr."
           color="colactive"
-          v-model="kampfSelect"
+          v-model="kampfSelectmodel"
+          item-value="kampfSelect"
         ></v-select>
       </v-flex>
       <v-flex xs12 sm6 d-flex px-3>
@@ -55,7 +56,8 @@
           :items="kampfgIndex"
           label="Richter Nr."
           color="colactive"
-          v-model="richtSelect"
+          v-model="richtSelectmodel"
+          item-value="richtSelect"
         ></v-select>
       </v-flex>
     </v-layout>
@@ -98,7 +100,7 @@
 
         <v-flex xs6 sm6 md6 px-1>
            <v-text-field
-            v-show="selT"
+            v-show="visibleT"
             type="number"
             name="Technik"
             :label="voteNameT"
@@ -114,7 +116,7 @@
         </v-flex>
         <v-flex xs6 sm6 md6 px-1>
            <v-text-field
-            v-show="selA"
+            v-show="visibleA"
             type="number"
             name="Artistik"
             :label="voteNameA"
@@ -130,7 +132,7 @@
         </v-flex>
         <v-flex  xs6 sm6 md6 px-1>
            <v-text-field
-            v-show="selD"
+            v-show="visibleD"
             type="number"
             name="DJ"
             :label="voteNameD"
@@ -146,7 +148,7 @@
         </v-flex>
         <v-flex  xs6 sm6 md6 px-1>
            <v-text-field
-            v-show="selC"
+            v-show="visibleC"
             type="number"
             name="CJP"
             :label="voteNameC"
@@ -209,18 +211,18 @@ export default {
   },
     data () {
       return {
-        lock: true,
+        // lock: true,
         lockSel: 0,
         busySel: 1,
         nameSel: 'Technik',     // old
-        selT: true, // new
-        selA: false, // new
-        selD: false, // new
-        selC: false, // new
         djSel: 'DJ',
         cjpSel: 'CJP',
         kampfSelect: 1,
         richtSelect: 1,
+        selT: false, // new
+        selA: false, // new
+        selD: false, // new
+        selC: false, // new
         voteValueT: null,
         voteValueA: null,
         voteValueD: null,
@@ -314,12 +316,81 @@ export default {
       },
       newTeam () {
         return store.state.orga.aktiveTeam
-      }
+      },
+      
+      kampfSelectmodel: {
+      set(val){this.kampfSelect = val},
+      get(){ return parseInt(this.kampfSelect) }
+    },
+      richtSelectmodel: {
+      set(val){this.richtSelect = val},
+      get(){ return parseInt(this.richtSelect) }
+    },
+      selTmodel: {
+      set(val){this.selT = val},
+      get(){ return this.selT }
+    },
+      selAmodel: {
+      set(val){this.selA = val},
+      get(){ return this.selA }
+    },
+      selDmodel: {
+      set(val){this.selD = val},
+      get(){ return this.selD }
+    },
+      selCmodel: {
+      set(val){this.selC = val},
+      get(){ return this.selC }
+    },
+    visibleT () { return (this.selT === "true")},
+    visibleA () { return (this.selA === "true")},
+    visibleD () { return (this.selD === "true")},
+    visibleC () { return (this.selC === "true")}
+    
+
 
     },
     methods: {
+      clickTest () {
+        // this.click = !this.click
+        this.saveConfig()
+      },
+      saveConfig () {
+       localStorage.selT = this.selT
+       localStorage.selA = this.selA
+       localStorage.selD = this.selD
+       localStorage.selC = this.selC
+       localStorage.kampfSelect = this.kampfSelect 
+       localStorage.richtSelect = this.richtSelect
+      },
+      getConfig () {
+        console.log('Read localStorage')
+        this.selT = localStorage.selT
+        this.selA = localStorage.selA
+        this.selD = localStorage.selD
+        this.selC = localStorage.selC
+        this.kampfSelect = localStorage.kampfSelect
+        this.richtSelect = localStorage.richtSelect
+  
+
+      //   if (localStorage.nameSel) {
+      //   this.nameSel = localStorage.nameSel;
+      //   }
+      //   if (localStorage.djSel) {
+      //     this.djSel = localStorage.djSel;
+      //   }
+      //   if (localStorage.cjpSel) {
+      //     this.cjpSel = localStorage.cjpSel;
+      //   }
+      // if (localStorage.kampfSelect) {
+      //   this.kampfSelect = localStorage.kampfSelect;
+      //   }
+      // if (localStorage.richtSelect) {
+      //   this.richtSelect = localStorage.richtSelect;
+      //   }
+      },
       clickLock () {
-        this.lock = !this.lock
+          localStorage.lockSel = this.lockSel
       },
       clickBusy () {
         var obj ={
@@ -386,8 +457,55 @@ export default {
       newTeam: function() {
         console.log('Aktive Team CHANGED !!!!!!!!')
         this.voteValueT = null
+     },
+     
+     kampfSelectmodel () {
+      this.saveConfig()
+     },
+     richtSelectmodel () {
+      this.saveConfig()
+     },
+     selTmodel () {
+      this.saveConfig()
+     },
+     selAmodel () {
+      this.saveConfig()
+     },
+     selDmodel () {
+      this.saveConfig()
+     },
+     selCmodel () {
+      this.saveConfig()
      }
+    //  voteNameT () {
+    //   this.saveConfig()
+    //  },
+    //  voteNameA () {
+    //   this.saveConfig()
+    //  },
+    //  voteNameD () {
+    //   this.saveConfig()
+    //  },
+    //  voteNameC () {
+    //   this.saveConfig()
+    //  }
+     
+    },
+    created () {
+    // mounted () {
+      this.getConfig()
     }
+    // mutations: {
+    //   check:  {
+    //     get: function() {
+    //       return this.check
+    //     },
+    //     set: function(value, nr) {
+    //       this.$store.state.mobileWertung.technik[nr] = value  
+    //     }
+    //   }
+
+    // }
 
 
 }
