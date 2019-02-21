@@ -1,6 +1,6 @@
 <template>
   <div class="results">
-    <Led line1="" line2="" v-bind:input="kampfgericht1"></Led>
+    <Led line1="" line2="" v-bind:input="kampfgerichtBusy1"></Led>
     <OneAktive></OneAktive>
     <OneResult v-show="showOneresult"></OneResult>
     <RangListe v-show="showRangliste"></RangListe>
@@ -38,18 +38,9 @@ export default {
       // return true
     },
     // Drive busy LED on top of result page
-    kampfgericht1 () {
-      return (!(store.state.mobileWertung[0].technik.busy[0] ||
-                store.state.mobileWertung[0].technik.busy[1] ||
-                store.state.mobileWertung[0].technik.busy[2] ||
-                store.state.mobileWertung[0].technik.busy[3] ||
-                store.state.mobileWertung[0].artistik.busy[0] ||
-                store.state.mobileWertung[0].artistik.busy[1] ||
-                store.state.mobileWertung[0].artistik.busy[2] ||
-                store.state.mobileWertung[0].artistik.busy[3] ||
-                store.state.mobileWertung[0].djBusy ||
-                store.state.mobileWertung[0].cjpBusy))
-    }
+      kampfgerichtBusy1 () {
+        return this.$store.getters.kg1Busy
+      },
   }
   
 }

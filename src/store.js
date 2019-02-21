@@ -19,6 +19,7 @@ export default new Vuex.Store({
     },
     // Result view control: single result and filtered result list 
     ToggleResultView: 0,
+    orgaBusy: false,
 
     // // Data of one starter
     // starter: {
@@ -264,6 +265,21 @@ export default new Vuex.Store({
     displayAlterskl: (state) => (nr) => { return (state.starterList.length === 0 ? ' ' : state.starterList[nr].alterskl) },
     displayType: (state) => (nr) => { return (state.starterList.length === 0 ? ' ' : state.starterList[nr].type) },
     displayRoutine: (state) => (nr) => { return (state.starterList.length === 0 ? ' ' : state.starterList[nr].routine) },
+
+    kg1Busy: (state)  => {
+        return (!(state.mobileWertung[0].technik.busy[0] ||
+                  state.mobileWertung[0].technik.busy[1] ||
+                  state.mobileWertung[0].technik.busy[2] ||
+                  state.mobileWertung[0].technik.busy[3] ||
+                  state.mobileWertung[0].artistik.busy[0] ||
+                  state.mobileWertung[0].artistik.busy[1] ||
+                  state.mobileWertung[0].artistik.busy[2] ||
+                  state.mobileWertung[0].artistik.busy[3] ||
+                  state.mobileWertung[0].djBusy ||
+                  state.mobileWertung[0].cjpBusy
+                  ))
+        }
+    
 
     // getTechnik1: state => () => state.mobileWertung[0].technik.input[0]
 
