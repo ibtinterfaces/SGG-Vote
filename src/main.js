@@ -92,7 +92,8 @@ setInterval(function(){
   console.log('Toggle Result Page')
   toggle = !toggle
   store.commit('toggleresult', toggle)
-}, 10000);
+  store.commit('inc_pausenRangIndex')
+}, 15000);
 
 
 // // Listen for the i-got-clicked event and its payload.

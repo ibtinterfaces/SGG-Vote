@@ -17,8 +17,8 @@ export default {
   computed: {
     ledColor: function () {
       return {
-        'led-green': this.input,
-        'led-red': !this.input
+        'led-green': !this.input,
+        'led-red': this.input
       }
     }
   }

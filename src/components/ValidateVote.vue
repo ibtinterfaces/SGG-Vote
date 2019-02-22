@@ -271,6 +271,21 @@
         <v-flex shrink px-2 pt-2>
           <v-btn outline color="colactive" @click="nextVote">Next Vote</v-btn>
         </v-flex>
+
+        <v-flex  shrink px-2 pt-2>
+            <v-btn-toggle v-model="busySel">
+              <v-btn class="px-5" color="colbusy" @click="clickBusy">Busy
+              </v-btn>
+            </v-btn-toggle>
+        </v-flex>
+
+        <v-flex  shrink px-2 pt-2>
+            <v-btn-toggle v-model="pauseSel">
+              <v-btn class="px-5" color="#005297" @click="clickPause">Pause
+              </v-btn>
+            </v-btn-toggle>
+        </v-flex>
+
       </v-layout>
 
     </v-container>
@@ -293,10 +308,12 @@ export default {
   },
     data () {
       return {
-        test1: 0,
-        test2: 0,
-        test3: 0,
-        test4: 0
+        busySel: 1,
+        pauseSel: 1,
+        // test1: 0,
+        // test2: 0,
+        // test3: 0,
+        // test4: 0
 
       }
     },
@@ -445,7 +462,7 @@ export default {
       },
       newTeam () {
         return store.state.orga.aktiveTeam
-      }
+      },
     //   technik1 () { return this.$store.state.mobileWertung.technik[0] },
     //   technik2 () { return this.$store.state.mobileWertung.technik[1] },
     //   technik3 () { return this.$store.state.mobileWertung.technik[2] },
@@ -593,6 +610,13 @@ export default {
       },
       nextVote () {
         store.commit('clear_mobile_buffer')
+      },
+      clickBusy () {
+        this.$socket.emit('orga_busy', (this.busySel !== 0))
+
+      },
+      clickPause () {
+        this.$socket.emit('orga_pause', (this.pauseSel !== 0))
       }
     },
     watch: {

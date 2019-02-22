@@ -11,6 +11,18 @@ export default new Vuex.Store({
     connect: false, // Data server connect
     // Array list of starters [0..N]
     starterList: [],
+    pausenRangIndex: 0,
+    pause : [
+      { klasse: 'A', type: 'PW'     }, // indx 0
+      { klasse: 'A', type: 'W2'     },
+      { klasse: 'A', type: 'W3'     },
+      { klasse: 'D', type: 'PW'     },
+      { klasse: 'D', type: 'W2'     },
+      { klasse: 'D', type: 'W3'     },
+      { klasse: 'N', type: 'PW'     },
+      { klasse: 'N', type: 'W2'     },
+      { klasse: 'N', type: 'W3'     }, // indx 8
+    ],
     // vote: [], // index 0 in vote index 1-N Lastvotes
     // Set up on Orga Page
     orga: {
@@ -20,6 +32,7 @@ export default new Vuex.Store({
     // Result view control: single result and filtered result list 
     ToggleResultView: 0,
     orgaBusy: false,
+    orgaPause: false,
 
     // // Data of one starter
     // starter: {
@@ -141,6 +154,14 @@ export default new Vuex.Store({
         state.starterList[state.orga.aktiveTeam].CJP = state.mobileWertung[0].cjpresult 
         state.starterList[state.orga.aktiveTeam].gesPunkte = state.mobileWertung[0].finalresult
     },
+    inc_pausenRangIndex (state) {
+      if(state.pausenRangIndex >= 8) {
+        state.pausenRangIndex = 0
+      } else {
+        state.pausenRangIndex++
+      }
+
+    },
     // },
 
 
@@ -200,7 +221,14 @@ export default new Vuex.Store({
       }
     console.log('SOCKET_MOBILE_BUSY', message)
     },
-
+    SOCKET_ORGA_BUSY: (state, message) => {
+      state.orgaBusy = message
+      console.log('SOCKET_ORGA_BUSY', message)
+    },
+    SOCKET_ORGA_PAUSE: (state, message) => {
+      state.orgaPause = message
+      console.log('SOCKET_ORGA_PAUSE', message)
+    },
     SOCKET_SYNC_FINAL_RESULTS: (state, message) => {
       console.log('Receive new final results')
       state.starterList[state.orga.aktiveTeam].T = message[0].technik.result 
@@ -261,6 +289,14 @@ export default new Vuex.Store({
       }
     },
 
+     // Filter by klass and type for rangliste 
+     tableDataSameKlassPause: (state) => (nr) => {
+      return state.starterList.filter((i) => {
+        console.log(' DEBUG FILTER LIST' + i.gesPunkte + ' 0.000')
+        return ((i.gesPunkte >= 0.001 ) && (i.klasse === state.pause[nr].klasse ) && (i.type === state.pause[nr].type))
+       })
+      },
+   
     // Filter by klass and type for rangliste 
     tableDataSameKlass: (state) => {
       return state.starterList.filter((i) => {
@@ -270,11 +306,11 @@ export default new Vuex.Store({
       },
     // Filter für OneResult Rang Anzeige  
     aktuellerRang: (state) => {
-    console.log('Enter New Filter')
-    const rang = state.starterList
-    .filter((i) => ( (i.gesPunkte >= 0.001 ) && (i.klasse === state.starterList[state.orga.votedTeam].klasse ) && (i.type === state.starterList[state.orga.votedTeam].type)))
-    rang.sort((a, b) => b.gesPunkte - a.gesPunkte )
-    return (rang.findIndex((t) =>  (t.nr === state.orga.votedTeam)) +1)
+      console.log('Enter New Filter')
+      const rang = state.starterList
+      .filter((i) => ( (i.gesPunkte >= 0.001 ) && (i.klasse === state.starterList[state.orga.votedTeam].klasse ) && (i.type === state.starterList[state.orga.votedTeam].type)))
+      rang.sort((a, b) => b.gesPunkte - a.gesPunkte )
+      return (rang.findIndex((t) =>  (t.nr === state.orga.votedTeam)) +1)
     },
 
     displayKlasse: (state) => (nr) => { return (state.starterList.length === 0 ? ' ' : state.starterList[nr].klasse) },
@@ -283,7 +319,7 @@ export default new Vuex.Store({
     displayRoutine: (state) => (nr) => { return (state.starterList.length === 0 ? ' ' : state.starterList[nr].routine) },
 
     kg1Busy: (state)  => {
-        return (!(state.mobileWertung[0].technik.busy[0] ||
+        return ((state.mobileWertung[0].technik.busy[0] ||
                   state.mobileWertung[0].technik.busy[1] ||
                   state.mobileWertung[0].technik.busy[2] ||
                   state.mobileWertung[0].technik.busy[3] ||
@@ -292,10 +328,14 @@ export default new Vuex.Store({
                   state.mobileWertung[0].artistik.busy[2] ||
                   state.mobileWertung[0].artistik.busy[3] ||
                   state.mobileWertung[0].djBusy ||
-                  state.mobileWertung[0].cjpBusy
+                  state.mobileWertung[0].cjpBusy ||
+                  state.orgaBusy
                   ))
+        },
+        orgaBusy: (state)  => {
+          return  state.orgaBusy
         }
-    
+      
 
     // getTechnik1: state => () => state.mobileWertung[0].technik.input[0]
 

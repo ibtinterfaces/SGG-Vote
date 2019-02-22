@@ -1,5 +1,6 @@
 <template>
   <div class="results">
+    onerestul: {{showOneresult}} Kampfgericht: {{kampfgerichtBusy1}}
     <Led line1="" line2="" v-bind:input="kampfgerichtBusy1"></Led>
     <OneAktive></OneAktive>
     <OneResult v-show="showOneresult"></OneResult>
@@ -30,17 +31,32 @@ export default {
   },
   computed: {
     showRangliste () {
-      return store.state.ToggleResultView
-      // return true
+      // return store.state.ToggleResultView
+      if(store.state.orgaPause === true) {
+        return true
+      } else {
+          if(this.kampfgerichtBusy1 === true) {
+            return true
+          } else {
+            return store.state.ToggleResultView
+          }
+      }
     },
     showOneresult () {
-      return !store.state.ToggleResultView
-      // return true
+      if(store.state.orgaPause === true) {
+        return false
+      } else {
+        if(this.kampfgerichtBusy1 === true)   {
+          return false
+        } else {
+          return !store.state.ToggleResultView
+        }
+      }
     },
     // Drive busy LED on top of result page
-      kampfgerichtBusy1 () {
-        return this.$store.getters.kg1Busy
-      },
+    kampfgerichtBusy1 () {
+      return this.$store.getters.kg1Busy
+    },
   }
   
 }

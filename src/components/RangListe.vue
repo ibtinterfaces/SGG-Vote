@@ -40,7 +40,7 @@
 </template>
 
 <script>
-// import store from '@/store'
+import store from '@/store'
 
 export default {
   name: 'RangListe',
@@ -98,19 +98,45 @@ export default {
     },
     computed: {
       tableData () {
-        return this.$store.getters.tableDataSameKlass
+        if(store.state.orgaPause === false) {
+          return this.$store.getters.tableDataSameKlass
+        } else {
+          return this.$store.getters.tableDataSameKlassPause(store.state.pausenRangIndex)
+        }
+
+
+
+
       },
       klasse () {
-        return this.$store.getters.displayKlasse(this.$store.state.orga.votedTeam)
+        if(store.state.orgaPause === false) {
+          return this.$store.getters.displayKlasse(this.$store.state.orga.votedTeam)
+        } else {
+          return store.state.pause[store.state.pausenRangIndex].klasse
+        }
       },
       altersKlasse () {
-        return this.$store.getters.displayAlterskl(this.$store.state.orga.votedTeam)
+        if(store.state.orgaPause === false) {
+          return this.$store.getters.displayAlterskl(this.$store.state.orga.votedTeam)
+        } else {
+          // return store.state.pause[store.state.pausenRangIndex].klasse
+          return ''
+        }
       },
       type () {
-        return this.$store.getters.displayType(this.$store.state.orga.votedTeam)
+        if(store.state.orgaPause === false) {
+          return this.$store.getters.displayType(this.$store.state.orga.votedTeam)
+        } else {
+          return store.state.pause[store.state.pausenRangIndex].type
+        }
       },
       routine () {
-        return this.$store.getters.displayRoutine(this.$store.state.orga.votedTeam)
+        if(store.state.orgaPause === false) {
+          return this.$store.getters.displayRoutine(this.$store.state.orga.votedTeam)
+        } else {
+          // return store.state.pause[store.state.pausenRangIndex].klasse
+          return ''
+        }
       },
     },
     mounted () {

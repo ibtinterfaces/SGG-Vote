@@ -300,7 +300,7 @@ export default {
         return (this.lockSel === 0)
       },
       busyStatus () {
-        return (this.busySel !== 0)
+        return (this.busySel === 0)
       },
       voteNameT () {
         return 'Kg. ' + this.kampfSelect + ' ' + 'Technik ' + this.richtSelect
