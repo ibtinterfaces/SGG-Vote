@@ -132,13 +132,15 @@ export default new Vuex.Store({
     update_diff_list (state, payload) {
       state.starterList[state.orga.aktiveTeam].D = payload
     },
+
     // Put final result in starterlist
-    // update_final_results (state) {
-    //   state.starterList[state.orga.aktiveTeam].T = state.mobileWertung[0].technik.result 
-    //   state.starterList[state.orga.aktiveTeam].A = state.mobileWertung[0].artistik.restlt 
-    //   state.starterList[state.orga.aktiveTeam].DJ = state.mobileWertung[0].djresult 
-    //   state.starterList[state.orga.aktiveTeam].CJP = state.mobileWertung[0].djpresult 
-    //   state.starterList[state.orga.aktiveTeam].gesPunkte = state.mobileWertung[0].finalresult
+    update_final_results (state) {
+        state.starterList[state.orga.aktiveTeam].T = state.mobileWertung[0].technik.result 
+        state.starterList[state.orga.aktiveTeam].A = state.mobileWertung[0].artistik.result 
+        state.starterList[state.orga.aktiveTeam].DJ = state.mobileWertung[0].djresult 
+        state.starterList[state.orga.aktiveTeam].CJP = state.mobileWertung[0].cjpresult 
+        state.starterList[state.orga.aktiveTeam].gesPunkte = state.mobileWertung[0].finalresult
+    },
     // },
 
 
@@ -158,10 +160,15 @@ export default new Vuex.Store({
     // state.kampfgericht.push(message[0])
       console.log('SOCKET_SYNC_ORGASELECT ', message)
      },
-    SOCKET_SYNC_VOTEDTEAM: (state, message) => {
+     SOCKET_SYNC_VOTEDTEAM: (state, message) => {
       state.orga.votedTeam = message
     // state.kampfgericht.push(message[0])
     console.log('SOCKET_SYNC_VOTEDTEAM ', message)
+    },
+    SOCKET_SYNC_STARTERLIST: (state, message) => {
+      state.starterList = message
+    // state.kampfgericht.push(message[0])
+    console.log('SOCKET_SYNC_STARTERLIST ', message)
     },
     SOCKET_MOBILE_VOTE: (state, message) => {
       // this._vm.$socket.emit('mobile_vote',message)

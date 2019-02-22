@@ -1,5 +1,18 @@
 <template>
   <div class="rangliste">
+
+
+
+
+
+
+
+
+
+
+
+
+
     <p class="display-3">Orga Starterliste</p>
         <p>Selected:{{ myDebug }} </p>
 
@@ -55,6 +68,7 @@
 <script>
 // import Vue from 'vue'
 import store from '@/store'
+
 // Import the EventBus we just created.
 // import { EventBus } from '@/event-bus.js';
 

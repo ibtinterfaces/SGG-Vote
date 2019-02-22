@@ -437,8 +437,10 @@ export default {
           return store.getters.getDiff
         },
         set (value) {
-          store.commit('update_diff_list', parseFloat(value))
+          store.commit('update_diff_list', value)
           console.log('New DIFF value :-)   : ' + value)
+          this.$socket.emit('sync_starterlist', store.state.starterList)
+
         }
       },
       newTeam () {
@@ -581,9 +583,11 @@ export default {
 
       },
       takeVote () {
+        store.commit('update_final_results')
         this.$socket.emit('sync_votedteam',store.state.orga.aktiveTeam)
         this.$socket.emit('sync_final_results',store.state.mobileWertung)
-        // store.commit('update_final_results')
+        this.$socket.emit('sync_starterlist', store.state.starterList)
+
 
 
       },
