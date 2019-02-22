@@ -258,9 +258,18 @@ export default new Vuex.Store({
     tableDataSameKlass: (state) => {
       return state.starterList.filter((i) => {
         console.log(' DEBUG FILTER LIST' + i.gesPunkte + ' 0.000')
-        return (   (i.gesPunkte >= 0.001 ) &&    (i.klasse === state.starterList[state.orga.votedTeam].klasse ) && (i.type === state.starterList[state.orga.votedTeam].type))
+        return ((i.gesPunkte >= 0.001 ) && (i.klasse === state.starterList[state.orga.votedTeam].klasse ) && (i.type === state.starterList[state.orga.votedTeam].type))
        })
       },
+    // Filter für OneResult Rang Anzeige  
+    aktuellerRang: (state) => {
+    console.log('Enter New Filter')
+    const rang = state.starterList
+    .filter((i) => ( (i.gesPunkte >= 0.001 ) && (i.klasse === state.starterList[state.orga.votedTeam].klasse ) && (i.type === state.starterList[state.orga.votedTeam].type)))
+    rang.sort((a, b) => b.gesPunkte - a.gesPunkte )
+    return (rang.findIndex((t) =>  (t.nr === state.orga.votedTeam)) +1)
+    },
+
     displayKlasse: (state) => (nr) => { return (state.starterList.length === 0 ? ' ' : state.starterList[nr].klasse) },
     displayAlterskl: (state) => (nr) => { return (state.starterList.length === 0 ? ' ' : state.starterList[nr].alterskl) },
     displayType: (state) => (nr) => { return (state.starterList.length === 0 ? ' ' : state.starterList[nr].type) },

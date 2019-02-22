@@ -39,7 +39,8 @@
 				<div class="row">
 					<div class="col col-40">
 						<div class="col"><div class="label">Endnote</div><div class="vote dblue">{{ props.item.gesPunkte }}</div></div>
-						<div class="col"><div class="label">Rang</div><div class="vote purp">{{ props.item.platzierung }}</div></div>
+						<!-- <div class="col"><div class="label">Rang</div><div class="vote purp">{{ props.item.platzierung }}</div></div> -->
+						<div class="col"><div class="label">Rang</div><div class="vote purp">{{ aktuellerRang }}</div></div>
 					</div>
 					<div class="col col-60">
 						<div class="col col-33">
@@ -175,10 +176,10 @@ export default {
         return store.state.starterList
       },
       tableData () {
-        //return this.$store.getters.tableData
-        // return this.$store.getters.inVote(7)
         return this.$store.getters.tableDataOneByNr(this.$store.state.orga.votedTeam)
-        // return this.$store.getters.tableDataOneByNr(9)
+      },
+      aktuellerRang () {
+        return this.$store.getters.aktuellerRang
       }
     },
     mounted () {
