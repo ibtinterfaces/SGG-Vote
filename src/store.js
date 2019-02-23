@@ -55,12 +55,12 @@ export default new Vuex.Store({
     cleanInitWertung: [ 
       { // Kampfgericht 1
         technik: {
-          input:  [null, null, null, null],
+          input:  ['', '', '', ''],
           busy: [false, false, false, false],
           result: null
         },
         artistik: {
-          input: [null, null, null, null],
+          input: ['', '', '', ''],
           busy: [false, false, false, false],
           result: null
         },
@@ -75,12 +75,12 @@ export default new Vuex.Store({
     mobileWertung: [ 
       { // Kampfgericht 1
         technik: {
-          input:  [null, null, null, null],
+          input:  ['', '', '', ''],
           busy: [false, false, false, false],
           result: null
         },
         artistik: {
-          input: [null, null, null, null],
+          input: ['', '', '', ''],
           busy: [false, false, false, false],
           result: null
         },
@@ -220,6 +220,11 @@ export default new Vuex.Store({
         default: // better do nothing
       }
     console.log('SOCKET_MOBILE_BUSY', message)
+    },
+    SOCKET_CLEANUP_MOBILE: (state, message) => {
+      console.log('SOCKET_CLEANUP_MOBILE', message)
+      state.mobileWertung = state.cleanInitWertung
+      state.mobileWertung = [...state.cleanInitWertung]
     },
     SOCKET_ORGA_BUSY: (state, message) => {
       state.orgaBusy = message

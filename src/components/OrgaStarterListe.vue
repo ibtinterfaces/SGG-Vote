@@ -1,18 +1,5 @@
 <template>
   <div class="rangliste">
-
-
-
-
-
-
-
-
-
-
-
-
-
     <p class="display-3">Orga Starterliste</p>
         <p>Selected:{{ myDebug }} </p>
 

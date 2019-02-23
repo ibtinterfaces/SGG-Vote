@@ -13,7 +13,7 @@
   <v-container fluid ma-0 pa-0>
     <v-layout>
       <v-spacer></v-spacer>
-      <p class="colapse">{{ nameSel || 'null' }} {{richtSelect}}</p>
+      <p class="colapse">{{ selectionText || 'null' }} </p>
       <v-spacer></v-spacer>
     </v-layout>
   </v-container>
@@ -112,6 +112,7 @@
             v-model="voteValueT"
             color="colactive"
             :append-icon="sendStatusT ? 'check' : undefined"
+            clearable
           ></v-text-field>
         </v-flex>
         <v-flex xs6 sm6 md6 px-1>
@@ -128,6 +129,7 @@
             v-model="voteValueA"
             color="colactive"
             :append-icon="sendStatusA ? 'check' : undefined"
+            clearable
           ></v-text-field>
         </v-flex>
         <v-flex  xs6 sm6 md6 px-1>
@@ -144,6 +146,7 @@
             v-model="voteValueD"
             color="colactive"
             :append-icon="sendStatusD ? 'check' : undefined"
+            clearable
           ></v-text-field>
         </v-flex>
         <v-flex  xs6 sm6 md6 px-1>
@@ -160,6 +163,7 @@
             v-model="voteValueC"
             color="colactive"
             :append-icon="sendStatusC ? 'check' : undefined"
+            clearable
           ></v-text-field>
         </v-flex>
         <!-- <v-spacer></v-spacer> -->
@@ -223,10 +227,10 @@ export default {
         selA: false, // new
         selD: false, // new
         selC: false, // new
-        voteValueT: null,
-        voteValueA: null,
-        voteValueD: null,
-        voteValueC: null,
+        voteValueT: '',
+        voteValueA: '',
+        voteValueD: '',
+        voteValueC: '',
         returnVoteValueT: 0,
         returnVoteValueA: 0,
         returnVoteValueD: 0,
@@ -317,10 +321,13 @@ export default {
       newTeam () {
         return store.state.orga.aktiveTeam
       },
-      
+      // sendStatusT () {
+      //   return 
+      // },      
       kampfSelectmodel: {
       set(val){this.kampfSelect = val},
-      get(){ return parseInt(this.kampfSelect) }
+      get(){ 
+        return parseInt(this.kampfSelect) }
     },
       richtSelectmodel: {
       set(val){this.richtSelect = val},
@@ -345,7 +352,24 @@ export default {
     visibleT () { return (this.selT === "true")},
     visibleA () { return (this.selA === "true")},
     visibleD () { return (this.selD === "true")},
-    visibleC () { return (this.selC === "true")}
+    visibleC () { return (this.selC === "true")},
+    selectionText () {
+      var text = ' '
+      if(this.visibleT === true) {
+        text = text.concat(' Technik ' + this.richtSelect + ' ')
+      }
+      if(this.visibleA === true) {
+        text = text.concat(' Artistik ' + this.richtSelect + ' ')
+      }
+      if(this.visibleD === true) {
+        text = text.concat(' DJ ' )
+      }
+      if(this.visibleC === true) {
+        text = text.concat(' CJP ')
+      }
+      console.log('New Text: ' + text)
+      return text
+    }
     
 
 
@@ -456,7 +480,11 @@ export default {
     watch: {
       newTeam: function() {
         console.log('Aktive Team CHANGED !!!!!!!!')
-        this.voteValueT = null
+        this.voteValueT = ''
+        this.voteValueA = ''
+        this.voteValueD = ''
+        this.voteValueC = ''
+
      },
      
      kampfSelectmodel () {

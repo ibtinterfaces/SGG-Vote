@@ -19,6 +19,7 @@
             v-model="technik_1"
             color="colactive"
             ref="T1"
+            clearable
           ></v-text-field>
         <!-- </v-flex>
         <v-flex shrink px-2> -->
@@ -33,6 +34,7 @@
             maxlength=2
             v-model="technik_2"
             color="colactive"
+            clearable
           ></v-text-field>
         <!-- </v-flex>
         <v-flex shrink px-2> -->
@@ -47,6 +49,7 @@
             maxlength=2
             v-model="technik_3"
             color="colactive"
+            clearable
           ></v-text-field>
         <!-- </v-flex>
         <v-flex shrink px-2> -->
@@ -61,6 +64,7 @@
             maxlength=2
             v-model="technik_4"
             color="colactive"
+            clearable
           ></v-text-field>
         </v-flex>
 
@@ -76,6 +80,7 @@
             maxlength=2
             v-model="artistik_1"
             color="colactive"
+            clearable
           ></v-text-field>
         <!-- </v-flex>
         <v-flex shrink px-2> -->
@@ -90,6 +95,7 @@
             maxlength=2
             v-model="artistik_2"
             color="colactive"
+            clearable
           ></v-text-field>
         <!-- </v-flex>
         <v-flex shrink px-2> -->
@@ -104,6 +110,7 @@
             maxlength=2
             v-model="artistik_3"
             color="colactive"
+            clearable
           ></v-text-field>
         <!-- </v-flex>
         <v-flex shrink px-2> -->
@@ -118,6 +125,7 @@
             maxlength=2
             v-model="artistik_4"
             color="colactive"
+            clearable
           ></v-text-field>
         </v-flex>
 
@@ -133,6 +141,7 @@
             maxlength=2
             v-model="dj_1"
             color="colactive"
+            clearable
           ></v-text-field>
         </v-flex>
 
@@ -148,6 +157,7 @@
             maxlength=2
             v-model="cjp_1"
             color="colactive"
+            clearable
           ></v-text-field>
         </v-flex>
 
@@ -187,6 +197,7 @@
             maxlength=2
             v-model="technik_R"
             color="colactive"
+            clearable
           ></v-text-field>
         </v-flex>
 
@@ -202,6 +213,7 @@
             maxlength=2
             v-model="$store.state.mobileWertung[0].artistik.result"
             color="colactive"
+            clearable
           ></v-text-field>
         </v-flex>
  
@@ -217,6 +229,7 @@
             maxlength=2
             v-model="dj_1"
             color="colactive"
+            clearable
           ></v-text-field>
         </v-flex>
 
@@ -232,6 +245,7 @@
             maxlength=2
             v-model="cjp_1"
             color="colactive"
+            clearable
           ></v-text-field>
         </v-flex>
 
@@ -257,8 +271,16 @@
       </v-layout>
       <v-layout row justify-center>
         <v-flex shrink px-2 pt-2>
-          <p class="display-1 myResult px-2">{{endNote}}</p>
+          <p class="display-2 myResult px-2">{{endNote}}</p>
         </v-flex>
+
+        <v-flex  shrink px-2 pt-3>
+            <v-btn-toggle v-model="busySel">
+              <v-btn class="px-5" color="colbusy" @click="clickBusy">Busy
+              </v-btn>
+            </v-btn-toggle>
+        </v-flex>
+
 
         <v-flex shrink px-2 pt-2>
           <v-btn outline color="colactive" @click="calcResult">Calc Vote</v-btn>
@@ -272,14 +294,14 @@
           <v-btn outline color="colactive" @click="nextVote">Next Vote</v-btn>
         </v-flex>
 
-        <v-flex  shrink px-2 pt-2>
+        <v-flex  shrink px-2 pt-3>
             <v-btn-toggle v-model="busySel">
               <v-btn class="px-5" color="colbusy" @click="clickBusy">Busy
               </v-btn>
             </v-btn-toggle>
         </v-flex>
 
-        <v-flex  shrink px-2 pt-2>
+        <v-flex  shrink px-2 pt-3>
             <v-btn-toggle v-model="pauseSel">
               <v-btn class="px-5" color="#005297" @click="clickPause">Pause
               </v-btn>
@@ -326,11 +348,15 @@ export default {
             }
 
       },
+      // NEED BUGFIX
       technik_1: {
         get () {
-          console.log('Test ' +store.getters.getTechnik1)
           // return store.getters.getTechnik1
-          return store.state.mobileWertung[0].technik.input[0]
+          if(isNaN(store.state.mobileWertung[0].technik.input[0])) {
+            return null
+          } else {
+            return store.state.mobileWertung[0].technik.input[0]
+          }
         },
         set (value) {
           store.state.mobileWertung[0].technik.input[0] = parseFloat(value)
@@ -604,12 +630,10 @@ export default {
         this.$socket.emit('sync_votedteam',store.state.orga.aktiveTeam)
         this.$socket.emit('sync_final_results',store.state.mobileWertung)
         this.$socket.emit('sync_starterlist', store.state.starterList)
-
-
-
       },
       nextVote () {
-        store.commit('clear_mobile_buffer')
+        this.$socket.emit('sync_starterlist', store.state.starterList)
+        this.$socket.emit('cleanup_mobile', true)
       },
       clickBusy () {
         this.$socket.emit('orga_busy', (this.busySel !== 0))
@@ -622,8 +646,8 @@ export default {
     watch: {
       newTeam: function() {
         console.log('Aktive Team CHANGED !!!!!!!!')
-        this.$refs.T1.innerHTML = null
-        store.state.mobileWertung[0].technik.input[0] = null
+        // this.$refs.T1.innerHTML = null
+        // store.state.mobileWertung[0].technik.input[0] = null
         
      }
     }
