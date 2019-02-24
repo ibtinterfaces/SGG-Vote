@@ -26,7 +26,7 @@ export default {
   methods: {
     saveFile () {
       try {
-        var text = JSON.stringify(store.state.starterList)
+        var text = JSON.stringify(store.state.starterList, null, ' ')
       } catch (error) {
         console.log(error)
         // console.log('TryCatch JSON')

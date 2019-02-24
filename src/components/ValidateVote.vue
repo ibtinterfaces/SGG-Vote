@@ -513,6 +513,8 @@ export default {
         return result
       },
       calcAverage (val1, val2) {
+        // console.log('Average in: ' + val1 + '' + val2)
+        // console.log('Average:' ((val1 + val2) / 2))
          return ((val1 + val2) / 2)
       },
       calcDoubleAverage (val1, val2, val3) {
@@ -542,40 +544,41 @@ export default {
         // Generates an array with valid votes 
         voteCount = this.getVoteCount(obj.input)
         console.log('Votecount: ' + voteCount)
+        result = this.calcAverage(obj.input[voteCount[0]], obj.input[voteCount[1]])
 
-        // select calculation methos
-        switch(voteCount.length) {
+        // // select calculation methos
+        // switch(voteCount.length) {
                   
-          case 0: // No calculation possible
-                  result = 0.0
-                  break
-          case 1: // No calculation possible
-                  result = 0.0
-                  break
-          case 2: // Average
-                  console.log('With two values calculate average')
-                  result = this.calcAverage(obj.input[voteCount[0]], obj.input[voteCount[1]])
-                  break
-          case 3: 
-                  // Doppelter arithmetisches mittel
-                  console.log('With three values calculate doeble aritmetic average')
-                 result = this.calcDoubleAverage(obj.input[voteCount[0]], obj.input[voteCount[1]], obj.input[voteCount[2]])
-                 break
-          case 4: 
-                  // FairAverage throw max and min then calculate average
-                  console.log('With four values calcuate FairAverage throw max and min then calculate average')
-                 result = this.calcFairAverage([obj.input[voteCount[0]], obj.input[voteCount[1]], obj.input[voteCount[2]], obj.input[voteCount[3]]  ])
-                 break
-          case 5: 
-                  // FairAverage throw max and min then calculate average
-                  console.log('With four values calcuate FairAverage throw max and min then calculate average')
-                 result = this.calcFairAverage([obj.input[voteCount[0]], obj.input[voteCount[1]], obj.input[voteCount[2]], obj.input[voteCount[3]], obj.input[voteCount[4]]  ])
-                 break
+        //   case 0: // No calculation possible
+        //           result = 0.0
+        //           break
+        //   case 1: // No calculation possible
+        //           result = 0.0
+        //           break
+        //   case 2: // Average
+        //           console.log('With two values calculate average')
+        //           result = this.calcAverage(obj.input[voteCount[0]], obj.input[voteCount[1]])
+        //           break
+        //   case 3: 
+        //           // Doppelter arithmetisches mittel
+        //           console.log('With three values calculate doeble aritmetic average')
+        //          result = this.calcDoubleAverage(obj.input[voteCount[0]], obj.input[voteCount[1]], obj.input[voteCount[2]])
+        //          break
+        //   case 4: 
+        //           // FairAverage throw max and min then calculate average
+        //           console.log('With four values calcuate FairAverage throw max and min then calculate average')
+        //          result = this.calcFairAverage([obj.input[voteCount[0]], obj.input[voteCount[1]], obj.input[voteCount[2]], obj.input[voteCount[3]]  ])
+        //          break
+        //   case 5: 
+        //           // FairAverage throw max and min then calculate average
+        //           console.log('With four values calcuate FairAverage throw max and min then calculate average')
+        //          result = this.calcFairAverage([obj.input[voteCount[0]], obj.input[voteCount[1]], obj.input[voteCount[2]], obj.input[voteCount[3]], obj.input[voteCount[4]]  ])
+        //          break
 
-          default:
-                  console.log('This should not happen in function recalc  :-( ')
-                  // delete low and high rest everage
-        }
+        //   default:
+        //           console.log('This should not happen in function recalc  :-( ')
+        //           // delete low and high rest everage
+        // }
             // obj.result = result
             console.log('Result: ' + result)
             return result
@@ -596,7 +599,7 @@ export default {
         obj.team =store.state.orga.aktiveTeam  
         obj.diff = parseFloat(store.getters.getDiff)
         console.log('calcResult technik')
-        obj.technik = (parseFloat(this.partCalc(store.state.mobileWertung[0].technik)) * 2)
+        obj.technik = parseFloat(this.partCalc(store.state.mobileWertung[0].technik))
         console.log('calcResult artistik')
         obj.artistik = parseFloat(this.partCalc(store.state.mobileWertung[0].artistik))
         console.log('calcResult artistik')
@@ -611,7 +614,7 @@ export default {
         console.log('     cjp: ' + obj.cjp )
         obj.result = obj.diff
         console.log('   FINAL: ' + obj.result )
-        obj.result += obj.technik
+        obj.result += (obj.technik * 2)
         console.log('   FINAL: ' + obj.result )
         obj.result += obj.artistik
         console.log('   FINAL: ' + obj.result )
