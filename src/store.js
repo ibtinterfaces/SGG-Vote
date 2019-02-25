@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
+import vm from './main.js';
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -52,42 +52,65 @@ export default new Vuex.Store({
     // },
 
     // Vote values of all mobiles go here
-    cleanInitWertung: [ 
-      { // Kampfgericht 1
+    cleanInitWertung: { // Kampfgericht 1
         technik: {
-          input:  ['', '', '', ''],
-          busy: [false, false, false, false],
-          result: null
+          in1: null,
+          in2: null,
+          in3: null,
+          in4: null,
+          resp1: null,
+          resp2: null,
+          resp3: null,
+          resp4: null,
+          result: null,
         },
         artistik: {
-          input: ['', '', '', ''],
-          busy: [false, false, false, false],
-          result: null
+          in1: null,
+          in2: null,
+          in3: null,
+          in4: null,
+          resp1: null,
+          resp2: null,
+          resp3: null,
+          resp4: null,
+          result: null,
         },
-        djresult: null,
-        djBusy: false,
-        cjpresult: null,
-        cjpBusy: false,
+        dj: null,
+        respDj: null,
+        cjp: null,
+        respCjp: null,
         diffresult: null,
         finalresult: 0.000,
-      }
-    ],
+      },
+
     mobileWertung: [ 
       { // Kampfgericht 1
         technik: {
-          input:  ['', '', '', ''],
-          busy: [false, false, false, false],
-          result: null
+          in1: null,
+          in2: null,
+          in3: null,
+          in4: null,
+          resp1: null,
+          resp2: null,
+          resp3: null,
+          resp4: null,
+          result: null,
         },
         artistik: {
-          input: ['', '', '', ''],
-          busy: [false, false, false, false],
-          result: null
+          in1: null,
+          in2: null,
+          in3: null,
+          in4: null,
+          resp1: null,
+          resp2: null,
+          resp3: null,
+          resp4: null,
+          result: null,
         },
-        djresult: null,
-        djBusy: false,
-        cjpresult: null,
-        cjpBusy: false,
+        dj: null,
+        respDj: null,
+        cjp: null,
+        respCjp: null,
         diffresult: null,
         finalresult: 0.000,
       }
@@ -115,31 +138,54 @@ export default new Vuex.Store({
     update_orga_select (state, nr) {
       state.orga.aktiveTeam = nr // Reset List
     },
-    clear_mobile_buffer (state) {
-      state.mobileWertung = [...state.cleanInitWertung]
-      // state.mobileWertung = state.cleanInitWertung
-      // Vue.$set(state.mobileWertung[0].technik.input, 0, null)
-
-      // Vue.$set(state, 'mobileWertung[0].technik.input', [null, null, null, null]);
-
-      // state.mobileWertung[0].technik.input.$set(1, null)
-      // state.mobileWertung[0].technik.input.$set(2, null)
-      // state.mobileWertung[0].technik.input.$set(3, null)
-        },
-    // Calculated pre results berfor validate and takeover
     update_pre_result (state, obj) {
       state.mobileWertung[0].technik.result = obj.technik
       state.mobileWertung[0].artistik.result = obj.artistik
-      state.mobileWertung[0].djresult = obj.dj
-      state.mobileWertung[0].cjpresult = obj.cjp
+      state.mobileWertung[0].dj = obj.dj
+      state.mobileWertung[0].cjp = obj.cjp
       state.mobileWertung[0].finalresult =obj.result.toFixed(3)
       
     },
+    update_t1 (state, payload) {
+      state.mobileWertung[0].technik.in1 = payload
+    },
+    update_t2 (state, payload) {
+      state.mobileWertung[0].technik.in2 = payload
+    },
+    update_t3 (state, payload) {
+      state.mobileWertung[0].technik.in3 = payload
+    },
+    update_t4 (state, payload) {
+      state.mobileWertung[0].technik.in4 = payload
+    },
+    update_a1 (state, payload) {
+      state.mobileWertung[0].artistik.in1 = payload
+    },
+    update_a2 (state, payload) {
+      state.mobileWertung[0].artistik.in2 = payload
+    },
+    update_a3 (state, payload) {
+      state.mobileWertung[0].artistik.in3 = payload
+    },
+    update_a4 (state, payload) {
+      state.mobileWertung[0].artistik.in4 = payload
+    },
+
+    update_t_r (state, payload) {
+      state.mobileWertung[0].technik.result = payload
+    },
+    update_a_r (state, payload) {
+      state.mobileWertung[0].artistik.result = payload
+    },
+    
+
+
+
     update_cjp_r (state, payload) {
-      state.mobileWertung[0].cjpresult = payload
+      state.mobileWertung[0].cjp = payload
     },
     update_dj_r (state, payload) {
-      state.mobileWertung[0].djresult = payload
+      state.mobileWertung[0].dj = payload
     },
     // Updates to starterList[] Array
     update_diff_list (state, payload) {
@@ -150,8 +196,8 @@ export default new Vuex.Store({
     update_final_results (state) {
         state.starterList[state.orga.aktiveTeam].T = state.mobileWertung[0].technik.result 
         state.starterList[state.orga.aktiveTeam].A = state.mobileWertung[0].artistik.result 
-        state.starterList[state.orga.aktiveTeam].DJ = state.mobileWertung[0].djresult 
-        state.starterList[state.orga.aktiveTeam].CJP = state.mobileWertung[0].cjpresult 
+        state.starterList[state.orga.aktiveTeam].DJ = state.mobileWertung[0].dj
+        state.starterList[state.orga.aktiveTeam].CJP = state.mobileWertung[0].cjp
         state.starterList[state.orga.aktiveTeam].gesPunkte = state.mobileWertung[0].finalresult
     },
     inc_pausenRangIndex (state) {
@@ -191,40 +237,119 @@ export default new Vuex.Store({
     // state.kampfgericht.push(message[0])
     console.log('SOCKET_SYNC_STARTERLIST ', message)
     },
-    SOCKET_MOBILE_VOTE: (state, message) => {
-      // this._vm.$socket.emit('mobile_vote',message)
-      // this.$store.commit('updatemobilevote', message)
-      switch(message.name) {
-        case 'Technik':   state.mobileWertung[(message.kgNr-1)].technik.input.splice((message.krNr-1), 1, message.value)
-                          break
-        case 'Artistik':  state.mobileWertung[(message.kgNr-1)].artistik.input.splice((message.krNr-1), 1, message.value) 
-                          break
-        case 'DJ':        state.mobileWertung[(message.kgNr-1)].djresult = message.value
-                          break
-        case 'CJP':       state.mobileWertung[(message.kgNr-1)].cjpresult = message.value
-                          break
-        default: // better do nothing
-      }
-      console.log('SOCKET_MOBILE_VOTE', message)
+
+
+    // Artistik Technik DJ CJP votes
+    SOCKET_MOB_VOTE_T1: (state, message) => {
+      console.log(message)
+      state.mobileWertung[message.kgNr].technik.in1 = message.value
+      vm.$socket.emit('mob_resp_t1', message)
     },
-    SOCKET_MOBILE_BUSY: (state, message) => {
-      switch(message.name) {
-        case 'Technik': state.mobileWertung[(message.kgNr-1)].technik.busy.splice((message.krNr-1), 1, message.busy)
-                        break
-        case 'Artistik': state.mobileWertung[(message.kgNr-1)].artistik.busy.splice((message.krNr-1), 1, message.busy)
-                        break
-        case 'DJ': state.mobileWertung[(message.kgNr-1)].djBusy = message.busy
-                        break
-        case 'CJP': state.mobileWertung[(message.kgNr-1)].cjpBusy = message.busy
-                        break
-        default: // better do nothing
-      }
-    console.log('SOCKET_MOBILE_BUSY', message)
+    SOCKET_MOB_VOTE_T2: (state, message) => {
+      state.mobileWertung[message.kgNr].technik.in2 = message.value
+      vm.$socket.emit('mob_resp_t2', message)
     },
+    SOCKET_MOB_VOTE_T3: (state, message) => {
+      state.mobileWertung[message.kgNr].technik.in3 = message.value
+      vm.$socket.emit('mob_resp_t3', message)
+    },
+    SOCKET_MOB_VOTE_T4: (state, message) => {
+      state.mobileWertung[message.kgNr].technik.in4 = message.value
+      vm.$socket.emit('mob_resp_t4', message)
+    },
+
+    SOCKET_MOB_VOTE_A1: (state, message) => {
+      state.mobileWertung[message.kgNr].artistik.in1 = message.value
+      vm.$socket.emit('mob_resp_a1', message)
+    },
+    SOCKET_MOB_VOTE_A2: (state, message) => {
+      state.mobileWertung[message.kgNr].artistik.in2 = message.value
+      vm.$socket.emit('mob_resp_a2', message)
+    },
+    SOCKET_MOB_VOTE_A3: (state, message) => {
+      state.mobileWertung[message.kgNr].artistik.in3 = message.value
+      vm.$socket.emit('mob_resp_a3', message)
+    },
+    SOCKET_MOB_VOTE_A4: (state, message) => {
+      state.mobileWertung[message.kgNr].artistik.in4 = message.value
+      vm.$socket.emit('mob_resp_a4', message)
+    },
+
+    SOCKET_MOB_VOTE_DJ: (state, message) => {
+      state.mobileWertung[message.kgNr].dj = message.value
+      vm.$socket.emit('mob_resp_dj', message)
+    },
+    SOCKET_MOB_VOTE_CJP: (state, message) => {
+      state.mobileWertung[message.kgNr].cjp = message.value
+      vm.$socket.emit('mob_resp_cjp', message)
+    },
+
+    // Artistik Technik DJ CJP RESPONSES
+    SOCKET_MOB_RESP_T1: (state, message) => {
+      state.mobileWertung[message.kgNr].technik.resp1 = message.value
+    },
+    SOCKET_MOB_RESP_T2: (state, message) => {
+      state.mobileWertung[message.kgNr].technik.resp2 = message.value
+    },
+    SOCKET_MOB_RESP_T3: (state, message) => {
+      state.mobileWertung[message.kgNr].technik.resp3 = message.value
+    },
+    SOCKET_MOB_RESP_T4: (state, message) => {
+      state.mobileWertung[message.kgNr].technik.resp4 = message.value
+    },
+
+    SOCKET_MOB_RESP_A1: (state, message) => {
+      state.mobileWertung[message.kgNr].artistik.resp1 = message.value
+    },
+    SOCKET_MOB_RESP_A2: (state, message) => {
+      state.mobileWertung[message.kgNr].artistik.resp2 = message.value
+    },
+    SOCKET_MOB_RESP_A3: (state, message) => {
+      state.mobileWertung[message.kgNr].artistik.resp3 = message.value
+    },
+    SOCKET_MOB_RESP_A4: (state, message) => {
+      state.mobileWertung[message.kgNr].artistik.resp4 = message.value
+    },
+
+    SOCKET_MOB_RESP_DJ: (state, message) => {
+      state.mobileWertung[message.kgNr].respDj = message.value
+    },
+    SOCKET_MOB_RESP_CJP: (state, message) => {
+      state.mobileWertung[message.kgNr].respCjp = message.value
+    },
+
     SOCKET_CLEANUP_MOBILE: (state, message) => {
       console.log('SOCKET_CLEANUP_MOBILE', message)
-      state.mobileWertung = state.cleanInitWertung
-      state.mobileWertung = [...state.cleanInitWertung]
+      // vm.$set(state.mobileWertung, 0, state.cleanInitWertung)
+      state.mobileWertung[0].technik.in1 = null
+      state.mobileWertung[0].technik.in2 = null
+      state.mobileWertung[0].technik.in3 = null
+      state.mobileWertung[0].technik.in4 = null
+
+      state.mobileWertung[0].technik.result = null
+
+      state.mobileWertung[0].artistik.in1 = null
+      state.mobileWertung[0].artistik.in2 = null
+      state.mobileWertung[0].artistik.in3 = null
+      state.mobileWertung[0].artistik.in4 = null
+
+      state.mobileWertung[0].artistik.result = null
+
+      state.mobileWertung[0].technik.resp1 = null
+      state.mobileWertung[0].technik.resp2 = null
+      state.mobileWertung[0].technik.resp3 = null
+      state.mobileWertung[0].technik.resp4 = null
+
+      state.mobileWertung[0].artistik.resp1 = null
+      state.mobileWertung[0].artistik.resp2 = null
+      state.mobileWertung[0].artistik.resp3 = null
+      state.mobileWertung[0].artistik.resp4 = null
+
+      state.mobileWertung[0].dj = null
+      state.mobileWertung[0].cjp = null
+      state.mobileWertung[0].respDj = null
+      state.mobileWertung[0].respCjp = null
+
     },
     SOCKET_ORGA_BUSY: (state, message) => {
       state.orgaBusy = message
@@ -238,8 +363,8 @@ export default new Vuex.Store({
       console.log('Receive new final results')
       state.starterList[state.orga.aktiveTeam].T = message[0].technik.result 
       state.starterList[state.orga.aktiveTeam].A = message[0].artistik.result 
-      state.starterList[state.orga.aktiveTeam].DJ = message[0].djresult 
-      state.starterList[state.orga.aktiveTeam].CJP = message[0].cjpresult 
+      state.starterList[state.orga.aktiveTeam].DJ = message[0].dj 
+      state.starterList[state.orga.aktiveTeam].CJP = message[0].cjp
       state.starterList[state.orga.aktiveTeam].gesPunkte = message[0].finalresult
     },
 
@@ -324,25 +449,26 @@ export default new Vuex.Store({
     displayRoutine: (state) => (nr) => { return (state.starterList.length === 0 ? ' ' : state.starterList[nr].routine) },
 
     kg1Busy: (state)  => {
-        return ((state.mobileWertung[0].technik.busy[0] ||
-                  state.mobileWertung[0].technik.busy[1] ||
-                  state.mobileWertung[0].technik.busy[2] ||
-                  state.mobileWertung[0].technik.busy[3] ||
-                  state.mobileWertung[0].artistik.busy[0] ||
-                  state.mobileWertung[0].artistik.busy[1] ||
-                  state.mobileWertung[0].artistik.busy[2] ||
-                  state.mobileWertung[0].artistik.busy[3] ||
-                  state.mobileWertung[0].djBusy ||
-                  state.mobileWertung[0].cjpBusy ||
-                  state.orgaBusy
-                  ))
-        },
+        // return ((state.mobileWertung[0].technik.busy[0] ||
+        //           state.mobileWertung[0].technik.busy[1] ||
+        //           state.mobileWertung[0].technik.busy[2] ||
+        //           state.mobileWertung[0].technik.busy[3] ||
+        //           state.mobileWertung[0].artistik.busy[0] ||
+        //           state.mobileWertung[0].artistik.busy[1] ||
+        //           state.mobileWertung[0].artistik.busy[2] ||
+        //           state.mobileWertung[0].artistik.busy[3] ||
+        //           state.mobileWertung[0].djBusy ||
+        //           state.mobileWertung[0].cjpBusy ||
+        //           state.orgaBusy
+        //           ))
+        return ( state.orgaBusy
+          )
+    },
         orgaBusy: (state)  => {
           return  state.orgaBusy
         }
       
 
-    // getTechnik1: state => () => state.mobileWertung[0].technik.input[0]
 
   }
 

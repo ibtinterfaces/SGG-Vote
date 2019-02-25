@@ -57,8 +57,9 @@ Vue.config.productionTip = false
 // }
 
 // new Vue({
-export const EventBus = new Vue({
-    router,
+  // export const EventBus = new Vue({
+  export default new Vue({
+      router,
     store,
     // data: data,
     methods: {

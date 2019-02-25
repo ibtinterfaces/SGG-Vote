@@ -182,7 +182,7 @@
       <v-layout row>
 
         <v-flex xs12>
-              <v-btn class="px-4" outline color="colactive" @click="clickVote">
+              <v-btn class="px-4" outline color="colactive" @click="clicNewkVote">
                 Send Vote
               </v-btn>
         </v-flex>
@@ -235,10 +235,10 @@ export default {
         returnVoteValueA: 0,
         returnVoteValueD: 0,
         returnVoteValueC: 0,
-        sendStatusT: false,
-        sendStatusA: false,
-        sendStatusD: false,
-        sendStatusC: false,
+        // sendStatusT: false,
+        // sendStatusA: false,
+        // sendStatusD: false,
+        // sendStatusC: false,
         // test2: 0,
         // test3: 0,
         // test4: 0,
@@ -328,32 +328,32 @@ export default {
       set(val){this.kampfSelect = val},
       get(){ 
         return parseInt(this.kampfSelect) }
-    },
+      },
       richtSelectmodel: {
       set(val){this.richtSelect = val},
       get(){ return parseInt(this.richtSelect) }
-    },
+      },
       selTmodel: {
       set(val){this.selT = val},
       get(){ return this.selT }
-    },
+      },
       selAmodel: {
       set(val){this.selA = val},
       get(){ return this.selA }
-    },
+      },
       selDmodel: {
       set(val){this.selD = val},
       get(){ return this.selD }
-    },
+      },
       selCmodel: {
       set(val){this.selC = val},
       get(){ return this.selC }
-    },
-    visibleT () { return (this.selT === "true")},
-    visibleA () { return (this.selA === "true")},
-    visibleD () { return (this.selD === "true")},
-    visibleC () { return (this.selC === "true")},
-    selectionText () {
+      },
+      visibleT () { return (this.selT === "true")},
+      visibleA () { return (this.selA === "true")},
+      visibleD () { return (this.selD === "true")},
+      visibleC () { return (this.selC === "true")},
+      selectionText () {
       var text = ' '
       if(this.visibleT === true) {
         text = text.concat(' Technik ' + this.richtSelect + ' ')
@@ -369,10 +369,47 @@ export default {
       }
       console.log('New Text: ' + text)
       return text
-    }
-    
+      },
 
 
+      sendStatusT () {
+      var val = false
+      var swval = parseInt(this.richtSelect)
+        switch(swval) {
+          case 1: val = (store.state.mobileWertung[(this.kampfSelect-1)].technik.resp1 === parseFloat(this.voteValueT))
+                  break
+          case 2: val = (store.state.mobileWertung[(this.kampfSelect-1)].technik.resp2 === parseFloat(this.voteValueT))
+                  break
+          case 3: val = (store.state.mobileWertung[(this.kampfSelect-1)].technik.resp3 === parseFloat(this.voteValueT))
+                  break
+          case 4: val = (store.state.mobileWertung[(this.kampfSelect-1)].technik.resp4 === parseFloat(this.voteValueT))
+                  break
+          default: console.log('CAUTION ILLEGAL VALUE IN SEND TECHNIK VALUE!!!')
+        }
+        return val
+      },
+      sendStatusA () {
+      var val = false
+        var swval = parseInt(this.richtSelect)
+        switch(swval) {
+          case 1: val = (store.state.mobileWertung[(this.kampfSelect-1)].artistik.resp1 === parseFloat(this.voteValueA))
+                  break
+          case 2: val = (store.state.mobileWertung[(this.kampfSelect-1)].artistik.resp2 === parseFloat(this.voteValueA))
+                  break
+          case 3: val = (store.state.mobileWertung[(this.kampfSelect-1)].artistik.resp3 === parseFloat(this.voteValueA))
+                  break
+          case 4: val = (store.state.mobileWertung[(this.kampfSelect-1)].artistik.resp4 === parseFloat(this.voteValueA))
+                  break
+          default: console.log('CAUTION ILLEGAL VALUE IN SEND TECHNIK VALUE!!!')
+        }
+        return val
+      },
+      sendStatusD () {
+        return (store.state.mobileWertung[(this.kampfSelect-1)].respDj === parseFloat(this.voteValueD))
+      },
+      sendStatusC () {
+        return (store.state.mobileWertung[(this.kampfSelect-1)].respCjp === parseFloat(this.voteValueC))
+      }
     },
     methods: {
       clickTest () {
@@ -416,6 +453,8 @@ export default {
       clickLock () {
           localStorage.lockSel = this.lockSel
       },
+
+
       clickBusy () {
         var obj ={
           kgNr: 0,
@@ -444,6 +483,8 @@ export default {
           this.$socket.emit('mobile_busy',obj)
         }
       },
+
+
       clickVote () {
         var obj ={
           kgNr: 0,
@@ -475,15 +516,76 @@ export default {
           this.$socket.emit('mobile_vote',obj)
         }
 
+      },
+
+      clicNewkVote () {
+        console.log('Click SEND VOTE ')
+        var obj ={
+          kgNr: 0,
+          value: 0
+        }
+        obj.kgNr = this.kampfSelect - 1
+
+
+        if (this.selT === 'true') {
+          obj.value = parseFloat(this.voteValueT)
+
+          var swval = parseInt(this.richtSelect)
+          console.log('switch: ' + swval)
+          switch(swval) {
+            case 1: this.$socket.emit('mob_vote_t1',obj)
+                    break
+            case 2: this.$socket.emit('mob_vote_t2',obj)
+                    break
+            case 3: this.$socket.emit('mob_vote_t3',obj)
+                    break
+            case 4: this.$socket.emit('mob_vote_t4',obj)
+                    break
+            default: console.log('ILLEGAL Richter number: '+ swval)
+          }
+          console.log('Kampfgericht ' + (obj.kgNr+1)  + ' Technik ' + this.richtSelect + ' Value :' + obj.value)
+        }
+
+        if (this.selA === 'true') {
+          obj.value = parseFloat(this.voteValueA)
+          var val = parseInt(this.richtSelect)
+          console.log('switch: ' + val)
+          switch(val) {
+            case 1: this.$socket.emit('mob_vote_a1',obj)
+                    break
+            case 2: this.$socket.emit('mob_vote_a2',obj)
+                    break
+            case 3: this.$socket.emit('mob_vote_a3',obj)
+                    break
+            case 4: this.$socket.emit('mob_vote_a4',obj)
+                    break
+          }
+          console.log('Kampfgericht ' + (obj.kgNr+1)  + ' Artistik ' + this.richtSelect + ' Value :' + obj.value)
+        }
+
+        if (this.selD === 'true') {
+          obj.value = parseFloat(this.voteValueD)
+          this.$socket.emit('mob_vote_dj',obj)
+          console.log('Kampfgericht ' + (obj.kgNr+1)  + ' DJ ' + this.richtSelect + ' Value :' + obj.value)
+        }
+
+        if (this.selC === 'true') {
+          obj.value = parseFloat(this.voteValueC)
+          this.$socket.emit('mob_vote_cjp',obj)
+          console.log('Kampfgericht ' + (obj.kgNr+1)  + ' CJP ' + this.richtSelect + ' Value :' + obj.value)
+        }
+
       }
+
+
     },
     watch: {
       newTeam: function() {
         console.log('Aktive Team CHANGED !!!!!!!!')
-        this.voteValueT = ''
-        this.voteValueA = ''
-        this.voteValueD = ''
-        this.voteValueC = ''
+        this.voteValueT = null // war ''
+        this.voteValueA = null
+        this.voteValueD = null
+        this.voteValueC = null
 
      },
      

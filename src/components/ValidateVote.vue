@@ -206,12 +206,12 @@
             type="number"
             name="Artistik"
             label="Artistik"
-            id="Artistik"
+            id="ArtistikR"
             min=5
             max=10
             step=0.1
             maxlength=2
-            v-model="$store.state.mobileWertung[0].artistik.result"
+            v-model="artistik_R"
             color="colactive"
             clearable
           ></v-text-field>
@@ -352,44 +352,44 @@ export default {
       technik_1: {
         get () {
           // return store.getters.getTechnik1
-          if(isNaN(store.state.mobileWertung[0].technik.input[0])) {
+          if(isNaN(store.state.mobileWertung[0].technik.in1)) {
             return null
           } else {
-            return store.state.mobileWertung[0].technik.input[0]
+            return store.state.mobileWertung[0].technik.in1
           }
         },
         set (value) {
-          store.state.mobileWertung[0].technik.input[0] = parseFloat(value)
+          store.commit('update_t1', parseFloat(value))
           console.log('New Technik_1 value :-)   : ' + value)
           // this.$socket.emit('tr_contr', store.state.dataToTracker)
         }
       },
       technik_2: {
         get () {
-          return store.state.mobileWertung[0].technik.input[1]
+          return store.state.mobileWertung[0].technik.in2
         },
         set (value) {
-          store.state.mobileWertung[0].technik.input[1] = parseFloat(value)
+          store.commit('update_t2', parseFloat(value))
           console.log('New Technik_1 value :-)   : ' + value)
           // this.$socket.emit('tr_contr', store.state.dataToTracker)
         }
       },
       technik_3: {
         get () {
-          return store.state.mobileWertung[0].technik.input[2]
+          return store.state.mobileWertung[0].technik.in3
         },
         set (value) {
-          store.state.mobileWertung[0].technik.input[2] = parseFloat(value)
+          store.commit('update_t3', parseFloat(value))
           console.log('New Technik_1 value :-)   : ' + value)
           // this.$socket.emit('tr_contr', store.state.dataToTracker)
         }
       },
       technik_4: {
         get () {
-          return store.state.mobileWertung[0].technik.input[3]
+          return store.state.mobileWertung[0].technik.in4
         },
         set (value) {
-          store.state.mobileWertung[0].technik.input[3] = parseFloat(value)
+          store.commit('update_t4', parseFloat(value))
           console.log('New Technik_1 value :-)   : ' + value)
           // this.$socket.emit('tr_contr', store.state.dataToTracker)
         }
@@ -399,76 +399,75 @@ export default {
           return store.state.mobileWertung[0].technik.result
         },
         set (value) {
-          store.state.mobileWertung[0].technik.result = parseFloat(value)
+          //store.state.mobileWertung[0].technik.result = parseFloat(value)
+          store.commit('update_t_r', parseFloat(value))
           console.log('New Technik Result_1 value :-)   : ' + value)
+          // this.$socket.emit('tr_contr', store.state.dataToTracker)
+        }
+      },
+      artistik_R: {
+        get () {
+          return store.state.mobileWertung[0].artistik.result
+        },
+        set (value) {
+          //store.state.mobileWertung[0].technik.result = parseFloat(value)
+          store.commit('update_a_r', parseFloat(value))
+          console.log('New Artistik Result_1 value :-)   : ' + value)
           // this.$socket.emit('tr_contr', store.state.dataToTracker)
         }
       },
       artistik_1: {
         get () {
-          return store.state.mobileWertung[0].artistik.input[0]
+          return store.state.mobileWertung[0].artistik.in1
         },
         set (value) {
-          store.state.mobileWertung[0].artistik.input[0] = parseFloat(value)
+          store.commit('update_a1', parseFloat(value))
           console.log('New Technik_1 value :-)   : ' + value)
           // this.$socket.emit('tr_contr', store.state.dataToTracker)
         }
       },
       artistik_2: {
         get () {
-          return store.state.mobileWertung[0].artistik.input[1]
+          return store.state.mobileWertung[0].artistik.in2
         },
         set (value) {
-          store.state.mobileWertung[0].artistik.input[1] = parseFloat(value)
+          store.commit('update_a2', parseFloat(value))
           console.log('New Technik_1 value :-)   : ' + value)
           // this.$socket.emit('tr_contr', store.state.dataToTracker)
         }
       },
       artistik_3: {
         get () {
-          return store.state.mobileWertung[0].artistik.input[2]
+          return store.state.mobileWertung[0].artistik.in3
         },
         set (value) {
-          store.state.mobileWertung[0].artistik.input[2] = parseFloat(value)
+          store.commit('update_a3', parseFloat(value))
           console.log('New Technik_1 value :-)   : ' + value)
           // this.$socket.emit('tr_contr', store.state.dataToTracker)
         }
       },
       artistik_4: {
         get () {
-          return store.state.mobileWertung[0].artistik.input[3]
+          return store.state.mobileWertung[0].artistik.in4
         },
         set (value) {
-          store.state.mobileWertung[0].artistik.input[3] = parseFloat(value)
+          store.commit('update_a4', parseFloat(value))
           console.log('New Technik_1 value :-)   : ' + value)
           // this.$socket.emit('tr_contr', store.state.dataToTracker)
         }
       },
-      // dj_1: {
-      //   get () {
-      //     return store.state.mobileWertung[0].djresult
-      //   },
-      //   set (value) {
-      //     store.state.mobileWertung[0].djresult = parseFloat(value)
-      //     console.log('New DJ value :-)   : ' + value)
-      //     // this.$socket.emit('tr_contr', store.state.dataToTracker)
-      //   }
-      // },
       dj_1: {
         get () {
-          return store.state.mobileWertung[0].djresult
+          return store.state.mobileWertung[0].dj
         },
         set (value) {
-          // store.state.mobileWertung[0].cjpresult = parseFloat(value)
           store.commit('update_dj_r', parseFloat(value))
-
           console.log('New CJP value :-)   : ' + value)
-          // this.$socket.emit('tr_contr', store.state.dataToTracker)
         }
       },
       cjp_1: {
         get () {
-          return store.state.mobileWertung[0].cjpresult
+          return store.state.mobileWertung[0].cjp
         },
         set (value) {
           store.commit('update_cjp_r', parseFloat(value))
@@ -501,20 +500,30 @@ export default {
         console.log(obj)
 
         var result = []
-        for (var x = 0; x < 4; x++) {
-          console.log(obj[x])
-          if (!(  (obj[x] === null) || isNaN(obj[x]) || (obj[x] === 0.0) ))  {
-          // if (obj[x] !== 0.0) {
-            result.push(x)  
-          }
+        var val
+
+        val = obj.in1
+        if (!(  (val === null) || isNaN(val) || (val === 0.0) ))  {
+          result.push(val)  
         }
+        val = obj.in2
+        if (!(  (val === null) || isNaN(val) || (val === 0.0) ))  {
+          result.push(val)  
+        }
+        val = obj.in3
+        if (!(  (val === null) || isNaN(val) || (val === 0.0) ))  {
+          result.push(val)  
+        }
+        val = obj.in4
+        if (!(  (val === null) || isNaN(val) || (val === 0.0) ))  {
+          result.push(val)  
+        }
+
         console.log('VotCount pushes array')
         console.log(result)
         return result
       },
       calcAverage (val1, val2) {
-        // console.log('Average in: ' + val1 + '' + val2)
-        // console.log('Average:' ((val1 + val2) / 2))
          return ((val1 + val2) / 2)
       },
       calcDoubleAverage (val1, val2, val3) {
@@ -542,43 +551,37 @@ export default {
         var result = 0
         console.log('Recalculate Technik vote')
         // Generates an array with valid votes 
-        voteCount = this.getVoteCount(obj.input)
+        voteCount = this.getVoteCount(obj)
         console.log('Votecount: ' + voteCount)
-        result = this.calcAverage(obj.input[voteCount[0]], obj.input[voteCount[1]])
 
-        // // select calculation methos
-        // switch(voteCount.length) {
+        // select calculation methos
+        switch(voteCount.length) {
                   
-        //   case 0: // No calculation possible
-        //           result = 0.0
-        //           break
-        //   case 1: // No calculation possible
-        //           result = 0.0
-        //           break
-        //   case 2: // Average
-        //           console.log('With two values calculate average')
-        //           result = this.calcAverage(obj.input[voteCount[0]], obj.input[voteCount[1]])
-        //           break
-        //   case 3: 
-        //           // Doppelter arithmetisches mittel
-        //           console.log('With three values calculate doeble aritmetic average')
-        //          result = this.calcDoubleAverage(obj.input[voteCount[0]], obj.input[voteCount[1]], obj.input[voteCount[2]])
-        //          break
-        //   case 4: 
-        //           // FairAverage throw max and min then calculate average
-        //           console.log('With four values calcuate FairAverage throw max and min then calculate average')
-        //          result = this.calcFairAverage([obj.input[voteCount[0]], obj.input[voteCount[1]], obj.input[voteCount[2]], obj.input[voteCount[3]]  ])
-        //          break
-        //   case 5: 
-        //           // FairAverage throw max and min then calculate average
-        //           console.log('With four values calcuate FairAverage throw max and min then calculate average')
-        //          result = this.calcFairAverage([obj.input[voteCount[0]], obj.input[voteCount[1]], obj.input[voteCount[2]], obj.input[voteCount[3]], obj.input[voteCount[4]]  ])
-        //          break
+          case 0: // No calculation possible
+                  result = 0.0
+                  break
+          case 1: // No calculation possible
+                  result = 0.0
+                  break
+          case 2: // Average
+                  console.log('With two values calculate average')
+                  result = this.calcAverage(voteCount[0], voteCount[1])
+                  break
+          case 3: 
+                  // Doppelter arithmetisches mittel
+                  console.log('With three values calculate doeble aritmetic average')
+                 result = this.calcDoubleAverage(voteCount[0], voteCount[1], voteCount[2])
+                 break
+          case 4: 
+                  // FairAverage throw max and min then calculate average
+                  console.log('With four values calcuate FairAverage throw max and min then calculate average')
+                 result = this.calcFairAverage([voteCount[0], voteCount[1], voteCount[2], voteCount[3]])
+                 break
 
-        //   default:
-        //           console.log('This should not happen in function recalc  :-( ')
-        //           // delete low and high rest everage
-        // }
+          default:
+                  console.log('This should not happen in function recalc  :-( ')
+                  // delete low and high rest everage
+        }
             // obj.result = result
             console.log('Result: ' + result)
             return result
@@ -603,9 +606,9 @@ export default {
         console.log('calcResult artistik')
         obj.artistik = parseFloat(this.partCalc(store.state.mobileWertung[0].artistik))
         console.log('calcResult artistik')
-        obj.dj = parseFloat(store.state.mobileWertung[0].djresult)
+        obj.dj = parseFloat(store.state.mobileWertung[0].dj)
         console.log('calcResult artistik')
-        obj.cjp = parseFloat(store.state.mobileWertung[0].cjpresult)
+        obj.cjp = parseFloat(store.state.mobileWertung[0].cjp)
         console.log('DEBUG:  calc final result() ')
         console.log('    Diff: ' + obj.diff )
         console.log(' technik: ' + obj.technik )
@@ -650,7 +653,7 @@ export default {
       newTeam: function() {
         console.log('Aktive Team CHANGED !!!!!!!!')
         // this.$refs.T1.innerHTML = null
-        // store.state.mobileWertung[0].technik.input[0] = null
+        // store.state.mobileWertung[0].technik.in1 = null
         
      }
     }

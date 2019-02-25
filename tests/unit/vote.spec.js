@@ -30,9 +30,9 @@ localVue.use(Vuetify)
                 busy: [false, false, false, false],
                 result: 0.0
               },
-              djresult: 3.3,
+              dj: 3.3,
               djBusy: false,
-              cjpresult: 2.2,
+              cjp: 2.2,
               cjpBusy: false,
             }
           ]
@@ -131,9 +131,9 @@ describe('Test voting math functions', () => {
 //                 busy: [false, false, false, false],
 //                 result: 0.0
 //               },
-//               djresult: 3.3,
+//               dj: 3.3,
 //               djBusy: false,
-//               cjpresult: 2.2,
+//               cjp: 2.2,
 //               cjpBusy: false,
 //             }
 //           ]
