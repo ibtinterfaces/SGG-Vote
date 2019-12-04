@@ -21,19 +21,27 @@ localVue.use(Vuetify)
     var wertungTest1 = [ 
             { // Kampfgericht 1
               technik: {
-                input:  [5.1, 6.2, 7.1, 8.1],
-                busy: [false, false, false, false],
+                in1: 5.1,
+                in2:  6.2,
+                in3:  7.1,
+                in4: 8.1,
+                // busy: [false, false, false, false],
                 result: 0.0
               },
               artistik: {
-                input: [5.0, 6.0, 7.0, 8.0],
-                busy: [false, false, false, false],
+                in1:  5.0,
+                in2:  6.0,
+                in3:  7.0,
+                in4:  8.0,
+                // busy: [false, false, false, false],
                 result: 0.0
               },
               dj: 3.3,
               djBusy: false,
               cjp: 2.2,
               cjpBusy: false,
+              diffresult: null,
+              finalresult: 0.000,
             }
           ]
 

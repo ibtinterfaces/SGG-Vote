@@ -187,12 +187,12 @@
               </v-btn>
         </v-flex>
 
-        <v-flex xs12>
+        <!-- <v-flex xs12>
             <v-btn-toggle v-model="busySel">
               <v-btn class="px-5" color="colbusy" @click="clickBusy">Busy
               </v-btn>
             </v-btn-toggle>
-        </v-flex>
+        </v-flex> -->
       </v-layout>
     </v-container>
 
@@ -246,7 +246,7 @@ export default {
         // Technik: 0.0,
         // Artistik: 0.0,
         // Dj: 0.0,
-        kampfgNr: [1, 2],
+        kampfgNr: [1], // nur eins 
         kampfgIndex: [1, 2, 3, 4],
 
         pagination : {'sortBy': 'gesPunkte', 'descending': true, 'rowsPerPage': -1},
@@ -374,7 +374,10 @@ export default {
 
       sendStatusT () {
       var val = false
-      var swval = parseInt(this.richtSelect)
+      console.log("this.richtSelect:" + this.richtSelect)
+      // var swval = parseInt(this.richtSelect)
+      var swval = this.richtSelect
+      console.log("swval:" + this.swval)
         switch(swval) {
           case 1: val = (store.state.mobileWertung[(this.kampfSelect-1)].technik.resp1 === parseFloat(this.voteValueT))
                   break
@@ -384,13 +387,14 @@ export default {
                   break
           case 4: val = (store.state.mobileWertung[(this.kampfSelect-1)].technik.resp4 === parseFloat(this.voteValueT))
                   break
-          default: console.log('CAUTION ILLEGAL VALUE IN SEND TECHNIK VALUE!!!')
+          default: console.log('CAUTION ILLEGAL VALUE IN SEND TECHNIK VALUE!!!  :' + swval)
         }
         return val
       },
       sendStatusA () {
       var val = false
-        var swval = parseInt(this.richtSelect)
+        // var swval = parseInt(this.richtSelect)
+        var swval = this.richtSelect
         switch(swval) {
           case 1: val = (store.state.mobileWertung[(this.kampfSelect-1)].artistik.resp1 === parseFloat(this.voteValueA))
                   break
@@ -400,7 +404,7 @@ export default {
                   break
           case 4: val = (store.state.mobileWertung[(this.kampfSelect-1)].artistik.resp4 === parseFloat(this.voteValueA))
                   break
-          default: console.log('CAUTION ILLEGAL VALUE IN SEND TECHNIK VALUE!!!')
+          default: console.log('CAUTION ILLEGAL VALUE IN SEND ARTISTIK VALUE!!!')
         }
         return val
       },
@@ -426,13 +430,32 @@ export default {
       },
       getConfig () {
         console.log('Read localStorage')
-        this.selT = localStorage.selT
-        this.selA = localStorage.selA
-        this.selD = localStorage.selD
-        this.selC = localStorage.selC
-        this.kampfSelect = localStorage.kampfSelect
-        this.richtSelect = localStorage.richtSelect
-  
+        if(localStorage.selT) {
+          this.selT = localStorage.selT
+        }
+
+        if(localStorage.selA) {
+          this.selA = localStorage.selA
+        }
+        if(localStorage.selD) {
+          this.selD = localStorage.selD
+        }
+        if(localStorage.selC) {
+          this.selC = localStorage.selC
+        }
+        if(localStorage.kampfSelect && (localStorage.kampfSelect !== "undefined")) {
+          this.kampfSelect = localStorage.kampfSelect
+          console.log("Found local storage kampfSelect :-) val:")
+        } else {
+          this.kampfSelect = 1
+          console.log("Not Found local storage kampfSelect :-(")
+        }
+
+        if(localStorage.richtSelect && (localStorage.richtSelect !== "undefined")) {
+          this.richtSelect = localStorage.richtSelect
+        } else {
+          this.richtSelect = 1
+        }
 
       //   if (localStorage.nameSel) {
       //   this.nameSel = localStorage.nameSel;
@@ -492,6 +515,7 @@ export default {
           name: 0,
           value: 0
         }
+
         obj.kgNr = this.kampfSelect
         obj.krNr = this.richtSelect
 

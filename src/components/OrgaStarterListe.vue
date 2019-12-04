@@ -40,11 +40,15 @@
 
           <td class="text-xs-left display-1"><span>{{ props.item.name1 }}</span><span>{{ props.item.name2 }}</span><span>{{ props.item.name3 }}</span></td>
           <!-- <td class="text-xs-center display-1">{{ props.item.verein }}</td> -->
+          <td class="text-xs-center display-1">{{ props.item.D }}</td>
           <td class="text-xs-center display-1">{{ props.item.klasse }}</td>
           <td class="text-xs-center display-1">{{ props.item.alterskl }}</td>
           <td class="text-xs-center display-1">{{ props.item.type }}</td>
           <td class="text-xs-center display-1">{{ props.item.routine }}</td>
           <td class="text-xs-center display-1">{{ props.item.gesPunkte }}</td>
+          <td class="text-xs-center display-1" @click="myedit(props.item)"><v-icon>edit</v-icon></td>
+          <td class="text-xs-center display-1" @click="myadd(props.item)"><v-icon>add</v-icon></td>
+          <td class="text-xs-center display-1" @click="mydelete(props.item)"><v-icon>delete</v-icon></td>
         </tr>
       </template>
     </v-data-table>
@@ -95,6 +99,12 @@ export default {
           //   value: 'verein'
           // },
           {
+            text: 'Diff',
+            align: 'center',
+            sortable: false,
+            value: 'D'
+          },
+          {
             text: 'Klasse',
             align: 'center',
             sortable: false,
@@ -123,6 +133,24 @@ export default {
             align: 'center',
             sortable: false,
             value: 'gesPunkte'
+          },
+          {
+           text: 'Edit',
+           align: 'center',
+           sortable: false,
+           //value: 'gesPunkte'
+          },
+          {
+           text: 'Add',
+           align: 'center',
+           sortable: false,
+           //value: 'gesPunkte'
+          },
+          {
+           text: 'Delete',
+           align: 'center',
+           sortable: false,
+           //value: 'gesPunkte'
           }
           ],
       }
@@ -159,7 +187,19 @@ export default {
           }
         })
       },
-    }
+      myedit (selectedItem) {
+        console.log("Edit: " + selectedItem.nr)
+        // show edit Window
+      },
+      myadd (selectedItem) {
+        console.log("Add: " + selectedItem.nr)
+        // show edit Window
+      },
+      mydelete (selectedItem) {
+        console.log("Delete: " + selectedItem.nr)
+        // show edit Window
+      }
+    },
 }
 </script>
 

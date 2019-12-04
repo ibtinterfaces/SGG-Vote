@@ -1,6 +1,5 @@
 <template>
   <div class="results">
-    onerestul: {{showOneresult}} Kampfgericht: {{kampfgerichtBusy1}}
     <Led line1="" line2="" v-bind:input="kampfgerichtBusy1"></Led>
     <OneAktive></OneAktive>
     <OneResult v-show="showOneresult"></OneResult>
