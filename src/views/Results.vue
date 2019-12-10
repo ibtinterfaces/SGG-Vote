@@ -2,7 +2,7 @@
   <div class="results">
     <Led line1="" line2="" v-bind:input="kampfgerichtBusy1"></Led>
     <OneAktive></OneAktive>
-    <OneResult v-show="showOneresult"></OneResult>
+    <OneResult urkunde="false" v-show="showOneresult"></OneResult>
     <RangListe v-show="showRangliste"></RangListe>
   </div>
 </template>

@@ -1,5 +1,14 @@
 ## SGG-Vote Akrobatik voting System
 
+### Wlan zugang für mobielgeräte
+Wlan Kennung ID: SGG-VOTE
+Wlan Passwort  : sgg-vote-1
+
+Mobile Vote URL: http://192.168.0.200:8080/input
+
+
+
+
 ### To Do (Verjy)
 * styling  src/components/OneResult.vue
 * styling  src/components/Rangliste.vue

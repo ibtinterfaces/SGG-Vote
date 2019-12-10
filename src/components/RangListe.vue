@@ -1,7 +1,34 @@
 <template>
   <div class="rangliste pt-5">
     <p class="display-1"><b>Rangliste</b> - <span>Klasse:  {{  klasse }}, {{  type }},  {{  routine }}</span></p>
-  
+
+      <!-- <v-col> -->
+        <v-select
+          :items="display_klasse"
+          filled
+          label="Klasse"
+          v-model="klasseSelectmodel"
+          item-value="klasseSelect"
+        ></v-select>
+      <!-- </v-col>
+      <v-col> -->
+        <v-select
+          :items="display_type"
+          v-model="typeSelectmodel"
+          item-value="typeSelect"
+          filled
+          label="Type"
+        ></v-select>
+        <v-select
+          :items="display_routine"
+          v-model="routineSelectmodel"
+          item-value="routineSelect"
+          filled
+          label="Routine"
+        ></v-select>
+      <!-- </v-col> -->
+
+
     <v-data-table
       light
       :headers="headers"
@@ -45,10 +72,16 @@ import store from '@/store'
 export default {
   name: 'RangListe',
   props: {
-    // msg: String
+    urkunde: Boolean
   },
     data () {
       return {
+        klasseSelec: 'A',
+        typeSelect: 'A',
+        routineSelect: 'A',
+        display_klasse: ['A', 'D', 'N'],
+        display_type: ['PW', 'W2', 'W3'],
+        display_routine: ['Balance', 'Tempo', 'Kombi'],
         pagination : {'sortBy': 'gesPunkte', 'descending': true, 'rowsPerPage': -1},
         headers: [
          {
@@ -103,16 +136,31 @@ export default {
         } else {
           return this.$store.getters.tableDataSameKlassPause(store.state.pausenRangIndex)
         }
-
-
-
-
+      },
+      klasseSelectmodel: {
+        set(val){store.state.urkundeKlasse = val},
+        get(){ 
+          return store.state.urkundeKlasse }
+      },
+      typeSelectmodel: {
+        set(val){store.state.urkundeType = val},
+        get(){ 
+          return store.state.urkundeType }
+      },
+      routineSelectmodel: {
+        set(val){store.state.urkundeRoutine = val},
+        get(){ 
+          return store.state.urkundeRoutine }
       },
       klasse () {
-        if(store.state.orgaPause === false) {
-          return this.$store.getters.displayKlasse(this.$store.state.orga.votedTeam)
+        if(this.urkunde === false) {
+          if(store.state.orgaPause === false) {
+            return this.$store.getters.displayKlasse(this.$store.state.orga.votedTeam)
+          } else {
+            return store.state.pause[store.state.pausenRangIndex].klasse
+          }
         } else {
-          return store.state.pause[store.state.pausenRangIndex].klasse
+            return store.state.urkundeKlasse
         }
       },
       altersKlasse () {

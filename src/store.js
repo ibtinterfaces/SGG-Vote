@@ -9,20 +9,33 @@ export default new Vuex.Store({
   strict: true,
   state: {
     connect: false, // Data server connect
+    showEdit: false,
+    showEditIndex: 0,
+    showEditMode: '',
     // Array list of starters [0..N]
     starterList: [],
     pausenRangIndex: 0,
+    // pause : [
+    //   { klasse: 'A', type: 'PW'     }, // indx 0
+    //   { klasse: 'A', type: 'W2'     },
+    //   { klasse: 'A', type: 'W3'     },
+    //   { klasse: 'D', type: 'PW'     },
+    //   { klasse: 'D', type: 'W2'     },
+    //   { klasse: 'D', type: 'W3'     },
+    //   { klasse: 'N', type: 'PW'     },
+    //   { klasse: 'N', type: 'W2'     },
+    //   { klasse: 'N', type: 'W3'     }, // indx 8
+    // ],
+
     pause : [
-      { klasse: 'A', type: 'PW'     }, // indx 0
-      { klasse: 'A', type: 'W2'     },
-      { klasse: 'A', type: 'W3'     },
-      { klasse: 'D', type: 'PW'     },
       { klasse: 'D', type: 'W2'     },
-      { klasse: 'D', type: 'W3'     },
-      { klasse: 'N', type: 'PW'     },
       { klasse: 'N', type: 'W2'     },
-      { klasse: 'N', type: 'W3'     }, // indx 8
+      { klasse: 'N', type: 'W3'     }
     ],
+
+    urkundeKlasse: 'yA',
+    urkundeType: 'yPW',
+    urkundeRoutine: 'yKombi',
     // vote: [], // index 0 in vote index 1-N Lastvotes
     // Set up on Orga Page
     orga: {
@@ -33,6 +46,17 @@ export default new Vuex.Store({
     ToggleResultView: 0,
     orgaBusy: false,
     orgaPause: false,
+
+    editBuffer: {
+      name1: '',
+      name2: '',
+      name3: '',
+      D: 0,
+      klasse: '',
+      alterskl: '',
+      type: '',
+      routine: ''
+    },
 
     mobileWertung: [ 
       { // Kampfgericht 1
@@ -134,6 +158,15 @@ export default new Vuex.Store({
       state.starterList[state.orga.aktiveTeam].D = payload
     },
 
+    update_edit_buffer (state, payload) {
+      state.editBuffer = payload
+    },
+
+    close_edit (state) {
+      state.showEdit = false
+      state.showEditMode = 0
+  },
+
     // Put final result in starterlist
     update_final_results (state) {
         state.starterList[state.orga.aktiveTeam].T = state.mobileWertung[0].technik.result 
@@ -143,11 +176,68 @@ export default new Vuex.Store({
         state.starterList[state.orga.aktiveTeam].gesPunkte = state.mobileWertung[0].finalresult
     },
     inc_pausenRangIndex (state) {
-      if(state.pausenRangIndex >= 8) {
-        state.pausenRangIndex = 0
+      // if(state.pausenRangIndex >= 8) {
+      if(state.pausenRangIndex >= 2) {
+          state.pausenRangIndex = 0
       } else {
         state.pausenRangIndex++
       }
+    },
+    edit_set_mode (state, mode, select_nr) {
+      state.showEditMode = mode
+      state.showEdit = true
+      state.showEditIndex = select_nr
+    },
+    edit_ok (state) {
+      console.log("edit ok")
+      if(state.showEditMode === 3) {
+        // Add
+        console.log("TRACE")
+        console.log(state.orga.aktiveTeam)
+        console.log(state.starterList)
+        // state.starterList.splice(state.orga.aktiveTeam, 0, state.starterList[state.orga.aktiveTeam]);
+        console.log(state.starterList)
+        console.log("TRACE")
+      } else if(state.showEditMode === 2) {
+        // Del
+        // state.starterList.splice(state.orga.aktiveTeam,1);
+      } else if(state.showEditMode === 1) {
+        // Edit
+        //state.starterList[state.orga.aktiveTeam] = state.editBuffer
+
+        if(state.editBuffer.D) {
+          state.starterList[state.orga.aktiveTeam].D = state.editBuffer.D
+        }
+        if(state.editBuffer.name1) {
+          state.starterList[state.orga.aktiveTeam].name1 = state.editBuffer.name1
+        }
+        if(state.editBuffer.name2) {
+          state.starterList[state.orga.aktiveTeam].name2 = state.editBuffer.name2
+        }
+        if(state.editBuffer.name3) {
+          state.starterList[state.orga.aktiveTeam].name3 = state.editBuffer.name3
+        }
+
+        if(state.editBuffer.klasse) {
+          state.starterList[state.orga.aktiveTeam].klasse = state.editBuffer.klasse
+        }
+        if(state.editBuffer.alterskl) {
+          state.starterList[state.orga.aktiveTeam].name3 = state.editBuffer.alterskl
+        }
+        if(state.editBuffer.type) {
+          state.starterList[state.orga.aktiveTeam].name3 = state.editBuffer.type
+        }
+        if(state.editBuffer.routine) {
+          state.starterList[state.orga.aktiveTeam].name3 = state.editBuffer.routine
+        }
+
+
+      } else {
+        // Do nothing
+      }
+      // this.close_edit
+      vm.$socket.emit('sync_starterlist', state.starterList)
+
     },
     // },
 
@@ -319,6 +409,42 @@ export default new Vuex.Store({
       return state.orga.votedTeam
     },
 
+    getStarterNr: (state) => {
+      if (state.starterList.length === 0) {
+        return 0
+      } else {
+        var x = 0
+        x = state.starterList.find(thing => thing.nr === state.orga.aktiveTeam)
+        return parseFloat(x.nr).toFixed(0)
+      }
+    },
+    getName1: (state) => {
+      if (state.starterList.length === 0) {
+        return 0
+      } else {
+        var x = 0
+        x = state.starterList.find(thing => thing.nr === state.orga.aktiveTeam)
+        return x.name1
+      }
+    },
+    getName2: (state) => {
+      if (state.starterList.length === 0) {
+        return 0
+      } else {
+        var x = 0
+        x = state.starterList.find(thing => thing.nr === state.orga.aktiveTeam)
+        return x.name2
+      }
+    },
+    getName3: (state) => {
+      if (state.starterList.length === 0) {
+        return 0
+      } else {
+        var x = 0
+        x = state.starterList.find(thing => thing.nr === state.orga.aktiveTeam)
+        return x.name3
+      }
+    },
     getDiff: (state) => {
       if (state.starterList.length === 0) {
         return 0
@@ -328,6 +454,43 @@ export default new Vuex.Store({
         return parseFloat(x.D).toFixed(2)
       }
     },
+    getKlasse: (state) => {
+      if (state.starterList.length === 0) {
+        return 0
+      } else {
+        var x = 0
+        x = state.starterList.find(thing => thing.nr === state.orga.aktiveTeam)
+        return x.klasse
+      }
+    },
+    getAlterskl: (state) => {
+      if (state.starterList.length === 0) {
+        return 0
+      } else {
+        var x = 0
+        x = state.starterList.find(thing => thing.nr === state.orga.aktiveTeam)
+        return x.alterskl
+      }
+    },
+    getType: (state) => {
+      if (state.starterList.length === 0) {
+        return 0
+      } else {
+        var x = 0
+        x = state.starterList.find(thing => thing.nr === state.orga.aktiveTeam)
+        return x.type
+      }
+    },
+    getRoutine: (state) => {
+      if (state.starterList.length === 0) {
+        return 0
+      } else {
+        var x = 0
+        x = state.starterList.find(thing => thing.nr === state.orga.aktiveTeam)
+        return x.routine
+      }
+    },
+
 
     // Full table data
     tableDataFull: state => {
@@ -381,6 +544,10 @@ export default new Vuex.Store({
     displayRoutine: (state) => (nr) => { return (state.starterList.length === 0 ? ' ' : state.starterList[nr].routine) },
 
     kg1Busy: (state)  => { return state.orgaBusy },
-    orgaBusy: (state)  => { return  state.orgaBusy }
+    orgaBusy: (state)  => { return  state.orgaBusy },
+
+    editAdd: (state) => { return state.showEditMode === 3},
+    editDel: (state) => { return state.showEditMode === 2},
+    editEdit: (state) => { return state.showEditMode === 1}
   }
 })

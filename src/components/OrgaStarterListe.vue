@@ -2,7 +2,7 @@
   <div class="rangliste">
     <p class="display-3">Orga Starterliste</p>
         <p>Selected:{{ myDebug }} </p>
-
+    <EditStarter></EditStarter>
     <v-data-table
       :headers="headers"
       :items="tableData"
@@ -38,8 +38,9 @@
           ></v-checkbox>
         </td> -->
 
-          <td class="text-xs-left display-1"><span>{{ props.item.name1 }}</span><span>{{ props.item.name2 }}</span><span>{{ props.item.name3 }}</span></td>
-          <!-- <td class="text-xs-center display-1">{{ props.item.verein }}</td> -->
+          <!-- <td class="text-xs-left display-1"><span>{{ props.item.name1 }}</span><span>{{ props.item.name2 }}</span><span>{{ props.item.name3 }}</span></td> -->
+          <td class="text-xs-left display-1"><p>&nbsp;{{ props.item.name1 }}</p><p>&nbsp;{{ props.item.name2 }}</p><p>&nbsp;{{ props.item.name3 }}</p></td>
+         <!-- <td class="text-xs-center display-1">{{ props.item.verein }}</td> -->
           <td class="text-xs-center display-1">{{ props.item.D }}</td>
           <td class="text-xs-center display-1">{{ props.item.klasse }}</td>
           <td class="text-xs-center display-1">{{ props.item.alterskl }}</td>
@@ -59,12 +60,17 @@
 <script>
 // import Vue from 'vue'
 import store from '@/store'
+import EditStarter from '@/components/EditStarter.vue'
 
 // Import the EventBus we just created.
 // import { EventBus } from '@/event-bus.js';
 
 export default {
   name: 'OrgaStarterListe',
+  components: {
+    EditStarter
+  },
+
   props: {
     // msg: String
   },
@@ -188,15 +194,29 @@ export default {
         })
       },
       myedit (selectedItem) {
+        store.commit('edit_set_mode', 1, selectedItem)
+
+        // store.state.showEditMode = 1
+        // store.state.showEdit = true
+        // store.state.showEditIndex = selectedItem
+        
         console.log("Edit: " + selectedItem.nr)
         // show edit Window
       },
       myadd (selectedItem) {
+        store.commit('edit_set_mode', 3, selectedItem)
         console.log("Add: " + selectedItem.nr)
+        // store.state.showEditMode = 3
+        // store.state.showEditIndex = selectedItem
+        // store.state.showEdit = true
         // show edit Window
       },
       mydelete (selectedItem) {
+        store.commit('edit_set_mode', 2, selectedItem)
         console.log("Delete: " + selectedItem.nr)
+        // store.state.showEditMode = 2
+        // store.state.showEditIndex = selectedItem
+        // store.state.showEdit = true
         // show edit Window
       }
     },

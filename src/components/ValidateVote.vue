@@ -162,7 +162,7 @@
         </v-flex>
 
         <v-flex shrink px-2>
-           <v-text-field
+           <v-text-field @change="diffChange()"
             type="number"
             name="DIFF"
             label="DIFF"
@@ -171,7 +171,7 @@
             max=30
             step=0.1
             maxlength=2
-            v-model="diff_1"
+            v-model.lazy="diff_1"
             color="colactive"
           ></v-text-field>
         </v-flex>
@@ -250,7 +250,7 @@
         </v-flex>
 
         <v-flex shrink px-2>
-           <v-text-field
+           <v-text-field @change="diffChange()"
             type="number"
             name="DIFF"
             label="DIFF"
@@ -259,7 +259,7 @@
             max=30
             step=0.1
             maxlength=2
-            v-model="diff_1"
+            v-model.lazy="diff_1"
             color="colactive"
           ></v-text-field>
         </v-flex>
@@ -481,8 +481,7 @@ export default {
         set (value) {
           store.commit('update_diff_list', value)
           console.log('New DIFF value :-)   : ' + value)
-          this.$socket.emit('sync_starterlist', store.state.starterList)
-
+          // this.$socket.emit('sync_starterlist', store.state.starterList)
         }
       },
       newTeam () {
@@ -494,6 +493,10 @@ export default {
     //   technik4 () { return this.$store.state.mobileWertung.technik[3] }
     },
     methods: {
+      diffChange () {
+          //store.commit('update_diff_list', value)
+          this.$socket.emit('sync_starterlist', store.state.starterList)
+      },
       // change to getSortVotes ready to read in array
       getVoteCount (obj) {
         console.log('getVoteCount try to count votes')
@@ -553,6 +556,7 @@ export default {
         // Generates an array with valid votes 
         voteCount = this.getVoteCount(obj)
         console.log('Votecount: ' + voteCount)
+        console.log('Votecount len: ' + voteCount.length)
 
         // select calculation methos
         switch(voteCount.length) {
