@@ -1,6 +1,7 @@
 <template>
   <div class="rangliste pt-5">
-    <p class="display-1"><b>Rangliste</b> - <span>Klasse:  {{  klasse }}, {{  type }},  {{  routine }}</span></p>
+    <!-- <p class="display-1"><b>Rangliste</b> - <span>Klasse:  {{  klasse }}, {{  type }},  {{  routine }}</span></p> -->
+    <p class="display-1"><b>Rangliste</b> - <span>Klasse:  {{  klasse }} </span></p>
 
       <!-- <v-col> -->
         <v-select
@@ -157,7 +158,7 @@ export default {
           if(store.state.orgaPause === false) {
             return this.$store.getters.displayKlasse(this.$store.state.orga.votedTeam)
           } else {
-            return store.state.pause[store.state.pausenRangIndex].klasse
+            return store.state.pause[store.state.pausenRangIndex].klasse_rang
           }
         } else {
             return store.state.urkundeKlasse

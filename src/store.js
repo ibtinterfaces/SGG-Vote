@@ -15,27 +15,27 @@ export default new Vuex.Store({
     // Array list of starters [0..N]
     starterList: [],
     pausenRangIndex: 0,
-    // pause : [
-    //   { klasse: 'A', type: 'PW'     }, // indx 0
-    //   { klasse: 'A', type: 'W2'     },
-    //   { klasse: 'A', type: 'W3'     },
-    //   { klasse: 'D', type: 'PW'     },
-    //   { klasse: 'D', type: 'W2'     },
-    //   { klasse: 'D', type: 'W3'     },
-    //   { klasse: 'N', type: 'PW'     },
-    //   { klasse: 'N', type: 'W2'     },
-    //   { klasse: 'N', type: 'W3'     }, // indx 8
-    // ],
-
+/*
     pause : [
+      { klasse: 'A', type: 'PW'     }, // indx 0
+      { klasse: 'A', type: 'W2'     },
+      { klasse: 'A', type: 'W3'     },
+      { klasse: 'D', type: 'PW'     },
       { klasse: 'D', type: 'W2'     },
+      { klasse: 'D', type: 'W3'     },
+      { klasse: 'N', type: 'PW'     },
       { klasse: 'N', type: 'W2'     },
-      { klasse: 'N', type: 'W3'     }
+      { klasse: 'N', type: 'W3'     }, // indx 8
     ],
-
-    urkundeKlasse: 'yA',
-    urkundeType: 'yPW',
-    urkundeRoutine: 'yKombi',
+*/
+    pause : [
+      { klasse_rang: 'PW' }, // indx 0
+      { klasse_rang: 'KFL1' },
+      { klasse_rang: 'KFL2+3' },
+      { klasse_rang: 'PAAR' },
+      { klasse_rang: 'GRUPPE' },
+      { klasse_rang: 'MKL' } // index 5
+    ],
     // vote: [], // index 0 in vote index 1-N Lastvotes
     // Set up on Orga Page
     orga: {
@@ -54,8 +54,11 @@ export default new Vuex.Store({
       D: 0,
       klasse: '',
       alterskl: '',
-      type: '',
-      routine: ''
+      typr: '',
+      routine: '',
+      gesPunkte: 0.0
+
+      
     },
 
     mobileWertung: [ 
@@ -169,16 +172,15 @@ export default new Vuex.Store({
 
     // Put final result in starterlist
     update_final_results (state) {
-        state.starterList[state.orga.aktiveTeam].T = state.mobileWertung[0].technik.result 
+        state.starterList[state.orga.aktiveTeam].T = state.mobileWertung[0].technik.result
         state.starterList[state.orga.aktiveTeam].A = state.mobileWertung[0].artistik.result 
         state.starterList[state.orga.aktiveTeam].DJ = state.mobileWertung[0].dj
         state.starterList[state.orga.aktiveTeam].CJP = state.mobileWertung[0].cjp
         state.starterList[state.orga.aktiveTeam].gesPunkte = state.mobileWertung[0].finalresult
     },
     inc_pausenRangIndex (state) {
-      // if(state.pausenRangIndex >= 8) {
-      if(state.pausenRangIndex >= 2) {
-          state.pausenRangIndex = 0
+      if(state.pausenRangIndex >= 5) {
+        state.pausenRangIndex = 0
       } else {
         state.pausenRangIndex++
       }
@@ -195,43 +197,18 @@ export default new Vuex.Store({
         console.log("TRACE")
         console.log(state.orga.aktiveTeam)
         console.log(state.starterList)
-        // state.starterList.splice(state.orga.aktiveTeam, 0, state.starterList[state.orga.aktiveTeam]);
+        state.starterList.splice(state.orga.aktiveTeam, 0, state.starterList[state.orga.aktiveTeam]);
         console.log(state.starterList)
         console.log("TRACE")
       } else if(state.showEditMode === 2) {
         // Del
-        // state.starterList.splice(state.orga.aktiveTeam,1);
+        state.starterList.splice(state.orga.aktiveTeam,1);
       } else if(state.showEditMode === 1) {
         // Edit
-        //state.starterList[state.orga.aktiveTeam] = state.editBuffer
-
-        if(state.editBuffer.D) {
-          state.starterList[state.orga.aktiveTeam].D = state.editBuffer.D
-        }
-        if(state.editBuffer.name1) {
-          state.starterList[state.orga.aktiveTeam].name1 = state.editBuffer.name1
-        }
-        if(state.editBuffer.name2) {
-          state.starterList[state.orga.aktiveTeam].name2 = state.editBuffer.name2
-        }
-        if(state.editBuffer.name3) {
-          state.starterList[state.orga.aktiveTeam].name3 = state.editBuffer.name3
-        }
-
-        if(state.editBuffer.klasse) {
-          state.starterList[state.orga.aktiveTeam].klasse = state.editBuffer.klasse
-        }
-        if(state.editBuffer.alterskl) {
-          state.starterList[state.orga.aktiveTeam].name3 = state.editBuffer.alterskl
-        }
-        if(state.editBuffer.type) {
-          state.starterList[state.orga.aktiveTeam].name3 = state.editBuffer.type
-        }
-        if(state.editBuffer.routine) {
-          state.starterList[state.orga.aktiveTeam].name3 = state.editBuffer.routine
-        }
-
-
+        state.starterList[state.orga.aktiveTeam].D = state.editBuffer.D
+        state.starterList[state.orga.aktiveTeam].name1 = state.editBuffer.name1
+        state.starterList[state.orga.aktiveTeam].name2 = state.editBuffer.name2
+        state.starterList[state.orga.aktiveTeam].name3 = state.editBuffer.name3
       } else {
         // Do nothing
       }
@@ -418,6 +395,15 @@ export default new Vuex.Store({
         return parseFloat(x.nr).toFixed(0)
       }
     },
+    getDiff: (state) => {
+      if (state.starterList.length === 0) {
+        return 0
+      } else {
+        var x = 0
+        x = state.starterList.find(thing => thing.nr === state.orga.aktiveTeam)
+        return parseFloat(x.D).toFixed(2)
+      }
+    },
     getName1: (state) => {
       if (state.starterList.length === 0) {
         return 0
@@ -445,52 +431,6 @@ export default new Vuex.Store({
         return x.name3
       }
     },
-    getDiff: (state) => {
-      if (state.starterList.length === 0) {
-        return 0
-      } else {
-        var x = 0
-        x = state.starterList.find(thing => thing.nr === state.orga.aktiveTeam)
-        return parseFloat(x.D).toFixed(2)
-      }
-    },
-    getKlasse: (state) => {
-      if (state.starterList.length === 0) {
-        return 0
-      } else {
-        var x = 0
-        x = state.starterList.find(thing => thing.nr === state.orga.aktiveTeam)
-        return x.klasse
-      }
-    },
-    getAlterskl: (state) => {
-      if (state.starterList.length === 0) {
-        return 0
-      } else {
-        var x = 0
-        x = state.starterList.find(thing => thing.nr === state.orga.aktiveTeam)
-        return x.alterskl
-      }
-    },
-    getType: (state) => {
-      if (state.starterList.length === 0) {
-        return 0
-      } else {
-        var x = 0
-        x = state.starterList.find(thing => thing.nr === state.orga.aktiveTeam)
-        return x.type
-      }
-    },
-    getRoutine: (state) => {
-      if (state.starterList.length === 0) {
-        return 0
-      } else {
-        var x = 0
-        x = state.starterList.find(thing => thing.nr === state.orga.aktiveTeam)
-        return x.routine
-      }
-    },
-
 
     // Full table data
     tableDataFull: state => {
@@ -514,11 +454,16 @@ export default new Vuex.Store({
       }
     },
 
+    // Changed with postfix rang for new sort
+    //.klasse_rang
+    //.type_rang
+
      // Filter by klass and type for rangliste 
      tableDataSameKlassPause: (state) => (nr) => {
       return state.starterList.filter((i) => {
         // console.log(' DEBUG FILTER LIST' + i.gesPunkte + ' 0.000')
-        return ((i.gesPunkte >= 0.001 ) && (i.klasse === state.pause[nr].klasse ) && (i.type === state.pause[nr].type))
+        //return ((i.gesPunkte >= 0.001 ) && (i.klasse_rang === state.pause[nr].klasse_rang ) && (i.type_rang === state.pause[nr].type_rang))
+        return ((i.gesPunkte >= 0.001 ) && (i.klasse_rang === state.pause[nr].klasse_rang ))
        })
       },
    
@@ -526,14 +471,14 @@ export default new Vuex.Store({
     tableDataSameKlass: (state) => {
       return state.starterList.filter((i) => {
         // console.log(' DEBUG FILTER LIST' + i.gesPunkte + ' 0.000')
-        return ((i.gesPunkte >= 0.001 ) && (i.klasse === state.starterList[state.orga.votedTeam].klasse ) && (i.type === state.starterList[state.orga.votedTeam].type))
+        return ((i.gesPunkte >= 0.001 ) && (i.klasse_rang === state.starterList[state.orga.votedTeam].klasse_rang ) && (i.type_rang === state.starterList[state.orga.votedTeam].type_rang))
        })
       },
     // Filter für OneResult Rang Anzeige  
     aktuellerRang: (state) => {
       // console.log('Enter New Filter')
       const rang = state.starterList
-      .filter((i) => ( (i.gesPunkte >= 0.001 ) && (i.klasse === state.starterList[state.orga.votedTeam].klasse ) && (i.type === state.starterList[state.orga.votedTeam].type)))
+      .filter((i) => ( (i.gesPunkte >= 0.001 ) && (i.klasse_rang === state.starterList[state.orga.votedTeam].klasse_rang ) && (i.type_rang === state.starterList[state.orga.votedTeam].type_rang)))
       rang.sort((a, b) => b.gesPunkte - a.gesPunkte )
       return (rang.findIndex((t) =>  (t.nr === state.orga.votedTeam)) +1)
     },

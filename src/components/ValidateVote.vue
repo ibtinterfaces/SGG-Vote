@@ -606,7 +606,8 @@ export default {
         obj.team =store.state.orga.aktiveTeam  
         obj.diff = parseFloat(store.getters.getDiff)
         console.log('calcResult technik')
-        obj.technik = parseFloat(this.partCalc(store.state.mobileWertung[0].technik))
+        //obj.technik = parseFloat(this.partCalc(store.state.mobileWertung[0].technik))
+        obj.technik = (parseFloat(this.partCalc(store.state.mobileWertung[0].technik)) *2) // BUG Fix Avoid to display bug half of technik values
         console.log('calcResult artistik')
         obj.artistik = parseFloat(this.partCalc(store.state.mobileWertung[0].artistik))
         console.log('calcResult artistik')
@@ -621,7 +622,8 @@ export default {
         console.log('     cjp: ' + obj.cjp )
         obj.result = obj.diff
         console.log('   FINAL: ' + obj.result )
-        obj.result += (obj.technik * 2)
+        //obj.result += (obj.technik * 2)
+        obj.result += obj.technik // BUG Fix Avoid to display bug half of technik values
         console.log('   FINAL: ' + obj.result )
         obj.result += obj.artistik
         console.log('   FINAL: ' + obj.result )

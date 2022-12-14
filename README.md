@@ -27,6 +27,16 @@ npm install
 npm run serve
 ```
 
+### Start websocket data server
+```
+npm start data-server.js
+```
+
+### Start SGG Vote server application
+```
+npm run serve
+```
+
 ### Compiles and minifies for production
 ```
 npm run build
