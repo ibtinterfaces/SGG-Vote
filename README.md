@@ -1,25 +1,25 @@
-## SGG-Vote Akrobatik voting System
+## SGG-Vote Akrobatik Voting System
 
-### Wlan zugang für mobielgeräte
-Wlan Kennung ID: SGG-VOTE
-Wlan Passwort  : sgg-vote-1
+### Wlan Zugang für Mobile Devices
+Wlan Kennung ID: SGG-Voting-Lan
+Wlan Passwort  : SGG-Acrobats
 
-Mobile Vote URL: http://192.168.0.200:8080/input
+Mobile Vote URL: http://192.168.0.20:8080/input
+Orga        URL: http://192.168.0.20:8080/Orga
+Beamer      URL: http://192.168.0.20:8080
 
+### Start Websocket Data Server
+```
+node data-server.js
+```
 
+### Start GUI Server
+```
+npm run serve
+```
 
+### To Do
 
-### To Do (Verjy)
-* styling  src/components/OneResult.vue
-* styling  src/components/Rangliste.vue
-* Du kannst Dich in den beiden Komponenten in template und style austoben :-)
-
-### To Do (Nils)
-* reactivity fail to import Team in use src/components/MobileInput.vue
-* Kampfgerichte Arrays
-* Resultcalculation
-* Load and save data.json
-* Kontrolle der Wertungsberechnung und Freigabe der Wertung
 
 ### Project setup
 ```
@@ -29,7 +29,7 @@ npm run serve
 
 ### Start websocket data server
 ```
-npm start data-server.js
+node data-server.js
 ```
 
 ### Start SGG Vote server application

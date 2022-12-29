@@ -28,6 +28,7 @@ export default new Vuex.Store({
       { klasse: 'N', type: 'W3'     }, // indx 8
     ],
 */
+/*  
     pause : [
       { klasse_rang: 'PW' }, // indx 0
       { klasse_rang: 'KFL1' },
@@ -36,6 +37,33 @@ export default new Vuex.Store({
       { klasse_rang: 'GRUPPE' },
       { klasse_rang: 'MKL' } // index 5
     ],
+*/
+    pause : [
+      { klasse_rang: 'PW Schuler' }, // indx 0
+      { klasse_rang: 'PW WKK1.1' },
+      { klasse_rang: 'W2 Schuler' },
+      { klasse_rang: 'W3 KFL1' },
+      { klasse_rang: 'W2 KFL1' },
+      { klasse_rang: 'W3 WKK1.1' },
+      { klasse_rang: 'W2 WKK1.1' },
+      { klasse_rang: 'W3 WKK1.2' },
+      { klasse_rang: 'W2 WKK1.2' },
+      { klasse_rang: 'W3 Schuler' } //index 9
+    ],
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
     // vote: [], // index 0 in vote index 1-N Lastvotes
     // Set up on Orga Page
     orga: {
@@ -179,7 +207,7 @@ export default new Vuex.Store({
         state.starterList[state.orga.aktiveTeam].gesPunkte = state.mobileWertung[0].finalresult
     },
     inc_pausenRangIndex (state) {
-      if(state.pausenRangIndex >= 5) {
+      if(state.pausenRangIndex >= 9) {
         state.pausenRangIndex = 0
       } else {
         state.pausenRangIndex++

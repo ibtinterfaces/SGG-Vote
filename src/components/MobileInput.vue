@@ -21,20 +21,10 @@
   <v-container fluid ma-0 pa-0>
     <v-layout>
       <v-spacer></v-spacer>
-
         <v-checkbox class="px-0" :disabled="lockStatus" v-model="selTmodel" value="true" label="Technik" color="colactive" hide-details></v-checkbox>
         <v-checkbox class="px-0" :disabled="lockStatus" v-model="selAmodel" value="true" label="Artistik" color="colactive" hide-details></v-checkbox>
         <v-checkbox class="px-0" :disabled="lockStatus" v-model="selDmodel" value="true" label="DJ" color="colactive" hide-details></v-checkbox>
         <v-checkbox class="px-0" :disabled="lockStatus" v-model="selCmodel" value="true" label="CJP" color="colactive" hide-details></v-checkbox>
-
-        <!-- <v-radio-group row v-model="nameSel" :mandatory="false">
-          <v-radio class="px-0" :disabled="lockStatus" label="Technik" value="Technik" color="colactive"></v-radio>
-          <v-radio class="px-0" :disabled="lockStatus" label="Artistik" value="Artistik" color="colactive"></v-radio>
-          <v-radio class="px-0" :disabled="lockStatus" label="DJ" value="DJ" color="colactive"></v-radio>
-          <v-radio class="pa-0 ma-0" :disabled="lockStatus" label="CJP" value="CJP" color="colactive"></v-radio>
-        </v-radio-group>
-          <v-radio v-model="djSel" class="px-0" :disabled="lockStatus" label="DJ" value="DJ" color="colactive"></v-radio>
-          <v-radio v-model="cjpSel" class="pa-0 ma-0" :disabled="lockStatus" label="CJP" value="CJP" color="colactive"></v-radio> -->
       <v-spacer></v-spacer>
     </v-layout>
   </v-container>
@@ -83,14 +73,12 @@
         </v-tooltip>
       </template>
       <template slot="items" slot-scope="props">
-         <!-- <td class="text-xs-center title">{{ props.item.platzierung }}</td> -->
-         <!-- <td class="text-xs-center title">{{ props.index + 1 }}</td> -->
-         <td class="text-xs-center colapse pa-0 ma-0">{{ props.item.nr }}</td>
-      <td class="text-xs-left colapse pa-0 ma-0"><span>{{ props.item.name1 }}</span><span>{{ props.item.name2 }}</span><span>{{ props.item.name3 }}</span></td>
+        <td class="text-xs-center colapse pa-0 ma-0">{{ props.item.nr }}</td>
+       <!-- <td class="text-xs-left colapse pa-0 ma-0"><span>{{ props.item.name1 }}</span><span>{{ props.item.name2 }}</span><span>{{ props.item.name3 }}</span></td> -->
+        <td class="text-xs-center colapse pa-0 ma-0"><p>&nbsp;{{ props.item.name1 }}</p><p>&nbsp;{{ props.item.name2 }}</p><p>&nbsp;{{ props.item.name3 }}</p></td>
         <!-- <td class="text-xs-center title">{{ props.item.verein }}</td> -->
-        <td class="text-xs-center colapse pa-0 ma-0"><span>{{ props.item.alterskl }}</span><span>{{ props.item.klasse }}</span><span>{{ props.item.type }}</span></td>
-        <!-- <td class="text-xs-center colapse pa-0 ma-0">{{ props.item.type }}</td> -->
-        <!-- <td class="text-xs-center title">{{ props.item.gesPunkte }}</td> -->
+        <!-- <td class="text-xs-center colapse pa-0 ma-0"><span>{{ props.item.alterskl }}</span><span>{{ props.item.klasse }}</span><span>{{ props.item.type }}</span></td>> -->
+        <td class="text-xs-center colapse pa-0 ma-0"><p>&nbsp;{{ props.item.alterskl }}</p><p>&nbsp;{{ props.item.klasse }}</p><p>&nbsp;{{ props.item.type }}</p></td>
       </template>
     </v-data-table>
 

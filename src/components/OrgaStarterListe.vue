@@ -42,6 +42,7 @@
           <td class="text-xs-left display-1"><p>&nbsp;{{ props.item.name1 }}</p><p>&nbsp;{{ props.item.name2 }}</p><p>&nbsp;{{ props.item.name3 }}</p></td>
          <!-- <td class="text-xs-center display-1">{{ props.item.verein }}</td> -->
           <td class="text-xs-center display-1">{{ props.item.D }}</td>
+          <td class="text-xs-center display-1">{{ props.item.klasse_rang }}</td>
           <td class="text-xs-center display-1">{{ props.item.klasse }}</td>
           <td class="text-xs-center display-1">{{ props.item.alterskl }}</td>
           <td class="text-xs-center display-1">{{ props.item.type }}</td>
@@ -109,6 +110,12 @@ export default {
             align: 'center',
             sortable: false,
             value: 'D'
+          },
+          {
+            text: 'W-Gruppe',
+            align: 'center',
+            sortable: false,
+            value: 'klasse_rang'
           },
           {
             text: 'Klasse',
