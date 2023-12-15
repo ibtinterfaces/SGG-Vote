@@ -38,7 +38,10 @@ export default new Vuex.Store({
       { klasse_rang: 'MKL' } // index 5
     ],
 */
-    pause : [
+
+// Klasse Rang 2022
+/*
+  pause : [
       { klasse_rang: 'PW Schuler' }, // indx 0
       { klasse_rang: 'PW WKK1.1' },
       { klasse_rang: 'W2 Schuler' },
@@ -50,21 +53,23 @@ export default new Vuex.Store({
       { klasse_rang: 'W2 WKK1.2' },
       { klasse_rang: 'W3 Schuler' } //index 9
     ],
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+*/
 
+// Klasse Rang 2023
+pause : [
+  { klasse_rang: 'A' }, // indx 0
+  { klasse_rang: 'MX-1' },
+  { klasse_rang: 'PW-1' },
+  { klasse_rang: 'W2-1' },
+  { klasse_rang: 'W3-1' },
+  { klasse_rang: 'W2-2' },
+  { klasse_rang: 'W3-2' },
+  { klasse_rang: 'W2-3' },
+  { klasse_rang: 'W3-3' },
+  { klasse_rang: 'W2-4' } //index 9
+],
 
-    // vote: [], // index 0 in vote index 1-N Lastvotes
+     // vote: [], // index 0 in vote index 1-N Lastvotes
     // Set up on Orga Page
     orga: {
       aktiveTeam: 1,  
